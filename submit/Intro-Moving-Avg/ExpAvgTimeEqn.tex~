@@ -1,0 +1,24 @@
+\begin{center}
+  % To describe y(n) = (1-alpha)*y(n-1) + alpha*x(n)
+  \begin{pspicture}(-2,-1)(10,2)
+    \pssignal(0,1){x}{$x(n)$}
+    \pscircleop[oplength=0.25,operation=times](2,1){op1}
+    %\pssignal(2,0){coefx}{$\frac{1}{16}$}
+    \pssignal(2,0){coefx}{$\alpha$}
+    \pscircleop[oplength=0.25](4,1){op2}
+    \pssignal(8,1){y}{$y(n)$}
+    \dotnode(6,1){ydot}
+    \psblock(6,0){delay}{$z^{-1}$}
+    \pscircleop[oplength=0.25,operation=times](4,0){op3}
+    %\pssignal(3,0){coefy}{$\frac{15}{16}$}
+    \pssignal(3,0){coefy}{$1 - \alpha$}
+    \nclist{->}{ncline}{x,op1,op2,y}
+    \nclist{->}{ncline}{coefx,op1}
+    \nclist{->}{ncline}{ydot,delay,op3,op2}
+    \nclist{->}{ncline}{coefy,op3}
+  \end{pspicture}
+\end{center}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

@@ -1,0 +1,11 @@
+\documentclass{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\begin{document}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

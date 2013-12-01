@@ -1,0 +1,2 @@
+class expAvg(object):
+    def expAvg(alpha):

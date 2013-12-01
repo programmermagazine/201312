@@ -1,0 +1,256 @@
+## 電磁學基礎 (2) -- 向量微積分 (作者：陳鍾誠)
+
+在上一期當中，我們已經介紹了電磁學的一些基本概念，該文網址如下：
+
+* [電磁學基礎 (1) -- 關於電磁場的一些疑問？](https://dl.dropboxusercontent.com/u/101584453/pmag/201310/htm/science1.html)
+
+在本期當中，我們將會說明電磁學的理論基礎，特別是有關向量微積分的部份。
+
+### 前言
+
+為了要描述「力場、電場、磁場」等這些概念，物理學家與數學家發展出了通用的「向量場」觀念，
+這些觀念與微積分中的「無窮小」概念整合後，就發展出了「通量、環量、散度、旋度」等等數學
+描述，透過這些數學描述，我們就能更快速的進入「馬克斯威」的電磁理論領域。
+
+### 通量與散度
+
+在一個向量場當中，通量是指通過某個表面的向量總數，通常用積分的方式累加計算，例如在以下的圖 (a) 中，由於該粒子帶正電，會對其它正電粒子產生排斥力，因此其電場是向外發射的，於是若我們在電子外部加一個包覆球面，
+那麼通過該球面的電通量就會是正的，而且電通量大小就會是該粒子的電量大小。
+
+![圖、電場與電通量](../img/FieldLines2.jpg)
+
+同樣的、在圖 (b) 中由於粒子帶負電，會對其它正電粒子產生吸引力，因此其電場是向內集中的，所以通過包覆球面的電通量就會是負的。
+
+如果該帶電粒子的電量較大，那麼我們通常會把電場線畫多一點，這種較密集的電場線在視覺上可以強調哪一部份的電場較強，
+如以上的圖 (c) 所示。
+
+看過這個範例，我們就可以來正式定義「通量」的概念了。
+
+
+定義：通量
+
+> $\Phi_A(S) = \int_{S} A \cdot \vec{ds}$ 
+> 
+> 直覺意義：
+> 
+> 1. A 是一個向量場 (例如電場)，S 是一個曲面。
+> 
+> 2. $A \cdot \vec{ds}$ 代表向量場與曲面法向量的內積。
+> 
+> 3. 向量場 A  與整個曲面 S 的法向量內積總和，即是通量。
+> 
+> 4. 通量代表通過曲面 S 表面的向量內積總和。
+> 
+> 5. 通量大於零 (通量 > 0) 代表有向外發射的傾向。
+> 
+> 6. 通量小於零 (通量 < 0) 代表有向內匯集的傾向。
+
+在以上的定義當中，曲面 S 並沒有要求是封閉的 (像汽球一樣)，但是假如 S 是一個封閉曲面，那麼我們通常會用以下的環狀積分來代表這種封閉的情況。
+
+$\Phi_A(S) = \oint_{S} A \cdot \vec{ds}$
+
+對於電場而言，通常我們在意的是環狀曲面的通量，因此可以用上述環狀積分符號  來表示此種情況。
+
+通量的概念不只適用於一個粒子產生的電場，任何的電場都可以適用。例如以下是兩個粒子所產生的電場，其中圖 (a) 是兩個負電粒子所產生的電場，所以如果在兩者之外定義一個封閉曲面，那麼其電通量將會是這兩個粒子的電量總合。
+
+同樣的，如果是像圖 (b) 這樣一正一負的兩個粒子，那麼通過外部封閉曲面的電通量，將會因為正負相互抵消而變成零。
+
+![圖、兩個帶電粒子產生的電場與電通量](../img/FieldLinesCurve.jpg)
+
+如果、我們想用積分的概念，來計算通量總合的話，那麼我們就可以定義一個非常微小區域的通量密度，這種逼近無限小
+的平均通量概念，就稱為散度。其定義如下：
+
+定義：散度
+
+> $\nabla \cdot \mathbf{A} = \eta = \lim_{S \to 0} \frac{\oint_{S} A \cdot \vec{ds}}{V}$ 
+> 
+> 直覺意義：
+> 
+> 1. A 是一個向量場 (例如電場)，S 是一個封閉曲面，V 是封閉曲面所包圍的體積。
+> 
+> 2. $A \cdot \vec{ds}$ 代表向量場與曲面法向量的內積。
+> 
+> 3. $\oint_{S} A \cdot \vec{ds}$ 代表封閉曲面 S 的通量。
+> 
+> 4. 散度是發散點或內聚點的衡量值。
+> 
+> 5. 發散點箭頭向外散射（散度 > 0)。
+> 
+> 6. 內聚點箭頭向內聚射 (散度 < 0)。
+> 
+> 7. 散度是單一點的通量密度。
+
+如果某一點的散度大於 0，代表那個點向外射出的向量比向內射入的多，如果小於零則代表向內射入的向量比向外射出的多。
+
+假如我們用下列函數來描述一個向量場，也就是對空間中的每一個點 (x,y,z) 都有一個向量 P(x,y,z)i+Q(x,y,z)j+R(x,y,z)k
+附著於該點上，其中的 i,j,k 分別是 x 軸、y 軸、z 軸方向上的單位向量。
+
+$\mathbf{A}(x,y,z)=P(x,y,z)\mathbf{i}+Q(x,y,z)\mathbf{j}+R(x,y,z)\mathbf{k}$ 
+
+那麼、所謂的某一個點的散度，其實是向量場 A 在 (x,y,z) 這點的偏微分值。
+
+$\operatorname{div} \mathbf{A}=\nabla\cdot\mathbf{A}=\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}$ 
+
+
+說明：
+
+> 雖然上述的散度概念看起來好像是積分形式 $\lim_{S \to 0} \frac{\oint_{S} A \cdot \vec{ds}}{V}$  ，但事實上卻是用體積逼近無限小的概念，定義了一個「通量密度」的純量值函數，讓空間中的每個點都有一個對應的散度。
+> 
+> 正是由於這種無限小的慨念，讓這個看起來像積分形式 $\lim_{S \to 0} \frac{\oint_{S} A \cdot \vec{ds}}{V}$ 的定義，透過下述微量面積的表示法，將 S 連結上下列的 $\vec{ds} = dy dz i + dx dz j + dx dy k$ 概念。
+> 
+> 說明：上述陳述的證明想法，牽涉到「微量長度、微量面積、微量體積」的表示方法 (有可能是向量) ，如下所示：
+> 
+> 微量體積： $dv = dx dy dz$
+> 
+> 微量長度： $\vec{dl} = dx \mathbf{i} + dy \mathbf{j} + dz \mathbf{k}$ (有方向性、向量表示法)
+> 
+> 微量面積： $\vec{ds} = dy dz \mathbf{i} + dx dz \mathbf{j} + dx dy \mathbf{k}$ (有方向性、向量表示法)
+
+證明想法：(非正式證明)
+
+> $\nabla \cdot \mathbf{A} = \lim_{S \to 0} \frac{\oint_{S} A \cdot \vec{ds}}{V}$ ;
+> 
+> $=\lim_{S \to 0} \frac{\oint_{S} (P(x,y,z) i + Q(x,y,z) j + R(x,y,z) k) \cdot (dy dz i + dx dz j + dx dy k)}{dx dy dz}$  ;
+> 
+> $=\lim_{S \to 0} \frac{\oint_{S} (P(x,y,z) dy dz i + Q(x,y,z) dx dz j + R(x,y,z) dx dy k)}{dx dy dz}$  ;
+> 
+> $=(P(x,y,z)/dx)i + (Q(x,y,z)/dy)j + (R(x,y,z)/dz)k$ .
+
+### 環量與旋度
+
+環量與旋度是用來計算環繞著某個封閉曲線的旋轉力量強度，以下是一個環狀向量場的圖示範例：
+
+![圖、環形向量場](../img/curlField.jpg)
+
+為了衡量向量場的這種旋轉強度，數學家們定義了環量這個概念。
+
+定義：環量
+
+> $\operatorname{Circ}_{\mathbf{A}}(C) =\oint_{C}\mathbf{A}\cdot \vec{d l}$ 
+> 
+> 直覺意義：
+> 
+> 1. A 是一個向量場 (例如磁場)，C 是一條封閉曲線， $\vec{d l}$ 是曲線邊緣的切線向量。
+> 
+> 2. 環量和通量一樣，是描述向量場的重要參數，但環量描述的是旋轉的力量總和，而通量描述的是吸引與排斥的力量總和。
+> 
+> 3. 某個區域中的環量不等於零，說明這個區域中的向量場表現出環繞某一點或某一區域旋轉的特性。
+
+為了描述一個向量場 A 在一點附近的環量，將閉合曲線 C 收小，使它包圍面的面積 U 趨於零時，可以得到一個環量強度 (或稱環量密度)，這個點環量強度就稱為向量場 A 在該點的旋度。
+
+定義：旋度
+
+> $\nabla \times A = \beta \cdot \hat{n}  = (\lim_{C \to 0} \frac{\oint_{C}\mathbf{A}\cdot \vec{d l}}{U}) \cdot \hat{n}$ 
+> 
+> 直覺意義：
+> 
+> 1. A 是一個向量場 (例如磁場)，C 是一條極小的封閉曲線，U 是 C 所包圍的面積大小。
+> 
+> 2. 旋度是環量範圍 C 趨近於零的結果，是某一點的環量除以面積的極限值 (環量密度)。
+> 
+> 3. 旋度代表被 C 包圍的那一點在方向 $\hat{n}$ 上的旋轉強度。
+> 
+> 4. 旋度與方向 $\hat{n}$ 有關，在不同的方向旋度也不同。
+
+雖然旋度與散度一樣都是個純量，但是旋度卻必須指定閉合曲線的法向量 $\hat{n}$ 才有辦法計算，因此隨著微小閉合曲線 C 的法向量  $\hat{n}$ 的不同，得到的旋度也有所不同。
+
+### 散度與旋度定理
+
+散度定理：又稱「高斯散度定理」。
+
+> $\int_{V} (\nabla \cdot A) dv = \oint_{S} A \cdot \vec{ds}$ 
+> 
+> 直覺意義：
+> 
+> 1. V 是空間中的一個區域，而 S 是 V 的表面。
+> 
+> 2. V 區域的散度積分 $\int_{V} (\nabla \cdot A) dv$ ，等於向量場 A 對 S 的面積分 $ \oint_{S} A \cdot \vec{ds}$ 。
+> 
+> 3. 在電磁學中，這代表我們只要計算通過 S 曲面的向量積分 $ \oint_{S} A \cdot \vec{ds}$ ，就可以知道 V 區域裏面帶有多少電量。反過來說、只要知道 V 區域帶有多少電量，就知道通過其表面的電力線總共有多少。
+
+散度定理的證明想法：對於曲面內部的兩個相鄰小立方體 A, B 而言，這些向量直接穿過相鄰面，所以從 A 射出的向量與 B 射入的向量互相抵消，
+因此只有最外圍的那一面才不會被抵銷，因此只要算最外層表面的向量加總就可以了。
+
+![圖、散度定理的證明想法](../img/divTheorem.jpg)
+
+旋度定理：又稱「斯托克定理 (Stokes theorem)」
+
+> $\int_{S} (\nabla \times A) \cdot \vec{ds} = \oint_{C} A \cdot \vec{dl}$ 
+> 
+> 直覺意義：
+> 
+> 1. S 是空間中的一個曲面，而 C 是環繞 S 邊緣的封閉曲線。
+> 
+> 2. S 曲面上的旋度總和 $\int_{S} (\nabla \times A) \cdot \vec{ds} $ ，等於S 邊緣任一封閉曲線 C 的通量總和 $ \oint_{C} A \cdot \vec{dl}$ 。
+
+斯托克定理的證明想法：在下圖中，S 曲面內方格的向量會互相取消，於是只要計算延著邊緣環繞線 C 的向量內積總和 $\oint_{C} A \cdot \vec{dl}$ ，就可以算出整體的旋量 $\int_{S} (\nabla \times A) \cdot \vec{ds}$ 。
+
+所以散度定理只適用於封閉曲面 (如下圖左半邊的情況)，但對於開放曲面  (如下圖右半邊的情況) 則不適用。
+
+![圖、斯托克定理 (Stokes theorem) 的適用情況](../img/StokeTheoremProof.png)
+
+### 馬克斯威方程式
+
+在電磁學上，有四個重要的物理量，分別是 - 電場 (E)、磁場 (H)、電通量 (D) 與磁通量 (B) 等，這四個物理量之間，可形成四條重要的物理學關係式，這四條關係式就是著名的馬克斯威方程式。
+
+以下是這四個物理量之間的關係式：
+
+| 符號 | 對應的物理量 (四個符號均代表向量場) | 與其他符號間的關係式 |
+|------|-------------------------------------|----------------------|
+| E    | 電場強度 (Electric field intensity) | $\vec{D} = \epsilon \vec{E}$ ; 其中 $\epsilon$ 為介電率 |
+| H    | 磁場強度 (Magnetic field intensity) | $\vec{B} = \mu \vec{H}$ ; 其中 $\mu$ 為導磁率  |
+| D    | 電通量密度 (Electric flux density)  | $D=\nabla \cdot E = \eta = \lim_{S \to 0} \frac{\oint_{S} E \cdot \vec{ds}}{V}$ |
+| B    | 磁通量密度 (Magnetic flux density)  | $B=\nabla \cdot H = \eta = \lim_{S \to 0} \frac{\oint_{S} H \cdot \vec{ds}}{V}$ |
+
+當初馬克斯威寫下的方程式，由於沒有使用「散度」與「旋度」這樣的巨大算子，因此描述起來較為複雜。但是有了上述的數學概念之後，我們就可以用「散度」與「旋度」這樣的巨大算子，更簡單的描述馬克斯威方程式了。
+
+以下是使用散度與旋度描述的馬克斯威方程式。
+
+| 定律 			| 微觀公式  			| 巨觀公式 | 說明 | 
+|---------------|-----------------------|----------|------| 
+| 法拉第定律 	| $\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}} {\partial t}$ | $\oint_{\mathbb{L}}\ \mathbf{E} \cdot \vec{dl}  = - \frac {\mathrm{d} \Phi_\mathbf{B}}{\mathrm{d} t}$ | 磁通量 B 的變化會產生感應電場 E | 
+| 安培定律 		| $\nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}} {\partial t}$ | $\oint_{\mathbb{L}}\ \mathbf{H} \cdot \vec{dl} = I_{f} + \frac {\mathrm{d} \Phi_\mathbf{D}}{\mathrm{d} t}$ | 電流 J 與電通量變化 $\frac{\partial \mathbf{D}} {\partial t}$  會產生磁場 H | 
+| 高斯定律 		| $\nabla \cdot \mathbf{D} = \rho$ | $\oint_{S} D\cdot\vec{ds} = Q_{f}$ | 電荷密度 $\rho$ 決定電通量 D | 
+| 自然定律 		| $\nabla \cdot \mathbf{B} = 0$ | $\oint_{S} B\cdot\vec{ds} = 0$ | 進入任一區域的磁通量一定等於出去的磁通量 | 
+
+然後、如果是在同樣的介質當中，介電率 $\epsilon$ 與導磁率 $\mu$ 為固定的，此時整個馬克斯威方程式就可以進一步簡化為下列兩條：
+
+| 定律 			| 公式 					| 說明 | 
+|---------------|-----------------------|------| 
+| 法拉第定律 	| $\nabla \times \mathbf{E} = - \mu \frac{\partial \mathbf{H}} {\partial t}$ | 磁場強度 H 的變化會產生感應電場 E | 
+| 安培定律 		| $\nabla \times \mathbf{H} = \mathbf{J} + \epsilon \frac{\partial \mathbf{E}} {\partial t}$ | 電流 J 與電場強度 E 的變化 $\frac{\partial \mathbf{E}} {\partial t}$  會產生磁場 H | 
+
+所以、「法拉第定律」與「安培定律」，是電磁學裏最重要的兩條方程式，
+
+如果將上述相同介質中「法拉第定律」的「散度」與「旋度」等巨大算子 ( $\nabla \cdot$ , $\nabla \times$ ) 給還原，然後再將每個方向的分量都寫出來，那麼上述的  $\nabla \times \mathbf{E} = - \mu \frac{\partial \mathbf{H}} {\partial t}$ 算式就可以改寫為下列向量場方程式：
+
+
+> $(\frac{\partial E_z}{\partial y} - \frac{\partial E_y}{\partial z}) \hat{x} + (\frac{\partial E_x}{\partial z} - \frac{\partial E_z}{\partial x}) \hat{y} + (\frac{\partial E_y}{\partial x} - \frac{\partial E_x}{\partial y}) \hat{z} = - \mu (\frac{\partial H_x}{\partial t} \hat{x} + \frac{\partial H_y}{\partial t} \hat{y} + \frac{\partial H_z}{\partial t} \hat{z})$ 
+
+同樣的、安培定律 $\nabla \times \mathbf{H} = \mathbf{J} + \epsilon \frac{\partial \mathbf{E}} {\partial t}$ 也可以改寫為以下的向量場方程式：
+
+> $(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}) \hat{x} + (\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}) \hat{y} + (\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}) \hat{z} = (J_x + \epsilon \frac{\partial E_x}{\partial t}) \hat{x} + (J_y + \epsilon \frac{\partial E_y}{\partial t}) \hat{y} + (J_z + \epsilon \frac{\partial E_z}{\partial t}) \hat{z}$ 
+
+而上述的這種寫法也就是當初「馬克斯威」所寫的方程式形態，這種型態的方程式經過「黑維塞」用 ( $\nabla \cdot$ , $\nabla \times$ ) 等巨大算子重新詮釋之後，就成了表格中您所看到的簡潔版本了。
+
+
+### 參考文獻
+* [College Physics], OpenStax College.
+* Wikipedia:[James Clerk Maxwell](http://en.wikipedia.org/wiki/James_Clerk_Maxwell)
+* 維基百科：[馬克士威方程組](http://zh.wikipedia.org/zh-tw/%E9%BA%A6%E5%85%8B%E6%96%AF%E9%9F%A6%E6%96%B9%E7%A8%8B%E7%BB%84)
+* 維基百科：[詹姆斯·克拉克·馬克士威](http://zh.wikipedia.org/wiki/%E8%A9%B9%E5%A7%86%E6%96%AF%C2%B7%E5%85%8B%E6%8B%89%E5%85%8B%C2%B7%E9%BA%A6%E5%85%8B%E6%96%AF%E9%9F%A6)
+* 維基百科：[論法拉第力線]
+* 維基百科：[論物理力線]
+* 維基百科：[電磁場的動力學理論]
+* 維基百科：[麥克斯韋關係式](http://zh.wikipedia.org/wiki/%E9%BA%A6%E5%85%8B%E6%96%AF%E9%9F%A6%E5%85%B3%E7%B3%BB)
+* 維基百科：[旋度](http://zh.wikipedia.org/wiki/%E6%97%8B%E5%BA%A6)
+* 維基百科：[散度](http://zh.wikipedia.org/wiki/%E6%95%A3%E5%BA%A6)
+* 線代啟示錄：[梯度、旋度與散度](http://ccjou.wordpress.com/2013/06/27/%E6%A2%AF%E5%BA%A6%E3%80%81%E6%97%8B%E5%BA%A6%E8%88%87%E6%95%A3%E5%BA%A6/)
+
+[論法拉第力線]:http://zh.wikipedia.org/wiki/%E8%AB%96%E6%B3%95%E6%8B%89%E7%AC%AC%E5%8A%9B%E7%B7%9A
+[論物理力線]:http://zh.wikipedia.org/wiki/%E8%AB%96%E7%89%A9%E7%90%86%E5%8A%9B%E7%B7%9A
+[電磁場的動力學理論]:http://zh.wikipedia.org/wiki/%E9%9B%BB%E7%A3%81%E5%A0%B4%E7%9A%84%E5%8B%95%E5%8A%9B%E5%AD%B8%E7%90%86%E8%AB%96
+[Experimental Researches in Electricity]:http://www.gutenberg.org/files/14986/14986-h/14986-h.htm
+
+【本文由陳鍾誠取材並修改自 [維基百科] 與 OpenStax College 的 [College Physics] 一書，採用創作共用的 [姓名標示、相同方式分享] 授權】
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201312/htm/home.html">2013 年 12 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#討論如何用-respberry-pi-插一根電線就能發送-fm-訊號">討論：如何用 Respberry Pi 插一根電線就能發送 FM 訊號</a></li>
+</ul>
+</div>
+<h2 id="討論如何用-respberry-pi-插一根電線就能發送-fm-訊號"><a href="#討論如何用-respberry-pi-插一根電線就能發送-fm-訊號">討論：如何用 Respberry Pi 插一根電線就能發送 FM 訊號</a></h2>
+<p>網友 Albert Huang 分享了一個很有趣的網頁，說到可以用一個稱為 PiFm 的程式，讓 Respberry Pi 將 wav 的聲音檔 透過在 GPIO 4 上插一根導線，就可以發送出該聲音的 FM 電磁波訊號。</p>
+<ul>
+<li><a href="http://raspberrypi-hacks.com/7/turn-your-raspberry-pi-into-a-fm-transmitter-hack-radio-frequencies/">Raspberry Pi Hacks - Turn your Raspberry Pi into a FM Transmitter – Hack Radio Frequencies</a></li>
+</ul>
+<p>Albert Huang 的說明如下：</p>
+<blockquote>
+<p>用 Raspberry GPIO 4 的 Alt1 功能（GPCLK0）來傳送 FM 訊號，利用了因為頻寬限制， GPCLK0 超過 75MHz 之後，就會由方波而愈來愈接近正弦波的原理，而 FM 就是依據輸入的聲音大小來改變 FM 的載波頻率。</p>
+</blockquote>
+<p>以下是在程式人雜誌社團中的原始討論：</p>
+<ul>
+<li><a href="https://www.facebook.com/groups/programmerMagazine/permalink/733752839974768/">https://www.facebook.com/groups/programmerMagazine/permalink/733752839974768/</a></li>
+</ul>
+<p>為了更清楚瞭解到底這是如何運作的，我找到了以下兩個影片，應該可以很清楚的看到運作的過程。</p>
+<ul>
+<li><a href="http://youtu.be/blvaYR6aYXA">YouTube:Turning the Raspberry Pi into an FM transmitter with PiFM</a></li>
+<li><a href="http://youtu.be/ekcdAX53-S8">YouTube:Raspberry Pi as FM Transmitter</a></li>
+</ul>
+<p>看完這兩個影片之後，我真的很想知道他是怎麼做的，所以我找到該模組的用法與原始程式下載點：</p>
+<ul>
+<li><p>用法： <a href="http://www.icrobotics.co.uk/wiki/index.php/Turning_the_Raspberry_Pi_Into_an_FM_Transmitter">Turning the Raspberry Pi Into an FM Transmitter</a></p></li>
+<li><p>程式碼下載點： <a href="http://www.icrobotics.co.uk/wiki/images/c/c3/Pifm.tar.gz">http://www.icrobotics.co.uk/wiki/images/c/c3/Pifm.tar.gz</a></p></li>
+</ul>
+<p>使用方法如下：</p>
+<pre><code>sudo python
+&gt;&gt;&gt; import PiFm
+&gt;&gt;&gt; PiFm.play_sound(&quot;sound.wav&quot;)</code></pre>
+<p>PiFm 模組的程式總共包含兩個部份，分別是 Python (PyFm.py) 與 C (PyFm.c) 的程式，但我想主要的重點是 C 的程式，以下是我認為關鍵的部份。</p>
+<pre class="sourceCode CPP"><code class="sourceCode cpp"><span class="dt">void</span> playWav(<span class="dt">char</span>* filename, <span class="dt">float</span> samplerate)
+{
+    <span class="dt">int</span> fp= STDIN_FILENO;
+    <span class="kw">if</span>(filename[<span class="dv">0</span>]!=&#39;-&#39;) fp = open(filename, &#39;r&#39;);
+    <span class="co">//int sz = lseek(fp, 0L, SEEK_END);</span>
+    <span class="co">//lseek(fp, 0L, SEEK_SET);</span>
+    <span class="co">//short* data = (short*)malloc(sz);</span>
+    <span class="co">//read(fp, data, sz);</span>
+    
+    <span class="dt">int</span> bufPtr=<span class="dv">0</span>;
+    <span class="dt">float</span> datanew, dataold = <span class="dv">0</span>;
+    <span class="dt">short</span> data;
+    
+    <span class="kw">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;<span class="dv">22</span>; i++) <span class="co">// 掠過 wav 檔的表頭</span>
+       read(fp, &amp;data, <span class="dv">2</span>);  <span class="co">// read past header</span>
+    
+    <span class="kw">while</span> (read(fp, &amp;data, <span class="dv">2</span>)) {
+        <span class="co">// fmconstant = 22500 * 50e-6 =  1.125</span>
+        <span class="dt">float</span> fmconstant = samplerate * <span class="fl">50.0e-6</span>;  <span class="co">// for pre-emphisis filter.  50us time constant</span>
+        <span class="co">// wav 取樣頻率一般有11025Hz(11kHz) ，22050Hz(22kHz) 和44100Hz(44kHz)三種，此檔案用 22050Hz</span>
+        <span class="dt">int</span> clocksPerSample = <span class="fl">22500.0</span>/samplerate*<span class="fl">1400.0</span>;  <span class="co">// for timing </span>
+        <span class="co">// 主程式中有 playWav(argv[1], argc&gt;3?atof(argv[3]):22500);</span>
+        <span class="co">// 所以 22500.0/samplerate = 1, 於是 clocksPerSample =1400，也就是最小震盪週期會被取 1400 次樣本。</span>
+        
+        datanew = (<span class="dt">float</span>)(data)/<span class="dv">32767</span>; <span class="co">// 將資料 data 轉為浮點數</span>
+        
+        <span class="dt">float</span> sample = datanew + (dataold-datanew) / (<span class="dv">1</span>-fmconstant);  <span class="co">// fir of 1 + s tau</span>
+        <span class="dt">float</span> dval = sample*<span class="fl">15.0</span>;  <span class="co">// actual transmitted sample.  15 is bandwidth (about 75 kHz)</span>
+        
+        <span class="dt">int</span> intval = (<span class="dt">int</span>)(round(dval));  <span class="co">// integer component</span>
+        <span class="dt">float</span> frac = (dval - (<span class="dt">float</span>)intval)/<span class="dv">2</span> + <span class="fl">0.5</span>;
+        <span class="dt">unsigned</span> <span class="dt">int</span> fracval = frac*clocksPerSample;
+         
+        bufPtr++; 
+        <span class="co">// 用直接記憶體映射 DMA 的方法，將資料往 GPIO4 的 allof7e 輸出</span>
+        <span class="co">// 參考： 树莓派处理器BCM2835的DMA -- http://www.lijingquan.net/dma-bcm2835-rpi.html</span>
+        <span class="kw">while</span>( ACCESS(DMABASE + <span class="bn">0x04</span> <span class="co">/* CurBlock*/</span>) ==  (<span class="dt">int</span>)(instrs[bufPtr].p)) usleep(<span class="dv">1000</span>);
+
+        ((<span class="kw">struct</span> CB*)(instrs[bufPtr].v))-&gt;SOURCE_AD = (<span class="dt">int</span>)constPage.p + <span class="dv">2048</span> + intval*<span class="dv">4</span> - <span class="dv">4</span> ;
+        
+        bufPtr++;
+        <span class="kw">while</span>( ACCESS(DMABASE + <span class="bn">0x04</span> <span class="co">/* CurBlock*/</span>) ==  (<span class="dt">int</span>)(instrs[bufPtr].p)) usleep(<span class="dv">1000</span>);
+        ((<span class="kw">struct</span> CB*)(instrs[bufPtr].v))-&gt;TXFR_LEN = clocksPerSample-fracval;
+        
+        bufPtr++;
+        <span class="kw">while</span>( ACCESS(DMABASE + <span class="bn">0x04</span> <span class="co">/* CurBlock*/</span>) ==  (<span class="dt">int</span>)(instrs[bufPtr].p)) usleep(<span class="dv">1000</span>);
+        ((<span class="kw">struct</span> CB*)(instrs[bufPtr].v))-&gt;SOURCE_AD = (<span class="dt">int</span>)constPage.p + <span class="dv">2048</span> + intval*<span class="dv">4+4</span>;
+        
+        bufPtr=(bufPtr<span class="dv">+1</span>) % (<span class="dv">1024</span>);
+        <span class="kw">while</span>( ACCESS(DMABASE + <span class="bn">0x04</span> <span class="co">/* CurBlock*/</span>) ==  (<span class="dt">int</span>)(instrs[bufPtr].p)) usleep(<span class="dv">1000</span>);
+        ((<span class="kw">struct</span> CB*)(instrs[bufPtr].v))-&gt;TXFR_LEN = fracval;
+        
+        dataold = datanew;
+    }
+    close(fp);
+}</code></pre>
+<p>然後我找到維基百科的調頻原理，理面有解說如何將訊號用調頻的方式調變的概念，連結如下：</p>
+<ul>
+<li><a href="http://zh.wikipedia.org/wiki/%E9%A2%91%E7%8E%87%E8%B0%83%E5%88%B6">維基百科：頻率調變</a></li>
+</ul>
+<div class="figure">
+<img src="../img/Frequency-modulation.png" alt="圖、FM 調頻的原理" /><p class="caption">圖、FM 調頻的原理</p>
+</div>
+<p>但是，要如何用 Raspberry Pi 去送出經過調頻的方式調變的訊號呢？經過我研究與查詢後，我發現 PiFm 好像是利用 GPIO4 裏面的「脈衝寬度調變」(Pulse Width Modulation, PWM) 功能 （Alt1 , GPCLK0），來輸出 FM 調變過後的訊號。</p>
+<p>例如下列的 raspberry-gpio-python 專案就有之援類似的功能。</p>
+<ul>
+<li>raspberry-gpio-python -- <a href="https://code.google.com/p/raspberry-gpio-python/wiki/PWM">https://code.google.com/p/raspberry-gpio-python/wiki/PWM</a></li>
+</ul>
+<p>因此、我們必須瞭解一下何謂 PWM，以下維基百科的解釋與圖片說明了這項功能的原理。</p>
+<div class="figure">
+<img src="../img/PWM.jpg" alt="圖、PWM 脈衝寬度調變的原理" /><p class="caption">圖、PWM 脈衝寬度調變的原理</p>
+</div>
+<blockquote>
+<p>與類比電路不同，數字電路是在預先確定的範圍內取值，在任何時刻，其輸出只可能為ON和OFF兩種狀態，所以電壓或電流會通/斷方式的重複脈衝序列載入到類比負載。PWM技術是一種對類比信號電平的數字編碼方法，通過使用高解析度計數器（調製頻率）調製方波的占空比，從而實現對一個類比信號的電平進行編碼。</p>
+<p>類比信號能否使用PWM進行編碼調製，僅依賴頻寬，這即意味著只要有足夠的頻寬，任何類比信號值均可以採用PWM技術進行調製編碼，一般而言，負載需要的調製頻率要高於10Hz，在實際應用中，頻率約在1kHz到200kHz之間。</p>
+</blockquote>
+<p>程式可以透過對 PWM port 輸出 (Frequency, Duty cycle) 兩個參數的方式，控制訊號的 PWM 調變，以下文章與影片有較詳細的說明。</p>
+<ul>
+<li><a href="http://developmentboards.blogspot.tw/2013/04/rpigpio-052a-now-has-software-pwm-how.html">Raspberry pi has PWM pins</a>, Posted by praveen kumar at 07:05</li>
+<li><a href="http://youtu.be/BLtV0Z38S94">YouTube:Using PWM with RPi.GPIO and Python on the Raspberry Pi</a></li>
+</ul>
+<p>我想 PiFm 就是利用這個功能，對 GPCLK0 輸出不同的方波 (圖中藍色 V 的部份)，這些方波會控制 PWM 讓它輸出紅色的波形，這些紅色的波形會近似 wav 檔內所代表的波形，於是就能將 wav 檔的聲音以 FM 的方式傳送出去了。</p>
+<p>透過上述方式，我們可以用 respberry Pi 裏 「CPU+程式」的方式，輸出訊息給 PWM port ，以便將 wav 檔中的訊號，用 FM 的方式調變後輸出，於是「程式人」也可以學如何用 Raspberry Pi 發送「電磁波」，不需要靠額外的板子或 IC 了。</p>
+<p>這種做法真棒！</p>
+<h3 id="參考文獻"><a href="#參考文獻">參考文獻</a></h3>
+<ul>
+<li><a href="http://www.lijingquan.net/dma-bcm2835-rpi.html">树莓派处理器BCM2835的DMA</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E9%A2%91%E7%8E%87%E8%B0%83%E5%88%B6">維基百科：頻率調變</a> , (FM)</li>
+<li><a href="http://zh.wikipedia.org/wiki/%E8%84%88%E8%A1%9D%E5%AF%AC%E5%BA%A6%E8%AA%BF%E8%AE%8A">維基百科：脈衝寬度調變</a></li>
+<li><a href="http://pythonhosted.org/RPIO/pwm_py.html">RPIO.PWM, PWM via DMA for the Raspberry Pi</a></li>
+<li><a href="http://developmentboards.blogspot.tw/2013/04/rpigpio-052a-now-has-software-pwm-how.html">Raspberry pi has PWM pins</a></li>
+<li><a href="http://www.skagmo.com/page.php?p=projects/22_pihat">PiHAT - Rasberry Pi Home Automation Transmitter</a></li>
+<li><a href="http://mac.tutsplus.com/tutorials/electronics/using-a-raspberry-pi-as-an-airplay-receiver/">Using a Raspberry Pi as an AirPlay Receiver</a></li>
+</ul>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

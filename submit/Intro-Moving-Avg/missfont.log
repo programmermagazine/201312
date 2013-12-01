@@ -1,0 +1,5 @@
+mktexpk --mfmode ljfour --bdpi 600 --mag 1+489/600 --dpi 1089 ctxfm6
+mktexpk --mfmode ljfour --bdpi 600 --mag 1+489/600 --dpi 1089 ctxfm6
+mktexpk --mfmode ljfour --bdpi 600 --mag 1+489/600 --dpi 1089 ctxfm6
+mktextfm ctxfb2
+mktextfm ctxfb2

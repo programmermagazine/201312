@@ -1,0 +1,11 @@
+\begin{center}
+  \begin{pspicture}[showgrid](-2,-2)(2,2)
+    \pscircle[linecolor=gray](0,0){1}
+    \pspole(0.9375,0){z1}
+    \nput{0}{z1}{$(\frac{15}{16},0)$}
+  \end{pspicture}
+\end{center}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: nil
+%%% End: 

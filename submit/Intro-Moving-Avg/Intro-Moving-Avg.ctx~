@@ -1,0 +1,420 @@
+%\documentclass[dvips,letterpaper,11pt]{article}
+\documentclass[dvips,a4paper,11pt]{article}
+
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{pstricks}
+\usepackage{pst-sigsys}
+\usepackage{pst-plot}
+\usepackage[dvips]{graphicx}
+\usepackage{subfig}
+\usepackage{latexsym}
+
+%\voffset=-1.5cm
+%\textheight=9.4in
+
+\renewcommand{\baselinestretch}{1.5}
+
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{圖}
+
+\title{淺談動平均濾波器}
+\author{黃俊傑\\
+\texttt{jjhuang {\textless}jiunjie.huang@gmail.com{\textgreater}}}
+\begin{document}
+\maketitle
+
+\section{簡介} % Introduction 
+\label{sec:intro}
+
+動平均濾波器~(moving average filter) 可說是世界上使用最廣泛的一種濾波器了;
+在股市裡面, 每天都可以看到動平均濾波器的應用, 股價趨勢圖裡面的週線、月線與年線, 
+都是長度不等的動平均輸出圖形。我們在實作訊號處理的時候, 也很常應用這個簡單又有效率的動平均濾波器。
+由於它應用廣泛, 許多程式設計師也許沒有修過數位訊號處理的課程, 不熟悉數位訊號處理分析方式, 
+但是又需要寫這樣的程式。因此, 在這一篇文章中, 筆者將會儘量以實例來介紹動平均濾波器的概念,
+幾種不同的實作方式以及優缺點。
+%在第~\ref{sec:implement-moving-average} 節中, 
+%並以理論最少的方式來介紹數種常用的數位濾波器, 讓讀者有個概念。
+%在第~\ref{sec:filter-analysis} 中則補足常用數位濾波器的分析, 
+%對於數位訊號處理理論不熟的讀者, 可以暫時跳過此節而不影響了解此篇文章。
+
+% 在這一篇文章, 筆者將會介紹四種常用的動平均律波器, 其中, 兩種屬
+% 於 FIR(Finite Impulse response Filter), 兩種屬於 IIR(Infinite Impluse
+% response Filter). 對於每一種濾波器, 除了介紹功能以外, 筆者也會介紹運算量與實作時的考量。
+最直觀的動平均濾波器, 當屬於 simple moving average~(SMA) 了, 
+也是應用在股市以及很多統計上面的動平均。SMA 的定義就是取目前輸入之前的 N 個取樣的非權重平均。
+% 前兩種都屬於簡單動平均濾波器(SMA, simple moving average), 亦即取前 N 個取樣的非權重平均。
+用數學式表示的話, 就是
+\begin{equation}
+  \label{eq:sma}
+  SMA  =  \frac{x_n + x_{n-1} + x_{n-2} + ... + x_{n-N+1}}{N}
+\end{equation}
+或是在訊號處理上我們慣用以下的時域表示式
+\begin{equation}
+  \label{eq:sma-time-domain}
+  y(n)  =  \frac{x(n) + x(n-1) + x(n-2) + ... + x(n-N+1)}{N}  
+\end{equation}
+其中, $y(n)$ 代表目前輸出值, 而 $x(n)$ 代表目前輸入值。
+這個濾波器應用在股市裡, 就是我們在股票市場裡常常看到的曲線圖, 如週線、月線與年線，
+分別是 N=7, N=30, N=365 的每日收盤價格的動平均輸出圖形。
+
+使用濾波器來形塑~(shape) 你的資料的目的, 通常都是為了要讓資料的重點能夠呈現出來, 比方說,
+股市的波動常常有一個快速變動的部份, 與慢速變動的部份, 而所謂的慢速變動的部份, 我們認為那是長期的趨勢,
+是我們想要觀察的重點, 所以將濾波器應用在每日收盤價格上, 將「快速變動的部份濾掉」, 
+保留慢速變動的部份, 就成了週線、月線與年線了。
+以數位訊號處理理論來說, 那些慢速變動就是指低頻的部份, 快速變動的部份就是高頻的部份, 
+因此以數位訊號處理的術語來說, 動平均濾波器就是一個低通濾波器~(low pass filter),
+意思就是低頻能夠通過的濾波器, 而高頻的部份就被過濾掉了。
+又比方心跳表顯示每分鐘心跳率是用一個數值, 而我們知道心跳每幾秒鐘記錄一次的話, 一分鐘裡面會有上上下下的變化,
+不是一直維持在某一個數值, 每分鐘心跳率就是一分鐘裡面心跳的平均數值, 以方便我們在心跳表上顯示出來,
+但是以每分鐘的平均數值顯示出來的時候, 如果你沒有很大的運動變化, 每分鐘心跳率是維持在一個定值的。
+
+
+\section{常用動平均濾波器} % _Implementation Aspects of Moving Average Filters_
+\label{sec:implement-moving-average}
+
+在本節中, 我們會介紹四種常見的動平均濾波器, 前兩種動平均濾波器直接實作了上一節所描述的 SMA 動平均濾波器,
+這兩種只有小部分的差異。而第三種是 SMA 的變形, 引進了回授的概念來簡化實作的複雜度, 
+因此前三種廣義上都是 SMA 動平均濾波器的實作。
+第四種我們要介紹的是指數平均濾波器, 與前三種不太一樣, 但是有著實作簡單的好處。
+
+在定點訊號處理裡, 我們有兩種直接實作 SMA 的方法, 
+第一種就如上一節中方程式~\ref{eq:sma-time-domain} 描述的式子, 先做加總, 
+再除以 N 來得到結果。
+% 其 z-transform equation 是 
+% \begin{equation}
+%   \label{eq:moving-average-pre}
+%   %Y(z) = \frac{X(z) \times z^{-N+1} + X(z) \times z^{-N+2} + ... + X(z)}{N}
+%   Y(z) = \frac{X(z) + X(z) \times z^{-1} + X(z) \times z^{-2} + ... + X(z) \times z^{-N+1}}{N}
+% \end{equation}
+% or
+% \begin{equation}
+%   \label{eq:moving-average}
+%   H(z) = \frac{Y(z)}{X(z)} = \frac{1 + z^{-1} + z^{-2} + ... + z^{-N+1}}{N}
+% \end{equation}
+% 我們以 N=4 為例子說明這個濾波器, 其時域以及 z-transform 分別如方程式~\ref{eq:ma-n-4-time} 及 \ref{eq:ma-n-4-z-trans} 所示。
+% \begin{eqnarray}
+%   \label{eq:ma-n-4-time}
+%   y(n)  & = &  \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4}\\
+%   \label{eq:ma-n-4-z-trans}
+%   H(z)  & = & \frac{Y(z)}{X(z)} = \frac{1 + z^{-1} + z^{-2} + z^{-3}}{4}
+% \end{eqnarray}
+我們以 N=4 為例子說明這個濾波器, 其方程式會是:
+\begin{equation}
+  \label{eq:ma-n-4-time}
+  y(n) = \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4}
+\end{equation}
+假設我們觀察的是餐廳每半小時的顧客人數, 
+如表~\ref{tbl:sma-example} 中的「輸入」欄位所示, 
+「輸出」欄位所示的就是這個 N=4 的動平均濾波器的輸出序列, 計算方式就是依照方程式~\ref{eq:ma-n-4-time}, 以 x(n) 為目前輸入, y(n) 為目前輸出值, 以輸入為 20 那一欄為例, 這時候
+\begin{eqnarray*}
+  x(n) & = & 20 \\
+  x(n-1) & = & 10 \\
+  x(n-2) & = & 0 \\
+  x(n-3) & = & 0 \\
+  y(n) & = & \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4} = \frac{20 + 10 + 0 + 0}{4} = 7.5
+\end{eqnarray*}
+\begin{table}
+  \tiny
+  \caption{餐廳每半小時顧客人數以及其動平均值}
+  \label{tbl:sma-example}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+    輸入  & 0 & 0 & 0 & 0 & 10 & 20 & 30 & 35 & 20 & 10 & 5 & 0 & 0 & 0 & 0 \\ \hline
+    輸出 & 0.00 & 0.00 & 0.00 & 0.00 & 2.50 & 7.50 & 15.00 & 23.75 & 26.25 & 23.75 & 17.50 & 8.75 & 3.75 & 1.25 & 0.00 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{figure}
+  \centering
+  \scalebox{0.4}{\includegraphics{MA_output_N_4}}
+  \caption{N=4 的動平均輸出入關係圖}
+  \label{fig:sma-N-4}
+\end{figure}
+圖~\ref{fig:sma-N-4} 則是把這個輸出入關係繪製成圖形表示, 我們可以看出來,
+當輸入發生變化的時候, 輸出值會以延遲而且比較平緩的趨勢呈現, 延遲是因為動平均濾波器是計算前 N 個輸入,
+而比較平緩的趨勢就是動平均濾波器對這個輸入值重塑後的結果。
+觀察方程式~\ref{eq:ma-n-4-time} 可以發現, 有兩個輸入數列特別有趣, 
+分別是 +1, -1, +1, -1, +1, -1, ...
+這種正負交互出現而且絕對值是一樣的數列。
+把這個數列輸入到上述的方程式, 我們會得到全為零的輸出。
+另一個有趣的數入數列是 0, +1, 0, -1, 0, +1, 0, -1, ... 也就是將上一個數列任兩個數值間都插入一個零值。
+於是這個數列就變成任意相鄰四個數字加總起來為零, 使得輸出值皆為零的數列。
+觀察這個兩個數列, 第一個數列週期為 2, 第二個數列週期為 4。
+而第一個數列, 在數列的極大與極小值固定的情況下, 變化是最為劇烈的一組(或說週期最小),
+ 也就是數位濾波器能夠表示的最高頻率,
+我們稱之為 Nyquist rate, 或是取樣頻率。第二個數列, 其頻率則為取樣頻率的一半。
+這個數位濾波器會讓這兩個頻率的輸入值產生全為零的輸出序列。
+另一個特殊的序列就是全部都是定值的序列, 其變化頻率為零, 把這個序列輸入到這個數位濾波器,
+可以得到的輸出序列與輸入序列完全一致, 數值大小也一樣。到這裡, 讀者對這個簡單動平均濾波器應該有一些概觀了。
+
+接下來, 我們用 z transform\footnote{z transform 是把時域表示式轉換成代數式以方便做分析的一個工具, 轉換之後, 就是用代數的方式來分析} 來分析這個濾波器, 這一段落是參考, 不影響讀者了解動平均濾波器的基本概念。
+我們只會用到最基本的 z transform pair, 條列如下:
+\begin{eqnarray*}
+  \alpha x(n)  & \rightarrow & \alpha X(z) \\
+  \alpha x(n-c) & \rightarrow & \alpha X(z) z^{-c} \\
+  \alpha y(n) & \rightarrow & \alpha Y(z) \\
+  \alpha y(n-c) & \rightarrow & \alpha Y(z) z^{-c}
+\end{eqnarray*}
+前一個段落的方程式其 z transform transfer 方程式是
+\begin{equation}
+  \label{eq:ma-n-4-z-trans}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{1 + z^{-1} + z^{-2} + z^{-3}}{4}
+\end{equation}
+其 z-plane\footnote{z plane, z transform, 以及頻率響應是數位訊號處理的分析方法, 如果有興趣, 可以參考數位訊號處理的書籍, 若不懂也不影響讀者了解這篇文章。} 如圖~\ref{fig:ma-fir-type-1} 所示, 
+z-plane 就是把方程式~\ref{eq:ma-n-4-z-trans} 的分子為零與分母為零的代數式, 
+分別求根, 並繪製在圖上, 注意 z 是複數, z plane 就是複數平面。
+分子為零的根就用小圓圈表示, 稱為 zero, 或零點。
+而分母為零的根就用 X 表示, 稱為 pole, 或極點。
+在這個 z-plane 圖上有三個小圓圈, 代表 z transform 的分子 $1+z^{-1}+z^{-2}+z^{-3} = 0$ 的解。
+而這三個解剛好在半徑為 1 的圓上。這個方程式的分母為 4, 是一個常數, 所以沒有 poles. 
+而它的頻率響應則如圖~\ref{fig:ma-fir-type-1-freq} 所示, 是一個低通濾波器。
+注意圖~\ref{fig:ma-fir-type-1-freq} 中有 Y 軸有兩個點會小到負無窮大的位置(如果 Y 軸是 linear scale 的話就是 $0$), 
+分別是 $\pi$ 與 $\frac{\pi}{2}$ 的位置, 這兩個位置一個是取樣頻率, 
+一個是取樣頻率的一半。對照剛剛舉的特殊序列與頻率響應圖, 兩個讓輸出值為零的序列, 
+在頻率響應圖上 Y 軸的值為 $-\infty$~dB\footnote{dB 值是比率, 兩個振幅 $A_1$ 與 $A_2$ 的比率是 $A_1/A_2$ 轉換成 dB 值就變成 $20\log\frac{A_1}{A_2}$~dB, 所以 0~dB 表示 $A_1/A_2 = 1$, 而 $-\infty$~dB 表示 $A_1/A_2 = 0$。}, 而完全沒變化的數列, 輸出值的大小與序列都未被改變, 
+對應到頻率響應圖上 X=0 的那一點, 
+其大小為 0~dB, 轉換成線性數值就是 1. 
+% 在這裡我先簡單解釋一下, 取樣頻率的數列, 就是這個數位濾波器能夠表示的最高頻率, 
+% 那表現在數列上的意義就是 +1, -1, +1, -1, +1, -1, ... 這種正負交互出現而且正負值的絕對值是一樣的數列。
+% 如果把這樣的數列輸入到方程式~\ref{eq:ma-n-4-time} 的動平均濾波器裡, 輸出值 y(n) 恆為零。
+% 上述的數列週期為二, 而且是取樣頻率的數列, 那麼你會猜, 取樣頻率的一半, 
+% 週期應該就是四了吧, 答對了! 
+% 那麼週期為四的數列長得如何呢? 就是 +1, 0, -1, 0, +1, 0, -1, 0, +1, 0, ...
+% 的數列, 把這個數列輸入方程式~\ref{eq:ma-n-4-time} 得到的 y(n) 數列也是恆為零。
+% 再對照圖~\ref{fig:ma-fir-type-1}, zeros 的座標分別是 (0,1), (-1,0), 以及 (0,-1), 
+% 以極座標來看那幾個 zeros, radius 皆為 1, 而其角度分別是 
+% $\frac{\pi}{2}$, $\pi$, 與 $-\frac{\pi}{2}$, 
+% 而 zeros 如果剛好在單位圓上的意思就是頻率響應會出現零點~(讀者可以忽略 $-\frac{\pi}{2}$ 的那一點, 因為角度是負值)。
+為避免讀者誤解, 我必須提醒一下, 上述兩個數列不是三角波~(雖然用直線連起來是三角波),  
+而是兩個表現在數列上的正弦函數波, 
+如圖~\ref{fig:nyquist-rate-wave-1} 及圖~\ref{fig:nyquist-rate-wave-2} 所示。
+對數位訊號處理有涉獵的讀者, 
+應該能夠從圖~\ref{fig:ma-fir-type-1} 就直接看出圖~\ref{fig:ma-fir-type-1-freq} 的頻率響應吧。
+\begin{figure}
+  \centering
+  \include{MA-Type1-z-trans}
+  \caption{N=4 的動平均 z plane 圖}
+% pole is at (15/16, 0) in this figure, need to be changed. 
+  \label{fig:ma-fir-type-1}
+\end{figure}
+\begin{figure}
+  \centering
+  \scalebox{0.4}{\includegraphics{MA_N_4_freq}}
+  \caption{N=4 的動平均濾波器頻率響應; X 軸是 radian/sample, Y=$-\infty$ 的點在 X=$\pi$(3.1416) 代表取樣頻率, 也就是這個數位濾波器的最高頻率, 與 X=$\frac{\pi}{2}$ 的地方。}
+  \label{fig:ma-fir-type-1-freq}
+\end{figure}
+\begin{figure}
+  \begin{center}
+    \begin{pspicture}[showgrid](0,-2)(10,2)
+      %\psset{xunit=1pt}
+      %\psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 2 mul sin}
+      \psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 4 mul cos}
+      \psdots(0,1)(1,-1)(2,1)(3,-1)(4,1)(5,-1)(6,1)(7,-1)(8,1)(9,-1)(10,1)
+      %\psplot{0}{720}{x 2 mul sin}
+    \end{pspicture}
+  \end{center}
+  \caption{頻率為 $\pi$ radian/sample 的正弦函數波取樣點}
+  \label{fig:nyquist-rate-wave-1}
+\end{figure}
+\begin{figure}
+  \begin{center}
+    \begin{pspicture}[showgrid](0,-2)(10,2)
+      %\psset{xunit=1pt}
+      \psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 2 mul cos}
+      \psdots(0,1)(1,0)(2,-1)(3,0)(4,1)(5,0)(6,-1)(7,0)(8,1)(9,0)(10,-1)
+      %\psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 4 mul sin}
+      %\psplot{0}{720}{x 2 mul sin}
+    \end{pspicture}
+  \end{center}
+  \caption{頻率為 $\pi/2$ radian/sample 的正弦函數波取樣點}
+  \label{fig:nyquist-rate-wave-2}
+\end{figure}
+
+
+這個實作的好處是我們只需要 N 個加法器, 一個除法器, 
+以及 N 個 delay elements。
+缺點就是在做加總的時候, 由於定點數值的表示欄位有限, 數值可能會溢位, 
+而溢位會導致 saturation 或是 wrap-around, 前者只是動平均值稍微變小一點, 
+還可以接受, 後者就會造成整個數值的錯亂, 從一個極大值變成極小值。
+然而要做 saturation 需要額外的電路或動作, 
+有的時候, 硬體不一定能提供這個功能。因此, 為了避免溢位的困擾, 就有另一種實作的方式, 
+就是先把每一個元素除以 N, 然後才加總起來, 這樣就完全不用考慮溢位的問題, 
+缺點就是運算量變成 N 個除法器, 一個加法器, 以及 N 個 delay elements. 
+上述兩個實作方式的除法器, 如果我們刻意取 $N = 2^i$, $i$ 是大於或等於零的整數, 亦即 N 是 2 的冪次方, 
+我們就可以把這些除法器變成 shifter, 可以進一步節省硬體成本, 
+而不影響結果。當然, 如果要實作週線圖的話, 我們就沒辦法將除法器變成 shifter,
+但是我們還是可以用乘法器來取代除法器, 只要用小數($\frac{1}{N}$) 當乘數就可以了。
+% \begin{figure}
+%   \centering
+%   \subfloat[z plane 圖]{\include{MA-Type1-z-trans} \label{fig:ma-fir-type-1}}
+%   %\caption{N=4 的動平均 z plane 圖}
+%   \qquad
+%   \subfloat[頻率響應]{\scalebox{0.5}{\includegraphics{MA_N_4_freq}}   \label{fig:ma-fir-type-1-freq}}
+%   \caption{N=4 的動平均濾波器頻率響應}
+%   \label{fig:MA_N_4}
+% \end{figure}
+
+% Describe this implementation from time domain equation
+第三種動平均濾波器是前兩種的變形, 前兩種在實作的時候, 總是要取前 N 個輸入值來相加, 
+但是每一次計算都只往前一個輸入值, 其中有 N-1 個輸入值都是重複計算的,
+那麼運算上有更簡便的方法嗎?
+答案是有的。同樣以 N=4 為例, 計算如下:
+\begin{eqnarray*}
+  y(n-1) & = & \frac{x(n-1) + x(n-2) + x(n-3) + x(n-4)}{4} \\
+  y(n) & = & \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4} \\
+  y(n) & = & y(n-1) + \frac{1}{4}x(n) - \frac{1}{4}x(n-4) \\
+\end{eqnarray*}
+因為上一筆輸出值 $y(n-1)$ 已經計算好了, 不需要重新計算, 
+所以只需要加上新增的那一項 $\frac{1}{4}x(n)$ 再減去舊的 $\frac{1}{4}x(n-4)$ 就可以得到這一筆的輸出值 $y(n)$,
+簡化計算的次數。就可以用下列方程式描述:
+\begin{equation}
+  \label{eq:ma-iir-time}
+  y(n) = y(n-1) + \frac{x(n)-x(n-4)}{4}
+\end{equation}
+以 z transform 的觀點來看的話,
+方程式~\ref{eq:sma-time-domain} 中的動平均時域表示式的 z transform 方程式如以下所示:
+\begin{equation}
+  \label{eq:moving-average-z-trans}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{1}{N}(1 + z^{-1} + z^{-2} + z^{-3} + ... + z^{-N+1})
+\end{equation}
+如果我們對分子分母同乘 $1 - z^{-1}$, 
+分子就可以化簡成 $1 - z^{-N}$, 所以其 z-transform equation 就會是
+\begin{equation}
+  \label{eq:moving-average-iir}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{1}{N} \times \frac{1 - z^{-N}}{1-z^{-1}}
+\end{equation}
+這個轉回時域表示式就是:
+\begin{equation}
+  \label{eq:moving-average-iir-time-domain}
+  y(n) = y(n-1) + \frac{x(n) - x(n-N)}{N}
+\end{equation}
+上述的 z-plane 圖會變成如圖~\ref{fig:ma-iir-z-trans} 所示, 與圖~\ref{fig:ma-fir-type-1} 相比, 
+多了一個 pole 在 $z=1$, 
+同時多了一個 zero 在 $z=1$, 
+而位在 $z=1$ 的 zero/pole 互相抵消~(因為兩者為同一個因式, 且分布在分子與分母),
+因此跟前二種濾波器的輸出是一樣的, 
+亦即頻率響應圖也如圖~\ref{fig:ma-fir-type-1-freq} 所示。
+這一種的動平均濾波器的輸出與前兩者完全一樣, 但是在實作上, 因為利用了回授的特性簡化了實作的複雜度, 
+整個實作需要的元件是一個 N-tap 的 delay element, 一個 1-tap 的 delay element, 
+一個除法器或 shifter, 兩個加法器。
+\begin{figure}
+  \centering
+  \include{MA-IIR-ztrans}
+  \caption{以回授實作的 N=4 動平均濾波器 z plane 圖}
+  \label{fig:ma-iir-z-trans}
+\end{figure}
+
+第四種動平均濾波器比上述三種都來得更簡單, 稱為指數平均濾波器~(exponential average filter), 
+或稱為 expoential averager,
+不過在相同的輸入下, 它的輸出的 pattern 跟上述三種有些不同, 也就是頻率響應不一樣。
+其架構如圖~\ref{fig:exp-avg-diagram} 所示, 時域的式子是
+\begin{equation}
+  \label{eq:exp-avg}
+  y(n) = \alpha x(n) + (1 - \alpha)y(n-1)
+\end{equation}
+z-transform equation 是
+\begin{equation}
+  \label{eq:exp-avg-2}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{\alpha}{1 - (1-\alpha)z^{-1}}
+\end{equation}
+$\alpha$ 是一個控制變數, 可以控制這個濾波器的頻率響應, 也可以控制指數平均濾波器對於瞬間的變化, 
+需要多久時間才能夠追得上。從圖~\ref{fig:exp-avg-z-plane} 可以看出, 
+它有一個 pole 在 $z = 1 - \alpha$ 的地方, 也就是透過改變 $\alpha$ 的值來移動 pole 的位置,
+達到控制頻率響應的目的。圖~\ref{fig:exp-avg-examples} 是當輸入為 step function 的時候, 
+不同的 $\alpha$ 值的反應。
+$\alpha$ 值愈小, 表示目前的輸入值的權重愈小, 因此當輸入有大改變的的時候,
+輸出追上的時間愈久, 但也代表愈不容易受高頻雜訊影響。
+反之, $\alpha$ 值愈大, 表示輸出值可以很快反應輸入值的變化, 對於高頻雜訊的免疫力就下降了。
+圖~\ref{fig:exp-avg-alpha-02} 及圖~\ref{fig:exp-avg-alpha-08} 分別是 $\alpha=0.2$ 以及 $\alpha=0.8$ 的
+指數平均濾波器的頻率響應圖, 兩張圖比較一下可以看得出來 $\alpha$ 愈大, 高頻的部份被衰減的愈少, 因此高頻容易通過。
+這個動平均濾波器是非常簡單, 但又提供了不錯的效率, 實作時不論所需要的頻率響應為何~(亦即不同的 $\alpha$ 值),
+都只需要兩個乘法器, 
+一個 delay element, 以及一個加法器就可以, 這點與簡單動平均濾波器相比, 就是一個很顯著的優點。
+通常在實作的時候, 我們喜歡把 $\alpha$ 取 $2^i$, 這樣就可以把乘法器變成 shifter, 
+可以用更簡單的運算量來實作。
+這個濾波器比較不適合要觀察瞬間變化趨勢的地方, 比如說股價趨勢,
+但是應用在只需要觀察長時間平均值的地方, 比如說每分鐘心跳數的平均, 汽車或腳踏車的速度計, 
+這倒不失為一個簡單實作又有效率的濾波器。
+\begin{figure}
+  \centering
+  \include{ExpAvgTimeEqn}
+  \caption{Exponential averager diagram}
+  \label{fig:exp-avg-diagram}
+\end{figure}
+\begin{figure}
+  \centering
+  \include{ExpAvgZTrans}
+  \caption{Exponential averager z plane}
+  \label{fig:exp-avg-z-plane}
+\end{figure}
+\begin{figure}
+  \centering
+  \scalebox{0.4}{\includegraphics{ExpAvgVsAlpha}}
+  \caption{輸入為步階函數時, 不同 alpha 值的 exponential averager 的輸出圖形}
+  \label{fig:exp-avg-examples}
+\end{figure}
+\begin{figure}
+  \centering
+  \subfloat[$alpha = 0.2$]{\scalebox{0.3}{\includegraphics{ExpAvgFreq_alpha_0.2.eps}} \label{fig:exp-avg-alpha-02}}
+  \qquad
+  \subfloat[$alpha = 0.8$]{\scalebox{0.3}{\includegraphics{ExpAvgFreq_alpha_0.8.eps}} \label{fig:exp-avg-alpha-08}}
+  \caption{Exponential averager 頻率響應}
+  \label{fig:exp-avg-freq}
+\end{figure}
+
+% 在這裡各位可以思考一個問題, 在不改變圖~\ref{fig:exp-avg-diagram} 的架構下, 
+% 我們要怎麼把 exponential averager 變成 high pass filter 呢?
+% \begin{figure}
+%   \centering
+%   \scalebox{0.5}{\includegraphics{ExpAvgFreq_alpha_0.2.eps}}
+%   \caption{$\alpha=0.2$ 的 exponential averager 頻率響應}
+%   \label{fig:exp-avg-alpha-02}
+% \end{figure}
+% \begin{figure}
+%   \centering
+%   \scalebox{0.5}{\includegraphics{ExpAvgFreq_alpha_0.8.eps}}
+%   \caption{$\alpha=0.8$ 的 exponential averager 頻率響應}
+%   \label{fig:exp-avg-alpha-08}
+% \end{figure}
+
+% \section{常用動平均濾波器的分析}
+% \label{sec:filter-analysis}
+
+
+% \section{實例} % Examples
+% \label{sec:examples}
+
+\section{結語} % Conclusion
+\label{sec:conclusion}
+
+由於動平均濾波器在統計、訊號處理與股市的廣泛應用, 我們身為程式設計師一定有機會接觸到。
+而且目前全球定位系統或是感測器資料非常容易取得, 
+全球定位系統的定位資料或是感測器每次感測的數值會受大氣等等環境的干擾使得資料產生亂數的偏移, 
+這些都可以透過平均來消除這些干擾,
+是個非常實用的技巧。
+然而並非所有程式設計師都修習過數位訊號處理的理論, 因此, 筆者試圖以最少的理論介紹動平均濾波器的概念,
+其中介紹了四種濾波器, 前三種屬於簡單動平均濾波器的濾波器, 第四種屬於指數平均濾波器。
+前三種屬於簡單動平均濾波器的濾波器裡面, 第一種是最直觀實作的, 不過因為重複計算多, 運算量最大,
+第二種則是第一種的小變形, 在定點運算的時候, 減少溢位的發生機會, 如果讀者是用浮點運算來實作,
+那麼第一種與第二種是完全一樣的。
+第三種則是簡化版的簡單動平均濾波器, 筆者建議如果要實作簡單動平均濾波器的話, 以第三種來實作,
+可以大幅簡化運算量。
+第四種指數平均濾波器則比前三種更為簡單, 運算量也最少, 尤其是把乘法器以 shifter 取代之後,
+在沒有浮點運算的處理器上, 更是如魚得水。不過, 指數平均濾波器比較適合應用在變動較不頻繁的資料上,
+這點讀者要注意。
+希望這篇文章能夠讓各位在寫程式處理會亂飄動的資料的時候, 能夠知道有動平均濾波器這種武器可以使用,
+使得處理這一類資料能夠更穩定。
+%以及數種常用動平均濾波器的實作以及優缺點, 提供給有機會實作的程式設計師參考,
+%希望大家在看到動平均濾波器的時候, 能夠想起這一篇文章所簡介的概念, 並且能夠應用!
+最後, 謝謝各位耐心的把這篇文章看完!
+
+\begin{figure}
+  \centering
+  \include{Fibonacci}
+  \caption{Test}
+\end{figure}
+
+\end{document}
+% Local Variables:
+% TeX-default-extension: ctx
+% End:

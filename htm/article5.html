@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201312/htm/home.html">2013 年 12 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#開放電腦計畫-6-一顆只有-51-行-verilog-程式碼的-16-位元處理器-mcu0-作者陳鍾誠">開放電腦計畫 (6) – 一顆只有 51 行 Verilog 程式碼的 16 位元處理器 MCU0 (作者：陳鍾誠)</a></li>
+</ul>
+</div>
+<h2 id="開放電腦計畫-6-一顆只有-51-行-verilog-程式碼的-16-位元處理器-mcu0-作者陳鍾誠"><a href="#開放電腦計畫-6-一顆只有-51-行-verilog-程式碼的-16-位元處理器-mcu0-作者陳鍾誠">開放電腦計畫 (6) – 一顆只有 51 行 Verilog 程式碼的 16 位元處理器 MCU0 (作者：陳鍾誠)</a></h2>
+<h3 id="簡介"><a href="#簡介">簡介</a></h3>
+<p>在前兩期當中，我們設計出了出了CPU0 處理器的 Verilog 程式碼 ，文章網址如下：</p>
+<ul>
+<li><a href="https://dl.dropboxusercontent.com/u/101584453/pmag/201310/htm/article5.html">開放電腦計畫 (4) – CPU0mc 處理器：使用 Verilog 實作</a></li>
+<li><a href="https://dl.dropboxusercontent.com/u/101584453/pmag/201311/htm/article5.html">開放電腦計畫 (5) – 支援完整指令集的 CPU0sc 處理器：使用 Verilog 實作</a></li>
+</ul>
+<p>如果您讀過上述文章，應該已經瞭解如何用 Verilog 設計 CPU 了。</p>
+<p>但是、 CPU0 雖然已經設計的很簡單了，但其實我們還可以設計出更加簡單的處理器。在本期中、我們將提出一個 更簡易的 16 位元 CPU 微控制器，稱為 MCU0。</p>
+<h3 id="mcu0-的架構"><a href="#mcu0-的架構">MCU0 的架構</a></h3>
+<p>MCU0 是一顆 16 位元的 CPU，所有暫存器都是 16 位元的，總共有 (IR, SW, PC, A) 等四個暫存器，如下所示：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">暫存器名稱</th>
+<th align="left">功能</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">IR</td>
+<td align="left">指令暫存器</td>
+<td align="left">用來儲存從記憶體載入的機器碼指令</td>
+</tr>
+<tr class="even">
+<td align="left">PC</td>
+<td align="left">程式計數器</td>
+<td align="left">用來儲存指令的位址 (也就是目前執行到哪個指令的記憶體位址)</td>
+</tr>
+<tr class="odd">
+<td align="left">SW</td>
+<td align="left">狀態暫存器</td>
+<td align="left">用來儲存 CMP 比較指令的結果旗標，像是負旗標 N 與零旗標 Z 等。作為條件跳躍 JEQ 等指令是否跳躍的判斷依據。</td>
+</tr>
+<tr class="even">
+<td align="left">A</td>
+<td align="left">累積器</td>
+<td align="left">用來儲存計算的結果，像是加減法的結果。</td>
+</tr>
+</tbody>
+</table>
+<p>為了讓程式極度簡化，在本文中我們只實作測試程式所用到的「必要指令」，總共有 6 個，如下所示：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">代碼</th>
+<th align="left">名稱</th>
+<th align="left">格式</th>
+<th align="left">說明</th>
+<th align="left">語意</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="left">LD</td>
+<td align="left">LD C</td>
+<td align="left">載入</td>
+<td align="left">A = [C]</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">ADD</td>
+<td align="left">ADD C</td>
+<td align="left">加法</td>
+<td align="left">A = A + [C]</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">JMP</td>
+<td align="left">JMP C</td>
+<td align="left">跳躍</td>
+<td align="left">PC = C</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">ST</td>
+<td align="left">ST C</td>
+<td align="left">儲存</td>
+<td align="left">[C] = A</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">CMP</td>
+<td align="left">CMP C</td>
+<td align="left">比較</td>
+<td align="left">SW = A CMP [C]</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">JEQ</td>
+<td align="left">JEQ C</td>
+<td align="left">相等時跳躍</td>
+<td align="left">if SW[30]=Z=1 then PC = C</td>
+</tr>
+</tbody>
+</table>
+<h3 id="組合語言與機器碼"><a href="#組合語言與機器碼">組合語言與機器碼</a></h3>
+<p>以下是一個 MCU0 處理器的組合語言範例程式，該程式可以計算從 SUM=1+2+...+N 的結果。 其中第一欄是指令或資料的機器碼，註解符號 <code>//</code> 之後則是位址與組合語言。</p>
+<p>檔案： cpu16m.hex</p>
+<pre><code>00 16  // 00    LOOP:   LD    I    
+40 1A  // 02            CMP   N    
+50 12  // 04            JEQ   EXIT
+10 18  // 06            ADD   K1    
+30 16  // 08            ST    I    
+00 14  // 0A            LD    SUM    
+10 16  // 0C            ADD   I    
+30 14  // 0E            ST    SUM    
+20 00  // 10            JMP   LOOP
+20 12  // 12    EXIT:   JMP   EXIT
+00 00  // 14    SUM:    WORD  0    
+00 00  // 16    I:      WORD  0    
+00 01  // 18    K1:     WORD  1    
+00 0A  // 1A    N:      WORD  10     </code></pre>
+<p>MCU0 的指令格式很簡單，當指令被載入指令暫存器 IR 後，前四個位元 IR[15:12] 是指令代碼 (OP)，而 後 12 個位元 IR[11:0] 則是一個常數 C，該常數通常代表記憶體位址。(由於採用絕對定址，所以 MCU0 的 記憶體最大只能達 2 的 12 次方，也就是從 0 到 4095。</p>
+<p>由於指令格式只有一種，分為 4 位元的 OP 代碼與 12 位元的 C 常數，因此編碼非常容易，例如 <code>LD I</code> 這個指令， 由於 LD 的代碼為 0，而 I 的位址為 0x16，所以整個指令編碼為 0016。而對於 <code>CMP N</code> 這個指令而言，由於 CMP 的代碼為 4，變數 N 的位址為 0x1A，所以整個指令編碼為 401A。</p>
+<h3 id="verilog-程式實作"><a href="#verilog-程式實作">Verilog 程式實作</a></h3>
+<p>於是、整個 mcu0m 處理器只有短短的 51 行 Verilog 程式就實作完了，以下是全部的程式碼列表。</p>
+<p>檔案： mcu0m.v</p>
+<pre class="sourceCode verilog"><code class="sourceCode verilog"><span class="ot">`define N    SW[15] </span><span class="co">// 負號旗標</span>
+<span class="ot">`define Z    SW[14] </span><span class="co">// 零旗標</span>
+<span class="ot">`define OP   IR[15:12] </span><span class="co">// 運算碼</span>
+<span class="ot">`define C    IR[11:0]  </span><span class="co">// 常數欄位</span>
+<span class="ot">`define M    {m[`C], m[`C+1]}</span>
+
+<span class="kw">module</span> cpu(<span class="dt">input</span> clock); <span class="co">// CPU0-Mini 的快取版：cpu0mc 模組</span>
+  <span class="dt">parameter</span> [<span class="dv">3</span>:<span class="dv">0</span>] LD=<span class="bn">4&#39;h0</span>,ADD=<span class="bn">4&#39;h1</span>,JMP=<span class="bn">4&#39;h2</span>,ST=<span class="bn">4&#39;h3</span>,CMP=<span class="bn">4&#39;h4</span>,JEQ=<span class="bn">4&#39;h5</span>;
+  <span class="dt">reg</span> <span class="dt">signed</span> [<span class="dv">15</span>:<span class="dv">0</span>] A;   <span class="co">// 宣告暫存器 R[0..15] 等 16 個 32 位元暫存器</span>
+  <span class="dt">reg</span> [<span class="dv">15</span>:<span class="dv">0</span>] IR;  <span class="co">// 指令暫存器 IR</span>
+  <span class="dt">reg</span> [<span class="dv">15</span>:<span class="dv">0</span>] SW;  <span class="co">// 指令暫存器 IR</span>
+  <span class="dt">reg</span> [<span class="dv">15</span>:<span class="dv">0</span>] PC;  <span class="co">// 程式計數器</span>
+  <span class="dt">reg</span> [<span class="dv">15</span>:<span class="dv">0</span>] pc0;
+  <span class="dt">reg</span> [<span class="dv">7</span>:<span class="dv">0</span>]  m [<span class="dv">0</span>:<span class="dv">32</span>];    <span class="co">// 內部的快取記憶體</span>
+  <span class="dt">integer</span> i;  
+  <span class="kw">initial</span>  <span class="co">// 初始化</span>
+  <span class="kw">begin</span>
+    PC = <span class="dv">0</span>; <span class="co">// 將 PC 設為起動位址 0</span>
+    SW = <span class="dv">0</span>;
+    <span class="dt">$readmemh</span>(<span class="st">&quot;mcu0m.hex&quot;</span>, m);
+    <span class="kw">for</span> (i=<span class="dv">0</span>; i &lt; <span class="dv">32</span>; i=i<span class="dv">+2</span>) <span class="kw">begin</span>
+       <span class="dt">$display</span>(<span class="st">&quot;%8x: %8x&quot;</span>, i, {m[i], m[i<span class="dv">+1</span>]});
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+  
+  <span class="kw">always</span> @(<span class="kw">posedge</span> clock) <span class="kw">begin</span> <span class="co">// 在 clock 時脈的正邊緣時觸發</span>
+    IR = {m[PC], m[PC<span class="dv">+1</span>]};  <span class="co">// 指令擷取階段：IR=m[PC], 2 個 Byte 的記憶體</span>
+    pc0= PC;                <span class="co">// 儲存舊的 PC 值在 pc0 中。</span>
+    PC = PC<span class="dv">+2</span>;              <span class="co">// 擷取完成，PC 前進到下一個指令位址</span>
+    <span class="kw">case</span> (<span class="ot">`OP</span>)              <span class="co">// 解碼、根據 OP 執行動作</span>
+      <span class="dv">LD:</span> A = <span class="ot">`M</span>;         <span class="co">// LD C</span>
+      <span class="dv">ST:</span> <span class="ot">`M</span> = A;             <span class="co">// ST C</span>
+      <span class="dv">CMP:</span> <span class="kw">begin</span> <span class="ot">`N</span>=(A &lt; <span class="ot">`M</span>); <span class="ot">`Z</span>=(A==<span class="ot">`M</span>); <span class="kw">end</span> <span class="co">// CMP C</span>
+      <span class="dv">ADD:</span> A = A + <span class="ot">`M</span>;    <span class="co">// ADD C</span>
+      <span class="dv">JMP:</span> PC = <span class="ot">`C</span>;       <span class="co">// JMP C</span>
+      <span class="dv">JEQ:</span> <span class="kw">if</span> (<span class="ot">`Z</span>) PC=<span class="ot">`C</span>;     <span class="co">// JEQ C</span>
+    <span class="kw">endcase</span>
+    <span class="co">// 印出 PC, IR, SW, A 等暫存器值以供觀察</span>
+    <span class="dt">$display</span>(<span class="st">&quot;%4dns PC=%x IR=%x, SW=%x, A=%d&quot;</span>, <span class="dt">$stime</span>, pc0, IR, SW, A); 
+  <span class="kw">end</span>
+<span class="kw">endmodule</span>
+
+<span class="kw">module</span> main;                <span class="co">// 測試程式開始</span>
+<span class="dt">reg</span> clock;                  <span class="co">// 時脈 clock 變數</span>
+
+cpu cpux(clock);            <span class="co">// 宣告 cpu0mc 處理器</span>
+
+<span class="kw">initial</span> clock = <span class="dv">0</span>;          <span class="co">// 一開始 clock 設定為 0</span>
+<span class="kw">always</span> <span class="bn">#10</span> clock=~clock;    <span class="co">// 每隔 10ns 反相，時脈週期為 20ns</span>
+<span class="kw">initial</span> <span class="bn">#2000</span> <span class="dt">$finish</span>;      <span class="co">// 在 2000 奈秒的時候停止測試。</span>
+<span class="kw">endmodule</span></code></pre>
+<h3 id="執行結果"><a href="#執行結果">執行結果</a></h3>
+<p>上述程式以 mcu0m.hex 這個 16 進位的機器碼檔作為輸入，其編譯執行結果如下：</p>
+<pre><code>C:\Dropbox\Public\web\oc\code\mcu&gt;iverilog -o mcu0m mcu0m.v
+
+C:\Dropbox\Public\web\oc\code\mcu&gt;vvp mcu0m
+WARNING: mcu0m.v:20: $readmemh(mcu0m.hex): Not enough words in the file for the
+requested range [0:32].
+00000000:     0016
+00000002:     401a
+00000004:     5012
+00000006:     1018
+00000008:     3016
+0000000a:     0014
+0000000c:     1016
+0000000e:     3014
+00000010:     2000
+00000012:     2012
+00000014:     0000
+00000016:     0000
+00000018:     0001
+0000001a:     000a
+0000001c:     xxxx
+0000001e:     xxxx
+  10ns PC=0000 IR=0016, SW=0000, A=     0
+  30ns PC=0002 IR=401a, SW=8000, A=     0
+  50ns PC=0004 IR=5012, SW=8000, A=     0
+  70ns PC=0006 IR=1018, SW=8000, A=     1
+  90ns PC=0008 IR=3016, SW=8000, A=     1
+ 110ns PC=000a IR=0014, SW=8000, A=     0
+ 130ns PC=000c IR=1016, SW=8000, A=     1
+ 150ns PC=000e IR=3014, SW=8000, A=     1
+ 170ns PC=0010 IR=2000, SW=8000, A=     1
+ 190ns PC=0000 IR=0016, SW=8000, A=     1
+ 210ns PC=0002 IR=401a, SW=8000, A=     1
+ 230ns PC=0004 IR=5012, SW=8000, A=     1
+ 250ns PC=0006 IR=1018, SW=8000, A=     2
+ 270ns PC=0008 IR=3016, SW=8000, A=     2
+ 290ns PC=000a IR=0014, SW=8000, A=     1
+ 310ns PC=000c IR=1016, SW=8000, A=     3
+ 330ns PC=000e IR=3014, SW=8000, A=     3
+ 350ns PC=0010 IR=2000, SW=8000, A=     3
+ 370ns PC=0000 IR=0016, SW=8000, A=     2
+ 390ns PC=0002 IR=401a, SW=8000, A=     2
+ 410ns PC=0004 IR=5012, SW=8000, A=     2
+ 430ns PC=0006 IR=1018, SW=8000, A=     3
+ 450ns PC=0008 IR=3016, SW=8000, A=     3
+ 470ns PC=000a IR=0014, SW=8000, A=     3
+ 490ns PC=000c IR=1016, SW=8000, A=     6
+ 510ns PC=000e IR=3014, SW=8000, A=     6
+ 530ns PC=0010 IR=2000, SW=8000, A=     6
+ 550ns PC=0000 IR=0016, SW=8000, A=     3
+ 570ns PC=0002 IR=401a, SW=8000, A=     3
+ 590ns PC=0004 IR=5012, SW=8000, A=     3
+ 610ns PC=0006 IR=1018, SW=8000, A=     4
+ 630ns PC=0008 IR=3016, SW=8000, A=     4
+ 650ns PC=000a IR=0014, SW=8000, A=     6
+ 670ns PC=000c IR=1016, SW=8000, A=    10
+ 690ns PC=000e IR=3014, SW=8000, A=    10
+ 710ns PC=0010 IR=2000, SW=8000, A=    10
+ 730ns PC=0000 IR=0016, SW=8000, A=     4
+ 750ns PC=0002 IR=401a, SW=8000, A=     4
+ 770ns PC=0004 IR=5012, SW=8000, A=     4
+ 790ns PC=0006 IR=1018, SW=8000, A=     5
+ 810ns PC=0008 IR=3016, SW=8000, A=     5
+ 830ns PC=000a IR=0014, SW=8000, A=    10
+ 850ns PC=000c IR=1016, SW=8000, A=    15
+ 870ns PC=000e IR=3014, SW=8000, A=    15
+ 890ns PC=0010 IR=2000, SW=8000, A=    15
+ 910ns PC=0000 IR=0016, SW=8000, A=     5
+ 930ns PC=0002 IR=401a, SW=8000, A=     5
+ 950ns PC=0004 IR=5012, SW=8000, A=     5
+ 970ns PC=0006 IR=1018, SW=8000, A=     6
+ 990ns PC=0008 IR=3016, SW=8000, A=     6
+1010ns PC=000a IR=0014, SW=8000, A=    15
+1030ns PC=000c IR=1016, SW=8000, A=    21
+1050ns PC=000e IR=3014, SW=8000, A=    21
+1070ns PC=0010 IR=2000, SW=8000, A=    21
+1090ns PC=0000 IR=0016, SW=8000, A=     6
+1110ns PC=0002 IR=401a, SW=8000, A=     6
+1130ns PC=0004 IR=5012, SW=8000, A=     6
+1150ns PC=0006 IR=1018, SW=8000, A=     7
+1170ns PC=0008 IR=3016, SW=8000, A=     7
+1190ns PC=000a IR=0014, SW=8000, A=    21
+1210ns PC=000c IR=1016, SW=8000, A=    28
+1230ns PC=000e IR=3014, SW=8000, A=    28
+1250ns PC=0010 IR=2000, SW=8000, A=    28
+1270ns PC=0000 IR=0016, SW=8000, A=     7
+1290ns PC=0002 IR=401a, SW=8000, A=     7
+1310ns PC=0004 IR=5012, SW=8000, A=     7
+1330ns PC=0006 IR=1018, SW=8000, A=     8
+1350ns PC=0008 IR=3016, SW=8000, A=     8
+1370ns PC=000a IR=0014, SW=8000, A=    28
+1390ns PC=000c IR=1016, SW=8000, A=    36
+1410ns PC=000e IR=3014, SW=8000, A=    36
+1430ns PC=0010 IR=2000, SW=8000, A=    36
+1450ns PC=0000 IR=0016, SW=8000, A=     8
+1470ns PC=0002 IR=401a, SW=8000, A=     8
+1490ns PC=0004 IR=5012, SW=8000, A=     8
+1510ns PC=0006 IR=1018, SW=8000, A=     9
+1530ns PC=0008 IR=3016, SW=8000, A=     9
+1550ns PC=000a IR=0014, SW=8000, A=    36
+1570ns PC=000c IR=1016, SW=8000, A=    45
+1590ns PC=000e IR=3014, SW=8000, A=    45
+1610ns PC=0010 IR=2000, SW=8000, A=    45
+1630ns PC=0000 IR=0016, SW=8000, A=     9
+1650ns PC=0002 IR=401a, SW=8000, A=     9
+1670ns PC=0004 IR=5012, SW=8000, A=     9
+1690ns PC=0006 IR=1018, SW=8000, A=    10
+1710ns PC=0008 IR=3016, SW=8000, A=    10
+1730ns PC=000a IR=0014, SW=8000, A=    45
+1750ns PC=000c IR=1016, SW=8000, A=    55
+1770ns PC=000e IR=3014, SW=8000, A=    55
+1790ns PC=0010 IR=2000, SW=8000, A=    55
+1810ns PC=0000 IR=0016, SW=8000, A=    10
+1830ns PC=0002 IR=401a, SW=4000, A=    10
+1850ns PC=0004 IR=5012, SW=4000, A=    10
+1870ns PC=0012 IR=2012, SW=4000, A=    10
+1890ns PC=0012 IR=2012, SW=4000, A=    10
+1910ns PC=0012 IR=2012, SW=4000, A=    10
+1930ns PC=0012 IR=2012, SW=4000, A=    10
+1950ns PC=0012 IR=2012, SW=4000, A=    10
+1970ns PC=0012 IR=2012, SW=4000, A=    10
+1990ns PC=0012 IR=2012, SW=4000, A=    10</code></pre>
+<p>您可以看到在 1750ns 的時候，程式執行到 PC=000C 這行，也就是下列的 ADD I，計算出了 1+2+...+10 的結果， 也就是 55，然後 ST SUM 將 55 存入 SUM 中，接著 JMP LOOP 跳回 PC=0000 的 LOOP: LD I 繼續執行，然後 CMP N 指令將載入到 A 暫存器的 I 值 (10) 與 N 的值 (10) 作比較，於是在 JEQ 指令時由於兩者已經相等，於是就跳到 EXIT 標記的 0012 去執行。</p>
+<p>但是位於 EXIT 的指令是 JMP EXIT，也就是一個無窮迴圈程式，因此程式會不斷在 0012 這個位址重複執行，直到 2000ns 的時候被 $finish 強制結束。</p>
+<pre><code>00 16  // 00    LOOP:   LD    I    
+40 1A  // 02            CMP   N    
+50 12  // 04            JEQ   EXIT
+10 18  // 06            ADD   K1    
+30 16  // 08            ST    I    
+00 14  // 0A            LD    SUM    
+10 16  // 0C            ADD   I    
+30 14  // 0E            ST    SUM    
+20 00  // 10            JMP   LOOP
+20 12  // 12    EXIT:   JMP   EXIT
+00 00  // 14    SUM:    WORD  0    
+00 00  // 16    I:      WORD  0    
+00 01  // 18    K1:     WORD  1    
+00 0A  // 1A    N:      WORD  10     </code></pre>
+<h3 id="結語"><a href="#結語">結語</a></h3>
+<p>雖然在前兩期當中，我們已經設計了一顆完整的 32 位元處理器 CPU0，但是該處理器的指令格式有三種， 即使設計已經相當簡單，但是筆者發現還是有些讀者無法理解，因此在本期當中我們又設計了一顆更簡單的 16 位元處理器 MCU0，並且實作了其中 6 個指令，完成了一個可以進行 SUM=1+2+...+N 的程式，希望透過 這樣的簡化，可以讓讀者們更容易理解一顆 CPU 的設計原理。</p>
+<p>在本學期筆者教授計算機結構課程的過程當中，我發現透過 16 位元 MCU0 的對照，可以更容易的讓學生瞭解 處理器的設計方式，因為若只教 32 位元處理器 CPU0 的設計，學生很難理解還有甚麼樣的方式可以設計 「另一種指令集與 CPU」，但是加入了 MCU0 之後，由於有 「16 位元 vs. 32 位元」、「單一指令格式 vs. 多種指令格式」 與「單一累積暫存器 vs. 16 個通用暫存器」的區別，學生們會更容易瞭解不同設計背後的優缺點，也才能有 足夠的背景知識可以完成他們的期末作業 -- 「自己設計一顆處理器的指令集、Verilog 程式，並用 Icarus 進行測試」 的任務。</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

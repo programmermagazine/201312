@@ -1,0 +1,9 @@
+#!/bin/bash
+cwtex Intro-Moving-Avg
+latex Intro-Moving-Avg
+echo ''
+echo ''
+echo ''
+latex Intro-Moving-Avg
+dvips Intro-Moving-Avg.dvi
+ps2pdf Intro-Moving-Avg.ps

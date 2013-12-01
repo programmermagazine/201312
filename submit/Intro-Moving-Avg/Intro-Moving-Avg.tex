@@ -1,0 +1,417 @@
+\input cinput.tex    %\documentclass[dvips,letterpaper,11pt]{article}
+\documentclass[dvips,a4paper,11pt]{article}
+
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{pstricks}
+\usepackage{pst-sigsys}
+\usepackage{pst-plot}
+\usepackage[dvips]{graphicx}
+\usepackage{subfig}
+\usepackage{latexsym}
+
+%\voffset=-1.5cm
+%\textheight=9.4in
+
+\renewcommand{\baselinestretch}{1.5}
+
+\renewcommand{\tablename}{{\McQ\cH91}}
+\renewcommand{\figurename}{{\MaQ\cH199}}
+
+\title{{\MgQ\cH187}\z{\McQ\cH125}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}}
+\author{{\McQ\cH244}\z{\MdQ\cH63}\z{\MdQ\cH94}\\
+\texttt{jjhuang {\textless}jiunjie.huang@gmail.com{\textgreater}}}
+\begin{document}
+\maketitle
+
+\section{{\McQ\cH21}\z{\MdQ\cH28}} % Introduction 
+\label{sec:intro}
+
+{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}~(moving average filter) {\MaQ\cH170}\z{\McQ\cH122}\z{\MbQ\cH117}\z{\MaQ\cH48}\z{\MbQ\cH228}\z{\MaQ\cH44}\z{\MaQ\cH85}\z{\MbQ\cH224}\z{\MbQ\cH124}\z{\MbQ\cH27}\z{\MgQ\cH152}\z{\MbQ\cH237}\z{\McQ\cH248}\z{\McQ\cH7}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH55};
+{\MaQ\cH202}\z{\MiQ\cH36}\z{\MbQ\cH13}\z{\MiQ\cH179}\z{\McQ\cH222}, {\MbQ\cH169}\z{\MaQ\cH217}\z{\McQ\cH183}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH245}\z{\MaQ\cH131}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MbQ\cH64}\z{\MbQ\cH224}, {\MiQ\cH36}\z{\MaQ\cH103}\z{\MjQ\cH25}\z{\MaQ\cH145}\z{\MaQ\cH199}\z{\MiQ\cH179}\z{\McQ\cH222}\z{\MbQ\cH237}\z{\MjQ\cH85}\z{\McQ\cH40}{\MaQ\cH2} {\MbQ\cH126}\z{\McQ\cH40}\z{\McQ\cH68}\z{\MbQ\cH20}\z{\McQ\cH40}, 
+{\McQ\cH183}\z{\MbQ\cH117}\z{\McQ\cH197}\z{\MbQ\cH25}\z{\MaQ\cH46}\z{\McQ\cH16}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MaQ\cH199}\z{\MbQ\cH36}{\MaQ\cH1}\zZ{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH202}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\MaQ\cH54}\z{\MbQ\cH39}\z{\MbQ\cH18}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH162}\z{\MbQ\cH127}\z{\MbQ\cH94}\z{\MhQ\cH48}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}{\MaQ\cH1}\zZ
+{\MbQ\cH226}\z{\MbQ\cH107}\z{\MeQ\cH133}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\MbQ\cH27}\z{\MgQ\cH152}, {\McQ\cH114}\z{\MaQ\cH214}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\McQ\cH113}\z{\McQ\cH108}\z{\MbQ\cH15}\z{\MaQ\cH54}\z{\McQ\cH114}\z{\MbQ\cH179}\z{\MbQ\cH127}\z{\MaQ\cH94}\z{\McQ\cH172}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH237}\z{\McQ\cH123}\z{\McQ\cH6}, {\MaQ\cH46}\z{\MhQ\cH7}\z{\MfQ\cH50}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MaQ\cH125}\z{\MgQ\cH38}\z{\MbQ\cH106}\z{\MbQ\cH31}, 
+{\MaQ\cH79}\z{\MbQ\cH117}\z{\MaQ\cH162}\z{\McQ\cH219}\z{\McQ\cH98}\z{\MeQ\cH159}\z{\McQ\cH165}\z{\MbQ\cH154}\z{\MbQ\cH237}\z{\McQ\cH6}\z{\MbQ\cH31}{\MaQ\cH1}\zZ{\MaQ\cH196}\z{\MbQ\cH164}, {\MaQ\cH202}\z{\McQ\cH165}\z{\McQ\cH248}\z{\MhQ\cH185}\z{\MbQ\cH100}\z{\McQ\cH14}\z{\MaQ\cH50}, {\MhQ\cH176}\z{\McQ\cH54}\z{\MaQ\cH248}\z{\MbQ\cH125}\z{\MdQ\cH106}\z{\McQ\cH190}\z{\MaQ\cH74}\z{\MaQ\cH245}\z{\MaQ\cH87}\z{\MaQ\cH86}\z{\MdQ\cH28}\z{\MhQ\cH220}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MbQ\cH150}\z{\MbQ\cH49},
+{\MbQ\cH22}\z{\McQ\cH7}\z{\MaQ\cH46}\z{\MaQ\cH176}\z{\MbQ\cH237}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH106}\z{\MbQ\cH31}\z{\MaQ\cH74}\z{\MaQ\cH163}\z{\MaQ\cH105}\z{\MhQ\cH255}\z{\McQ\cH245}{\MaQ\cH1}\zZ
+%在第~\ref{sec:implement-moving-average} 節中, 
+%並以理論最少的方式來介紹數種常用的數位濾波器, 讓讀者有個概念。
+%在第~\ref{sec:filter-analysis} 中則補足常用數位濾波器的分析, 
+%對於數位訊號處理理論不熟的讀者, 可以暫時跳過此節而不影響了解此篇文章。
+
+% 在這一篇文章, 筆者將會介紹四種常用的動平均律波器, 其中, 兩種屬
+% 於 FIR(Finite Impulse response Filter), 兩種屬於 IIR(Infinite Impluse
+% response Filter). 對於每一種濾波器, 除了介紹功能以外, 筆者也會介紹運算量與實作時的考量。
+{\MbQ\cH124}\z{\MbQ\cH242}\z{\McQ\cH104}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\MbQ\cH231}\z{\MbQ\cH5}\z{\MbQ\cH107} simple moving average~(SMA) {\MaQ\cH55}, 
+{\MaQ\cH54}\z{\MbQ\cH117}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\MaQ\cH202}\z{\MiQ\cH36}\z{\MbQ\cH13}\z{\MaQ\cH74}\z{\MaQ\cH163}\z{\MbQ\cH39}\z{\MaQ\cH214}\z{\McQ\cH36}\z{\McQ\cH108}\z{\MaQ\cH44}\z{\McQ\cH222}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}{\MaQ\cH1}\zZ SMA {\MbQ\cH237}\z{\MaQ\cH236}\z{\McQ\cH50}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH166}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MaQ\cH53}\z{\MaQ\cH135}\z{\MbQ\cH237} N {\MaQ\cH95}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\MbQ\cH237}\z{\McQ\cH221}\z{\MbQ\cH158}\z{\McQ\cH189}\z{\MbQ\cH19}\z{\MaQ\cH204}{\MaQ\cH1}\zZ
+% 前兩種都屬於簡單動平均濾波器(SMA, simple moving average), 亦即取前 N 個取樣的非權重平均。
+{\MbQ\cH224}\z{\MbQ\cH98}\z{\MaQ\cH231}\z{\MbQ\cH31}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH237}\z{\McQ\cH117}, {\MaQ\cH255}\z{\MbQ\cH117}
+\begin{equation}
+  \label{eq:sma}
+  SMA  =  \frac{x_n + x_{n-1} + x_{n-2} + ... + x_{n-N+1}}{N}
+\end{equation}
+{\MbQ\cH67}\z{\MbQ\cH117}\z{\MaQ\cH202}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MaQ\cH44}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MfQ\cH85}\z{\MbQ\cH224}\z{\MaQ\cH74}\z{\MaQ\cH45}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MeQ\cH30}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH31}
+\begin{equation}
+  \label{eq:sma-time-domain}
+  y(n)  =  \frac{x(n) + x(n-1) + x(n-2) + ... + x(n-N+1)}{N}  
+\end{equation}
+{\MaQ\cH119}\z{\MaQ\cH50}, $y(n)$ {\MaQ\cH72}\z{\McQ\cH91}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}, {\McQ\cH55} $x(n)$ {\MaQ\cH72}\z{\McQ\cH91}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}{\MaQ\cH1}\zZ
+{\McQ\cH165}\z{\MaQ\cH95}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\MaQ\cH202}\z{\MiQ\cH36}\z{\MbQ\cH13}\z{\MiQ\cH179}, {\MaQ\cH255}\z{\MbQ\cH117}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH202}\z{\MiQ\cH36}\z{\McQ\cH0}\z{\MbQ\cH13}\z{\MaQ\cH210}\z{\MiQ\cH179}\z{\MbQ\cH18}\z{\MbQ\cH18}\z{\MbQ\cH245}\z{\MaQ\cH131}\z{\MbQ\cH237}\z{\MgQ\cH19}\z{\McQ\cH40}\z{\MaQ\cH199}, {\MaQ\cH224}\z{\MjQ\cH85}\z{\McQ\cH40}{\MaQ\cH2} {\MbQ\cH126}\z{\McQ\cH40}\z{\McQ\cH68}\z{\MbQ\cH20}\z{\McQ\cH40},
+{\MaQ\cH125}\z{\MaQ\cH129}\z{\MbQ\cH117} N=7, N=30, N=365 {\MbQ\cH237}\z{\MbQ\cH169}\z{\MbQ\cH110}\z{\MbQ\cH89}\z{\MhQ\cH98}\z{\MaQ\cH103}\z{\MbQ\cH143}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MaQ\cH199}\z{\MbQ\cH36}{\MaQ\cH1}\zZ
+
+{\MaQ\cH85}\z{\MbQ\cH224}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH86}\z{\MbQ\cH36}\z{\MkQ\cH217}~(shape) {\MdQ\cH53}\z{\MbQ\cH237}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\MbQ\cH237}\z{\MbQ\cH241}\z{\MbQ\cH237}, {\McQ\cH166}\z{\MbQ\cH18}\z{\McQ\cH183}\z{\MbQ\cH117}\z{\MbQ\cH209}\z{\MaQ\cH55}\z{\McQ\cH98}\z{\MiQ\cH233}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\MbQ\cH237}\z{\McQ\cH189}\z{\McQ\cH245}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\MdQ\cH215}\z{\MbQ\cH219}\z{\MaQ\cH124}\z{\MaQ\cH86}, {\MbQ\cH170}\z{\MbQ\cH106}\z{\McQ\cH122},
+{\MiQ\cH36}\z{\MbQ\cH13}\z{\MbQ\cH237}\z{\MgQ\cH154}\z{\MaQ\cH141}\z{\MbQ\cH18}\z{\MbQ\cH18}\z{\MbQ\cH127}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH48}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}, {\McQ\cH68}\z{\MfQ\cH77}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}, {\McQ\cH55}\z{\MbQ\cH70}\z{\McQ\cH130}\z{\MbQ\cH237}\z{\MfQ\cH77}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\McQ\cH119}\z{\MbQ\cH209}\z{\McQ\cH181}\z{\MbQ\cH117}\z{\McQ\cH197}\z{\MbQ\cH130}\z{\MbQ\cH237}\z{\MjQ\cH25}\z{\MaQ\cH145},
+{\MbQ\cH117}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MbQ\cH59}\z{\McQ\cH98}\z{\McQ\cH104}\z{\MaQ\cH244}\z{\MbQ\cH237}\z{\McQ\cH189}\z{\McQ\cH245}, {\MbQ\cH70}\z{\MaQ\cH74}\z{\MaQ\cH248}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\MaQ\cH202}\z{\MbQ\cH169}\z{\MbQ\cH110}\z{\MbQ\cH89}\z{\MhQ\cH98}\z{\MaQ\cH103}\z{\MbQ\cH143}\z{\MaQ\cH44}, {\MaQ\cH248} {\MaQ\cH3}{\MbQ\cH48}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}\z{\MrQ\cH6}\z{\MfQ\cH165}{\MaQ\cH4}, 
+{\MaQ\cH92}\z{\MhQ\cH71}\z{\MfQ\cH77}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}, {\MaQ\cH255}\z{\MbQ\cH65}\z{\MaQ\cH55}\z{\MjQ\cH85}\z{\McQ\cH40}{\MaQ\cH2} {\MbQ\cH126}\z{\McQ\cH40}\z{\McQ\cH68}\z{\MbQ\cH20}\z{\McQ\cH40}\z{\MaQ\cH55}{\MaQ\cH1}\zZ
+{\MaQ\cH74}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH220}\z{\McQ\cH127}\z{\MaQ\cH86}\z{\McQ\cH122}, {\McQ\cH181}\z{\MaQ\cH60}\z{\MfQ\cH77}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MbQ\cH78}\z{\MaQ\cH81}\z{\MjQ\cH228}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}, {\MbQ\cH48}\z{\McQ\cH167}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}, 
+{\MaQ\cH196}\z{\MbQ\cH164}\z{\MaQ\cH74}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH237}\z{\McQ\cH88}\z{\McQ\cH120}\z{\MaQ\cH86}\z{\McQ\cH122}, {\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH81}\z{\McQ\cH166}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}~(low pass filter),
+{\MbQ\cH60}\z{\MbQ\cH50}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH81}\z{\MjQ\cH228}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\McQ\cH166}\z{\McQ\cH172}\z{\MbQ\cH237}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\McQ\cH55}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}\z{\MaQ\cH255}\z{\McQ\cH92}\z{\McQ\cH172}\z{\MrQ\cH6}\z{\MfQ\cH165}\z{\MaQ\cH55}{\MaQ\cH1}\zZ
+{\MaQ\cH162}\z{\MbQ\cH170}\z{\MbQ\cH106}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\McQ\cH91}\z{\MjQ\cH233}\z{\MbQ\cH253}\z{\MbQ\cH169}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\MhQ\cH48}\z{\MbQ\cH117}\z{\MbQ\cH224}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MdQ\cH77}, {\McQ\cH55}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MbQ\cH248}\z{\McQ\cH173}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\MbQ\cH169}\z{\MbQ\cH22}\z{\MhQ\cH148}\z{\MjQ\cH160}\z{\McQ\cH112}\z{\MjQ\cH147}\z{\McQ\cH248}\z{\MbQ\cH159}\z{\MbQ\cH237}\z{\McQ\cH117}, {\McQ\cH248}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MiQ\cH179}\z{\McQ\cH222}\z{\MbQ\cH125}\z{\MbQ\cH127}\z{\MaQ\cH44}\z{\MaQ\cH44}\z{\MaQ\cH45}\z{\MaQ\cH45}\z{\MbQ\cH237}\z{\McQ\cH137}\z{\MaQ\cH147},
+{\MaQ\cH46}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MbQ\cH242}\z{\McQ\cH38}\z{\MbQ\cH77}\z{\MaQ\cH202}\z{\MgQ\cH47}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MdQ\cH77}, {\MbQ\cH169}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\MhQ\cH48}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MiQ\cH179}\z{\McQ\cH222}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\MbQ\cH237}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MbQ\cH98}\z{\MdQ\cH77}, {\MaQ\cH74}\z{\MbQ\cH106}\z{\MaQ\cH90}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH202}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\McQ\cH91}\z{\MaQ\cH44}\z{\MjQ\cH233}\z{\MbQ\cH253}\z{\MaQ\cH124}\z{\MaQ\cH86},
+{\MaQ\cH79}\z{\MbQ\cH117}\z{\MaQ\cH74}\z{\MbQ\cH169}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MbQ\cH237}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MbQ\cH98}\z{\MdQ\cH77}\z{\MjQ\cH233}\z{\MbQ\cH253}\z{\MaQ\cH124}\z{\MaQ\cH86}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\MaQ\cH224}\z{\MbQ\cH139}\z{\MdQ\cH53}\z{\MbQ\cH179}\z{\MbQ\cH127}\z{\MbQ\cH39}\z{\MaQ\cH215}\z{\MbQ\cH237}\z{\McQ\cH171}\z{\MaQ\cH141}\z{\McQ\cH137}\z{\MaQ\cH147}, {\MbQ\cH169}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\MhQ\cH48}\z{\MbQ\cH117}\z{\McQ\cH38}\z{\MbQ\cH77}\z{\MaQ\cH202}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH236}\z{\MdQ\cH77}\z{\MbQ\cH237}{\MaQ\cH1}\zZ
+
+
+\section{{\MbQ\cH18}\z{\MbQ\cH224}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}} % _Implementation Aspects of Moving Average Filters_
+\label{sec:implement-moving-average}
+
+{\MaQ\cH202}\z{\MbQ\cH133}\z{\McQ\cH20}\z{\MaQ\cH50}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MbQ\cH125}\z{\MdQ\cH28}\z{\MhQ\cH220}\z{\McQ\cH251}\z{\McQ\cH7}\z{\MbQ\cH18}\z{\McQ\cH99}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\MaQ\cH135}\z{\MaQ\cH115}\z{\McQ\cH7}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH242}\z{\MbQ\cH81}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MaQ\cH55}\z{\MaQ\cH44}\z{\McQ\cH248}\z{\McQ\cH20}\z{\MbQ\cH70}\z{\MfQ\cH183}\z{\MjQ\cH72}\z{\MbQ\cH237} SMA {\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194},
+{\McQ\cH165}\z{\MaQ\cH115}\z{\McQ\cH7}\z{\MdQ\cH201}\z{\MbQ\cH127}\z{\MaQ\cH252}\z{\McQ\cH182}\z{\MaQ\cH125}\z{\MbQ\cH237}\z{\MeQ\cH207}\z{\MbQ\cH230}{\MaQ\cH1}\zZ{\McQ\cH55}\z{\McQ\cH15}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MbQ\cH117} SMA {\MbQ\cH237}\z{\McQ\cH137}\z{\MbQ\cH36}, {\MeQ\cH249}\z{\McQ\cH170}\z{\MaQ\cH55}\z{\MeQ\cH7}\z{\MfQ\cH164}\z{\MbQ\cH237}\z{\MbQ\cH150}\z{\MbQ\cH49}\z{\MaQ\cH86}\z{\McQ\cH21}\z{\MaQ\cH147}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}\z{\MiQ\cH181}\z{\MjQ\cH198}\z{\MbQ\cH25}, 
+{\MaQ\cH196}\z{\MbQ\cH164}\z{\MaQ\cH135}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MbQ\cH27}\z{\McQ\cH50}\z{\MaQ\cH44}\z{\McQ\cH183}\z{\MbQ\cH117} SMA {\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MaQ\cH245}\z{\MaQ\cH84}{\MaQ\cH1}\zZ
+{\McQ\cH15}\z{\McQ\cH251}\z{\McQ\cH7}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\McQ\cH98}\z{\MdQ\cH28}\z{\MhQ\cH220}\z{\MbQ\cH237}\z{\MbQ\cH117}\z{\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\McQ\cH68}\z{\MaQ\cH135}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MaQ\cH46}\z{\MaQ\cH216}\z{\McQ\cH248}\z{\MbQ\cH154}, {\MaQ\cH79}\z{\MbQ\cH117}\z{\MbQ\cH127}\z{\McQ\cH79}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MbQ\cH237}\z{\MaQ\cH223}\z{\McQ\cH84}{\MaQ\cH1}\zZ
+
+{\MaQ\cH202}\z{\MaQ\cH236}\z{\McQ\cH245}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MiQ\cH179}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MbQ\cH127}\z{\MaQ\cH115}\z{\McQ\cH7}\z{\MbQ\cH242}\z{\MbQ\cH81}\z{\MaQ\cH245}\z{\MaQ\cH84} SMA {\MbQ\cH237}\z{\MbQ\cH106}\z{\MbQ\cH182}, 
+{\McQ\cH15}\z{\McQ\cH248}\z{\McQ\cH7}\z{\MaQ\cH255}\z{\MaQ\cH224}\z{\MaQ\cH44}\z{\McQ\cH248}\z{\McQ\cH20}\z{\MaQ\cH50}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}~\ref{eq:sma-time-domain} {\MfQ\cH183}\z{\MjQ\cH72}\z{\MbQ\cH237}\z{\MbQ\cH31}\z{\MaQ\cH228}, {\MaQ\cH108}\z{\MaQ\cH100}\z{\MaQ\cH139}\z{\McQ\cH44}, 
+{\MaQ\cH121}\z{\McQ\cH206}\z{\MaQ\cH74} N {\MaQ\cH86}\z{\MbQ\cH41}\z{\MaQ\cH131}\z{\McQ\cH33}\z{\MbQ\cH139}{\MaQ\cH1}\zZ
+% 其 z-transform equation 是 
+% \begin{equation}
+%   \label{eq:moving-average-pre}
+%   %Y(z) = \frac{X(z) \times z^{-N+1} + X(z) \times z^{-N+2} + ... + X(z)}{N}
+%   Y(z) = \frac{X(z) + X(z) \times z^{-1} + X(z) \times z^{-2} + ... + X(z) \times z^{-N+1}}{N}
+% \end{equation}
+% or
+% \begin{equation}
+%   \label{eq:moving-average}
+%   H(z) = \frac{Y(z)}{X(z)} = \frac{1 + z^{-1} + z^{-2} + ... + z^{-N+1}}{N}
+% \end{equation}
+% 我們以 N=4 為例子說明這個濾波器, 其時域以及 z-transform 分別如方程式~\ref{eq:ma-n-4-time} 及 \ref{eq:ma-n-4-z-trans} 所示。
+% \begin{eqnarray}
+%   \label{eq:ma-n-4-time}
+%   y(n)  & = &  \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4}\\
+%   \label{eq:ma-n-4-z-trans}
+%   H(z)  & = & \frac{Y(z)}{X(z)} = \frac{1 + z^{-1} + z^{-2} + z^{-3}}{4}
+% \end{eqnarray}
+{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH74} N=4 {\MbQ\cH209}\z{\MaQ\cH87}\z{\MaQ\cH228}\z{\McQ\cH122}\z{\MbQ\cH112}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\MaQ\cH119}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\MbQ\cH125}\z{\MbQ\cH117}:
+\begin{equation}
+  \label{eq:ma-n-4-time}
+  y(n) = \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4}
+\end{equation}
+{\MaQ\cH99}\z{\McQ\cH113}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\McQ\cH104}\z{\MaQ\cH244}\z{\MbQ\cH237}\z{\MbQ\cH117}\z{\MjQ\cH246}\z{\MbQ\cH28}\z{\MbQ\cH169}\z{\MaQ\cH154}\z{\MaQ\cH252}\z{\MbQ\cH118}\z{\MbQ\cH237}\z{\MjQ\cH232}\z{\MaQ\cH238}\z{\MaQ\cH65}\z{\MbQ\cH98}, 
+{\MaQ\cH224}\z{\McQ\cH91}~\ref{tbl:sma-example} {\MaQ\cH50}\z{\MbQ\cH237} {\MaQ\cH3}{\McQ\cH157}\z{\MaQ\cH112}{\MaQ\cH4} {\MgQ\cH104}\z{\MaQ\cH80}\z{\MbQ\cH70}\z{\MbQ\cH253}, 
+{\MaQ\cH3}{\McQ\cH157}\z{\MaQ\cH124}{\MaQ\cH4} {\MgQ\cH104}\z{\MaQ\cH80}\z{\MbQ\cH70}\z{\MbQ\cH253}\z{\MbQ\cH237}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH165}\z{\MaQ\cH95} N=4 {\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MeQ\cH229}\z{\MaQ\cH127}, {\McQ\cH108}\z{\McQ\cH18}\z{\MbQ\cH106}\z{\MbQ\cH31}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH89}\z{\MbQ\cH206}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}~\ref{eq:ma-n-4-time}, {\MaQ\cH74} x(n) {\MbQ\cH209}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\McQ\cH157}\z{\MaQ\cH112}, y(n) {\MbQ\cH209}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}, {\MaQ\cH74}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MbQ\cH209} 20 {\McQ\cH181}\z{\McQ\cH248}\z{\MgQ\cH104}\z{\MbQ\cH209}\z{\MaQ\cH87}, {\McQ\cH165}\z{\MbQ\cH118}\z{\MaQ\cH96}
+\begin{eqnarray*}
+  x(n) & = & 20 \\
+  x(n-1) & = & 10 \\
+  x(n-2) & = & 0 \\
+  x(n-3) & = & 0 \\
+  y(n) & = & \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4} = \frac{20 + 10 + 0 + 0}{4} = 7.5
+\end{eqnarray*}
+\begin{table}
+  \tiny
+  \caption{{\MjQ\cH246}\z{\MbQ\cH28}\z{\MbQ\cH169}\z{\MaQ\cH154}\z{\MaQ\cH252}\z{\MbQ\cH118}\z{\MjQ\cH232}\z{\MaQ\cH238}\z{\MaQ\cH65}\z{\MbQ\cH98}\z{\MaQ\cH74}\z{\MaQ\cH163}\z{\MaQ\cH119}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MdQ\cH77}}
+  \label{tbl:sma-example}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+    {\McQ\cH157}\z{\MaQ\cH112}  & 0 & 0 & 0 & 0 & 10 & 20 & 30 & 35 & 20 & 10 & 5 & 0 & 0 & 0 & 0 \\ \hline
+    {\McQ\cH157}\z{\MaQ\cH124} & 0.00 & 0.00 & 0.00 & 0.00 & 2.50 & 7.50 & 15.00 & 23.75 & 26.25 & 23.75 & 17.50 & 8.75 & 3.75 & 1.25 & 0.00 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{figure}
+  \centering
+  \scalebox{0.4}{\includegraphics{MA_output_N_4}}
+  \caption{N=4 {\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MaQ\cH112}\z{\McQ\cH201}\z{\MaQ\cH91}\z{\MaQ\cH199}}
+  \label{fig:sma-N-4}
+\end{figure}
+{\MaQ\cH199}~\ref{fig:sma-N-4} {\MaQ\cH134}\z{\MbQ\cH117}\z{\MfQ\cH122}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MaQ\cH112}\z{\McQ\cH201}\z{\MaQ\cH91}\z{\MhQ\cH250}\z{\McQ\cH96}\z{\MbQ\cH65}\z{\MaQ\cH199}\z{\MbQ\cH36}\z{\McQ\cH91}\z{\MbQ\cH253}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH245}\z{\MaQ\cH124}\z{\MaQ\cH86},
+{\MbQ\cH231}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MbQ\cH234}\z{\MbQ\cH222}\z{\McQ\cH137}\z{\MaQ\cH147}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}\z{\MbQ\cH125}\z{\MaQ\cH74}\z{\MeQ\cH244}\z{\MjQ\cH98}\z{\McQ\cH55}\z{\MaQ\cH47}\z{\MbQ\cH170}\z{\McQ\cH156}\z{\MbQ\cH19}\z{\MhQ\cH238}\z{\MbQ\cH237}\z{\MjQ\cH25}\z{\MaQ\cH145}\z{\MdQ\cH215}\z{\MbQ\cH219}, {\MeQ\cH244}\z{\MjQ\cH98}\z{\MbQ\cH117}\z{\MaQ\cH196}\z{\MbQ\cH209}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH117}\z{\McQ\cH108}\z{\McQ\cH18}\z{\MaQ\cH135} N {\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH112},
+{\McQ\cH55}\z{\MbQ\cH170}\z{\McQ\cH156}\z{\MbQ\cH19}\z{\MhQ\cH238}\z{\MbQ\cH237}\z{\MjQ\cH25}\z{\MaQ\cH145}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH250}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}\z{\McQ\cH189}\z{\MkQ\cH217}\z{\MbQ\cH40}\z{\MbQ\cH237}\z{\McQ\cH33}\z{\MbQ\cH139}{\MaQ\cH1}\zZ
+{\McQ\cH104}\z{\MaQ\cH244}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}~\ref{eq:ma-n-4-time} {\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH234}\z{\MbQ\cH219}, {\MbQ\cH127}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MbQ\cH212}\z{\MaQ\cH129}\z{\MbQ\cH127}\z{\MjQ\cH24}, 
+{\MaQ\cH125}\z{\MaQ\cH129}\z{\MbQ\cH117} +1, -1, +1, -1, +1, -1, ...
+{\McQ\cH165}\z{\McQ\cH7}\z{\MbQ\cH163}\z{\McQ\cH138}\z{\MaQ\cH62}\z{\MdQ\cH19}\z{\MaQ\cH124}\z{\MbQ\cH219}\z{\McQ\cH55}\z{\MaQ\cH47}\z{\McQ\cH34}\z{\MaQ\cH250}\z{\MdQ\cH77}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MbQ\cH154}\z{\MbQ\cH237}\z{\MbQ\cH98}\z{\MaQ\cH127}{\MaQ\cH1}\zZ
+{\MfQ\cH122}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MaQ\cH131}\z{\MaQ\cH44}\z{\MjQ\cH72}\z{\MbQ\cH237}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MbQ\cH125}\z{\MbQ\cH41}\z{\MaQ\cH131}\z{\MaQ\cH114}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}{\MaQ\cH1}\zZ
+{\MdQ\cH199}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH127}\z{\MjQ\cH24}\z{\MbQ\cH237}\z{\MbQ\cH98}\z{\MaQ\cH112}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MbQ\cH117} 0, +1, 0, -1, 0, +1, 0, -1, ... {\MaQ\cH54}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH248}\z{\MaQ\cH44}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MaQ\cH76}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MdQ\cH77}\z{\McQ\cH200}\z{\McQ\cH183}\z{\MfQ\cH158}\z{\MaQ\cH112}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MjQ\cH201}\z{\MdQ\cH77}{\MaQ\cH1}\zZ
+{\MbQ\cH107}\z{\MbQ\cH117}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MaQ\cH255}\z{\McQ\cH137}\z{\MbQ\cH65}\z{\MaQ\cH76}\z{\MbQ\cH60}\z{\MbQ\cH243}\z{\McQ\cH185}\z{\McQ\cH251}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH229}\z{\MaQ\cH139}\z{\McQ\cH44}\z{\McQ\cH150}\z{\MaQ\cH86}\z{\MbQ\cH209}\z{\MjQ\cH201}, {\MaQ\cH85}\z{\MbQ\cH41}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}\z{\MbQ\cH238}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\MbQ\cH98}\z{\MaQ\cH127}{\MaQ\cH1}\zZ
+{\McQ\cH104}\z{\MaQ\cH244}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}, {\McQ\cH15}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MjQ\cH85}\z{\MbQ\cH130}\z{\MbQ\cH209} 2, {\McQ\cH15}\z{\McQ\cH249}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MjQ\cH85}\z{\MbQ\cH130}\z{\MbQ\cH209} 4{\MaQ\cH1}\zZ
+{\McQ\cH55}\z{\McQ\cH15}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}, {\MaQ\cH202}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MbQ\cH237}\z{\MbQ\cH148}\z{\MaQ\cH215}\z{\McQ\cH68}\z{\MbQ\cH148}\z{\MaQ\cH252}\z{\MdQ\cH77}\z{\MeQ\cH9}\z{\MaQ\cH236}\z{\MbQ\cH237}\z{\MbQ\cH56}\z{\MgQ\cH148}\z{\MaQ\cH45}, {\McQ\cH137}\z{\MaQ\cH147}\z{\MbQ\cH117}\z{\MbQ\cH124}\z{\MbQ\cH209}\z{\MdQ\cH151}\z{\MbQ\cH203}\z{\MbQ\cH237}\z{\McQ\cH248}\z{\McQ\cH32} ({\MbQ\cH67}\z{\McQ\cH122}\z{\MjQ\cH85}\z{\MbQ\cH130}\z{\MbQ\cH124}\z{\MaQ\cH252}),
+ {\MaQ\cH54}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH237}\z{\MbQ\cH124}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MhQ\cH48},
+{\MbQ\cH66}\z{\MaQ\cH98}\z{\McQ\cH8}\z{\MaQ\cH53}\z{\MbQ\cH209} Nyquist rate, {\MbQ\cH67}\z{\MbQ\cH117}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\MjQ\cH228}\z{\MhQ\cH48}{\MaQ\cH1}\zZ{\McQ\cH15}\z{\McQ\cH249}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}, {\MaQ\cH119}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\MaQ\cH134}\z{\MbQ\cH209}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\MbQ\cH237}\z{\McQ\cH248}\z{\MaQ\cH154}{\MaQ\cH1}\zZ
+{\McQ\cH165}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH125}\z{\MiQ\cH233}\z{\McQ\cH165}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}\z{\MbQ\cH223}\z{\MbQ\cH222}\z{\MaQ\cH114}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MeQ\cH229}\z{\MaQ\cH127}{\MaQ\cH1}\zZ
+{\MdQ\cH199}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH212}\z{\MgQ\cH121}\z{\MbQ\cH237}\z{\MeQ\cH229}\z{\MaQ\cH127}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH114}\z{\McQ\cH182}\z{\McQ\cH183}\z{\MbQ\cH117}\z{\MaQ\cH236}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\MeQ\cH229}\z{\MaQ\cH127}, {\MaQ\cH119}\z{\McQ\cH137}\z{\MaQ\cH147}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\MbQ\cH209}\z{\MjQ\cH201}, {\MfQ\cH122}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MeQ\cH229}\z{\MaQ\cH127}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MaQ\cH131}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194},
+{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH41}\z{\MaQ\cH131}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MeQ\cH229}\z{\MaQ\cH127}\z{\McQ\cH68}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MeQ\cH229}\z{\MaQ\cH127}\z{\MaQ\cH234}\z{\MaQ\cH114}\z{\McQ\cH248}\z{\MbQ\cH95}, {\MbQ\cH98}\z{\MdQ\cH77}\z{\MaQ\cH215}\z{\MaQ\cH252}\z{\MaQ\cH54}\z{\McQ\cH248}\z{\MbQ\cH154}{\MaQ\cH1}\zZ{\MaQ\cH131}\z{\McQ\cH165}\z{\MiQ\cH179}, {\MiQ\cH232}\z{\McQ\cH54}\z{\MaQ\cH250}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH64}\z{\McQ\cH118}\z{\MbQ\cH127}\z{\McQ\cH248}\z{\MaQ\cH60}\z{\MbQ\cH150}\z{\McQ\cH104}\z{\MaQ\cH55}{\MaQ\cH1}\zZ
+
+{\MbQ\cH81}\z{\MaQ\cH45}\z{\MaQ\cH86}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MbQ\cH224} z transform\footnote{z transform {\MbQ\cH117}\z{\MfQ\cH122}\z{\MbQ\cH118}\z{\MeQ\cH30}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH31}\z{\McQ\cH158}\z{\MfQ\cH178}\z{\MbQ\cH65}\z{\MaQ\cH72}\z{\MbQ\cH98}\z{\MbQ\cH31}\z{\MaQ\cH74}\z{\MbQ\cH106}\z{\MaQ\cH90}\z{\MaQ\cH100}\z{\MaQ\cH125}\z{\MgQ\cH38}\z{\MbQ\cH237}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH9}\z{\MaQ\cH120}, {\McQ\cH158}\z{\MfQ\cH178}\z{\MaQ\cH53}\z{\MbQ\cH40}, {\MaQ\cH255}\z{\MbQ\cH117}\z{\MbQ\cH224}\z{\MaQ\cH72}\z{\MbQ\cH98}\z{\MbQ\cH237}\z{\MbQ\cH106}\z{\MbQ\cH31}\z{\MaQ\cH86}\z{\MaQ\cH125}\z{\MgQ\cH38}} {\MaQ\cH86}\z{\MaQ\cH125}\z{\MgQ\cH38}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\McQ\cH165}\z{\McQ\cH248}\z{\MbQ\cH168}\z{\MiQ\cH114}\z{\MbQ\cH117}\z{\MaQ\cH161}\z{\McQ\cH53}, {\MaQ\cH46}\z{\MfQ\cH9}\z{\McQ\cH224}\z{\MiQ\cH232}\z{\McQ\cH54}\z{\MaQ\cH55}\z{\McQ\cH106}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MeQ\cH33}\z{\MbQ\cH133}\z{\MbQ\cH150}\z{\MbQ\cH49}{\MaQ\cH1}\zZ
+{\MbQ\cH66}\z{\MaQ\cH98}\z{\MdQ\cH201}\z{\MbQ\cH125}\z{\MbQ\cH224}\z{\MaQ\cH131}\z{\MbQ\cH124}\z{\MeQ\cH33}\z{\MbQ\cH133}\z{\MbQ\cH237} z transform pair, {\MbQ\cH145}\z{\MaQ\cH127}\z{\MaQ\cH224}\z{\MaQ\cH45}:
+\begin{eqnarray*}
+  \alpha x(n)  & \rightarrow & \alpha X(z) \\
+  \alpha x(n-c) & \rightarrow & \alpha X(z) z^{-c} \\
+  \alpha y(n) & \rightarrow & \alpha Y(z) \\
+  \alpha y(n-c) & \rightarrow & \alpha Y(z) z^{-c}
+\end{eqnarray*}
+{\MaQ\cH135}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH168}\z{\MiQ\cH114}\z{\MbQ\cH237}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\MaQ\cH119} z transform transfer {\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\MbQ\cH117}
+\begin{equation}
+  \label{eq:ma-n-4-z-trans}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{1 + z^{-1} + z^{-2} + z^{-3}}{4}
+\end{equation}
+{\MaQ\cH119} z-plane\footnote{z plane, z transform, {\MaQ\cH74}\z{\MaQ\cH163}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MbQ\cH117}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH237}\z{\MaQ\cH125}\z{\MgQ\cH38}\z{\MbQ\cH106}\z{\MbQ\cH182}, {\MaQ\cH224}\z{\MbQ\cH139}\z{\MbQ\cH127}\z{\McQ\cH69}\z{\MjQ\cH24}, {\MaQ\cH170}\z{\MaQ\cH74}\z{\MaQ\cH161}\z{\McQ\cH53}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH237}\z{\MbQ\cH122}\z{\MhQ\cH192}, {\McQ\cH74}\z{\MaQ\cH46}\z{\MfQ\cH93}\z{\MaQ\cH54}\z{\MaQ\cH46}\z{\MfQ\cH9}\z{\McQ\cH224}\z{\MiQ\cH232}\z{\McQ\cH54}\z{\MaQ\cH55}\z{\McQ\cH106}\z{\McQ\cH165}\z{\MhQ\cH185}\z{\MbQ\cH100}\z{\McQ\cH14}{\MaQ\cH1}} {\MaQ\cH224}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1} {\MbQ\cH70}\z{\MbQ\cH253}, 
+z-plane {\MaQ\cH255}\z{\MbQ\cH117}\z{\MfQ\cH122}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}~\ref{eq:ma-n-4-z-trans} {\MbQ\cH237}\z{\MaQ\cH125}\z{\MaQ\cH228}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\McQ\cH68}\z{\MaQ\cH125}\z{\MgQ\cH130}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\MaQ\cH72}\z{\MbQ\cH98}\z{\MbQ\cH31}, 
+{\MaQ\cH125}\z{\MaQ\cH129}\z{\MbQ\cH176}\z{\MgQ\cH59}, {\MaQ\cH49}\z{\MhQ\cH250}\z{\McQ\cH96}\z{\MaQ\cH202}\z{\MaQ\cH199}\z{\MaQ\cH44}, {\MbQ\cH183}\z{\MbQ\cH60} z {\MbQ\cH117}\z{\MiQ\cH181}\z{\MbQ\cH98}, z plane {\MaQ\cH255}\z{\MbQ\cH117}\z{\MiQ\cH181}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\McQ\cH222}{\MaQ\cH1}\zZ
+{\MaQ\cH125}\z{\MaQ\cH228}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\MgQ\cH59}\z{\MaQ\cH255}\z{\MbQ\cH224}\z{\MaQ\cH252}\z{\MaQ\cH198}\z{\MeQ\cH11}\z{\McQ\cH91}\z{\MbQ\cH253}, {\McQ\cH8}\z{\MbQ\cH209} zero, {\MbQ\cH67}\z{\MjQ\cH201}\z{\McQ\cH245}{\MaQ\cH1}\zZ
+{\McQ\cH55}\z{\MaQ\cH125}\z{\MgQ\cH130}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\MgQ\cH59}\z{\MaQ\cH255}\z{\MbQ\cH224} X {\McQ\cH91}\z{\MbQ\cH253}, {\McQ\cH8}\z{\MbQ\cH209} pole, {\MbQ\cH67}\z{\MbQ\cH148}\z{\McQ\cH245}{\MaQ\cH1}\zZ
+{\MaQ\cH202}\z{\McQ\cH165}\z{\MaQ\cH95} z-plane {\MaQ\cH199}\z{\MaQ\cH44}\z{\MbQ\cH127}\z{\McQ\cH250}\z{\MaQ\cH95}\z{\MaQ\cH252}\z{\MaQ\cH198}\z{\MeQ\cH11}, {\MaQ\cH72}\z{\McQ\cH91} z transform {\MbQ\cH237}\z{\MaQ\cH125}\z{\MaQ\cH228} $1+z^{-1}+z^{-2}+z^{-3} = 0$ {\MbQ\cH237}\z{\McQ\cH106}{\MaQ\cH1}\zZ
+{\McQ\cH55}\z{\McQ\cH165}\z{\McQ\cH250}\z{\MaQ\cH95}\z{\McQ\cH106}\z{\MdQ\cH143}\z{\MaQ\cH223}\z{\MaQ\cH202}\z{\MaQ\cH154}\z{\MfQ\cH16}\z{\MbQ\cH209} 1 {\MbQ\cH237}\z{\MaQ\cH198}\z{\MaQ\cH44}{\MaQ\cH1}\zZ{\McQ\cH165}\z{\MaQ\cH95}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\MbQ\cH237}\z{\MaQ\cH125}\z{\MgQ\cH130}\z{\MbQ\cH209} 4, {\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH18}\z{\MbQ\cH98}, {\MbQ\cH70}\z{\MaQ\cH74}\z{\MbQ\cH179}\z{\MbQ\cH127} poles. 
+{\McQ\cH55}\z{\MeQ\cH133}\z{\MbQ\cH237}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH134}\z{\MaQ\cH224}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1-freq} {\MbQ\cH70}\z{\MbQ\cH253}, {\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH81}\z{\McQ\cH166}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}{\MaQ\cH1}\zZ
+{\MbQ\cH183}\z{\MbQ\cH60}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1-freq} {\MaQ\cH50}\z{\MbQ\cH127} Y {\MoQ\cH87}\z{\MbQ\cH127}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\McQ\cH245}\z{\MbQ\cH125}\z{\MaQ\cH252}\z{\MaQ\cH131}\z{\McQ\cH138}\z{\MbQ\cH204}\z{\MhQ\cH164}\z{\MaQ\cH215}\z{\MbQ\cH237}\z{\MaQ\cH80}\z{\McQ\cH48} ({\MaQ\cH224}\z{\MbQ\cH139} Y {\MoQ\cH87}\z{\MbQ\cH117} linear scale {\MbQ\cH237}\z{\McQ\cH117}\z{\MaQ\cH255}\z{\MbQ\cH117} $0$), 
+{\MaQ\cH125}\z{\MaQ\cH129}\z{\MbQ\cH117} $\pi$ {\McQ\cH68} $\frac{\pi}{2}$ {\MbQ\cH237}\z{\MaQ\cH80}\z{\McQ\cH48}, {\McQ\cH165}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MaQ\cH80}\z{\McQ\cH48}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH117}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\MjQ\cH228}\z{\MhQ\cH48}, 
+{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH117}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\MbQ\cH237}\z{\McQ\cH248}\z{\MaQ\cH154}{\MaQ\cH1}\zZ{\MaQ\cH250}\z{\MbQ\cH206}\z{\MdQ\cH143}\z{\MdQ\cH143}\z{\MfQ\cH212}\z{\MbQ\cH237}\z{\MbQ\cH212}\z{\MgQ\cH121}\z{\MeQ\cH229}\z{\MaQ\cH127}\z{\McQ\cH68}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH199}, {\MaQ\cH115}\z{\MaQ\cH95}\z{\MiQ\cH233}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}\z{\MbQ\cH209}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\MeQ\cH229}\z{\MaQ\cH127}, 
+{\MaQ\cH202}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH199}\z{\MaQ\cH44} Y {\MoQ\cH87}\z{\MbQ\cH237}\z{\MdQ\cH77}\z{\MbQ\cH209} $-\infty$~dB\footnote{dB {\MdQ\cH77}\z{\MbQ\cH117}\z{\MbQ\cH170}\z{\MhQ\cH48}, {\MaQ\cH115}\z{\MaQ\cH95}\z{\MbQ\cH80}\z{\MeQ\cH217} $A_1$ {\McQ\cH68} $A_2$ {\MbQ\cH237}\z{\MbQ\cH170}\z{\MhQ\cH48}\z{\MbQ\cH117} $A_1/A_2$ {\McQ\cH158}\z{\MfQ\cH178}\z{\MbQ\cH65} dB {\MdQ\cH77}\z{\MaQ\cH255}\z{\McQ\cH137}\z{\MbQ\cH65} $20\log\frac{A_1}{A_2}$~dB, {\MbQ\cH70}\z{\MaQ\cH74} 0~dB {\McQ\cH91}\z{\MbQ\cH253} $A_1/A_2 = 1$, {\McQ\cH55} $-\infty$~dB {\McQ\cH91}\z{\MbQ\cH253} $A_1/A_2 = 0${\MaQ\cH1}}, {\McQ\cH55}\z{\MaQ\cH234}\z{\MaQ\cH114}\z{\MbQ\cH179}\z{\McQ\cH137}\z{\MaQ\cH147}\z{\MbQ\cH237}\z{\MbQ\cH98}\z{\MaQ\cH127}, {\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\MaQ\cH215}\z{\MaQ\cH252}\z{\McQ\cH68}\z{\MeQ\cH229}\z{\MaQ\cH127}\z{\McQ\cH183}\z{\MbQ\cH132}\z{\McQ\cH92}\z{\MbQ\cH90}\z{\McQ\cH137}, 
+{\MaQ\cH250}\z{\MbQ\cH64}\z{\MaQ\cH131}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH199}\z{\MaQ\cH44} X=0 {\MbQ\cH237}\z{\McQ\cH181}\z{\McQ\cH248}\z{\McQ\cH245}, 
+{\MaQ\cH119}\z{\MaQ\cH215}\z{\MaQ\cH252}\z{\MbQ\cH209} 0~dB, {\McQ\cH158}\z{\MfQ\cH178}\z{\MbQ\cH65}\z{\McQ\cH40}\z{\MbQ\cH52}\z{\MbQ\cH98}\z{\MdQ\cH77}\z{\MaQ\cH255}\z{\MbQ\cH117} 1. 
+% 在這裡我先簡單解釋一下, 取樣頻率的數列, 就是這個數位濾波器能夠表示的最高頻率, 
+% 那表現在數列上的意義就是 +1, -1, +1, -1, +1, -1, ... 這種正負交互出現而且正負值的絕對值是一樣的數列。
+% 如果把這樣的數列輸入到方程式~\ref{eq:ma-n-4-time} 的動平均濾波器裡, 輸出值 y(n) 恆為零。
+% 上述的數列週期為二, 而且是取樣頻率的數列, 那麼你會猜, 取樣頻率的一半, 
+% 週期應該就是四了吧, 答對了! 
+% 那麼週期為四的數列長得如何呢? 就是 +1, 0, -1, 0, +1, 0, -1, 0, +1, 0, ...
+% 的數列, 把這個數列輸入方程式~\ref{eq:ma-n-4-time} 得到的 y(n) 數列也是恆為零。
+% 再對照圖~\ref{fig:ma-fir-type-1}, zeros 的座標分別是 (0,1), (-1,0), 以及 (0,-1), 
+% 以極座標來看那幾個 zeros, radius 皆為 1, 而其角度分別是 
+% $\frac{\pi}{2}$, $\pi$, 與 $-\frac{\pi}{2}$, 
+% 而 zeros 如果剛好在單位圓上的意思就是頻率響應會出現零點~(讀者可以忽略 $-\frac{\pi}{2}$ 的那一點, 因為角度是負值)。
+{\MbQ\cH209}\z{\MjQ\cH102}\z{\MaQ\cH110}\z{\MiQ\cH232}\z{\McQ\cH54}\z{\MiQ\cH207}\z{\McQ\cH106}, {\MbQ\cH66}\z{\MbQ\cH46}\z{\McQ\cH226}\z{\MbQ\cH84}\z{\MjQ\cH126}\z{\McQ\cH248}\z{\MaQ\cH45}, {\MaQ\cH44}\z{\MjQ\cH72}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MaQ\cH46}\z{\MbQ\cH117}\z{\McQ\cH250}\z{\McQ\cH105}\z{\MgQ\cH154}~({\McQ\cH214}\z{\MbQ\cH205}\z{\MbQ\cH224}\z{\MbQ\cH242}\z{\McQ\cH40}\z{\McQ\cH169}\z{\McQ\cH150}\z{\MaQ\cH86}\z{\MbQ\cH117}\z{\McQ\cH250}\z{\McQ\cH105}\z{\MgQ\cH154}),  
+{\McQ\cH55}\z{\MbQ\cH117}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\McQ\cH91}\z{\MbQ\cH219}\z{\MaQ\cH202}\z{\MbQ\cH98}\z{\MaQ\cH127}\z{\MaQ\cH44}\z{\MbQ\cH237}\z{\MbQ\cH163}\z{\MeQ\cH253}\z{\MdQ\cH131}\z{\MbQ\cH98}\z{\MgQ\cH154}, 
+{\MaQ\cH224}\z{\MaQ\cH199}~\ref{fig:nyquist-rate-wave-1} {\MaQ\cH163}\z{\MaQ\cH199}~\ref{fig:nyquist-rate-wave-2} {\MbQ\cH70}\z{\MbQ\cH253}{\MaQ\cH1}\zZ
+{\MaQ\cH250}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH127}\z{\MgQ\cH173}\z{\MhQ\cH44}\z{\MbQ\cH237}\z{\MiQ\cH232}\z{\McQ\cH54}, 
+{\MbQ\cH64}\z{\McQ\cH118}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\MbQ\cH42}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1} {\MaQ\cH255}\z{\MbQ\cH242}\z{\MbQ\cH81}\z{\MbQ\cH245}\z{\MaQ\cH124}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1-freq} {\MbQ\cH237}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MdQ\cH223}{\MaQ\cH1}\zZ
+\begin{figure}
+  \centering
+  \include{MA-Type1-z-trans}
+  \caption{N=4 {\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204} z plane {\MaQ\cH199}}
+% pole is at (15/16, 0) in this figure, need to be changed. 
+  \label{fig:ma-fir-type-1}
+\end{figure}
+\begin{figure}
+  \centering
+  \scalebox{0.4}{\includegraphics{MA_N_4_freq}}
+  \caption{N=4 {\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}; X {\MoQ\cH87}\z{\MbQ\cH117} radian/sample, Y=$-\infty$ {\MbQ\cH237}\z{\McQ\cH245}\z{\MaQ\cH202} X=$\pi$(3.1416) {\MaQ\cH72}\z{\McQ\cH91}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\MjQ\cH228}\z{\MhQ\cH48}, {\MaQ\cH54}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MbQ\cH124}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MhQ\cH48}, {\McQ\cH68} X=$\frac{\pi}{2}$ {\MbQ\cH237}\z{\MaQ\cH203}\z{\MbQ\cH106}{\MaQ\cH1}}
+  \label{fig:ma-fir-type-1-freq}
+\end{figure}
+\begin{figure}
+  \begin{center}
+    \begin{pspicture}[showgrid](0,-2)(10,2)
+      %\psset{xunit=1pt}
+      %\psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 2 mul sin}
+      \psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 4 mul cos}
+      \psdots(0,1)(1,-1)(2,1)(3,-1)(4,1)(5,-1)(6,1)(7,-1)(8,1)(9,-1)(10,1)
+      %\psplot{0}{720}{x 2 mul sin}
+    \end{pspicture}
+  \end{center}
+  \caption{{\MjQ\cH228}\z{\MhQ\cH48}\z{\MbQ\cH209} $\pi$ radian/sample {\MbQ\cH237}\z{\MbQ\cH163}\z{\MeQ\cH253}\z{\MdQ\cH131}\z{\MbQ\cH98}\z{\MgQ\cH154}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\McQ\cH245}}
+  \label{fig:nyquist-rate-wave-1}
+\end{figure}
+\begin{figure}
+  \begin{center}
+    \begin{pspicture}[showgrid](0,-2)(10,2)
+      %\psset{xunit=1pt}
+      \psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 2 mul cos}
+      \psdots(0,1)(1,0)(2,-1)(3,0)(4,1)(5,0)(6,-1)(7,0)(8,1)(9,0)(10,-1)
+      %\psplot[plotpoints=180,linecolor=gray]{0}{10}{x 45 mul 4 mul sin}
+      %\psplot{0}{720}{x 2 mul sin}
+    \end{pspicture}
+  \end{center}
+  \caption{{\MjQ\cH228}\z{\MhQ\cH48}\z{\MbQ\cH209} $\pi/2$ radian/sample {\MbQ\cH237}\z{\MbQ\cH163}\z{\MeQ\cH253}\z{\MdQ\cH131}\z{\MbQ\cH98}\z{\MgQ\cH154}\z{\MaQ\cH166}\z{\MbQ\cH154}\z{\McQ\cH245}}
+  \label{fig:nyquist-rate-wave-2}
+\end{figure}
+
+
+{\McQ\cH165}\z{\MaQ\cH95}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}\z{\MaQ\cH223}\z{\McQ\cH84}\z{\MbQ\cH117}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MdQ\cH201}\z{\McQ\cH219}\z{\McQ\cH98} N {\MaQ\cH95}\z{\MaQ\cH139}\z{\MbQ\cH182}\z{\MaQ\cH194}, {\McQ\cH248}\z{\MaQ\cH95}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}, 
+{\MaQ\cH74}\z{\MaQ\cH163} N {\MaQ\cH95} delay elements{\MaQ\cH1}\zZ
+{\MhQ\cH255}\z{\McQ\cH245}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH202}\z{\MaQ\cH100}\z{\MaQ\cH139}\z{\McQ\cH44}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\MbQ\cH226}\z{\MbQ\cH107}\z{\MaQ\cH236}\z{\McQ\cH245}\z{\MbQ\cH98}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MgQ\cH104}\z{\MaQ\cH80}\z{\MbQ\cH127}\z{\McQ\cH204}, {\MbQ\cH98}\z{\MdQ\cH77}\z{\MaQ\cH170}\z{\McQ\cH63}\z{\MbQ\cH125}\z{\MgQ\cH200}\z{\MaQ\cH80}, 
+{\McQ\cH55}\z{\MgQ\cH200}\z{\MaQ\cH80}\z{\MbQ\cH125}\z{\MaQ\cH251}\z{\MbQ\cH95} saturation {\MbQ\cH67}\z{\MbQ\cH117} wrap-around, {\MaQ\cH135}\z{\McQ\cH54}\z{\MdQ\cH201}\z{\MbQ\cH117}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MdQ\cH77}\z{\MhQ\cH154}\z{\MfQ\cH22}\z{\McQ\cH137}\z{\MaQ\cH252}\z{\McQ\cH248}\z{\McQ\cH245}, 
+{\McQ\cH180}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH81}\z{\MaQ\cH167}, {\MbQ\cH40}\z{\McQ\cH54}\z{\MaQ\cH255}\z{\MbQ\cH125}\z{\McQ\cH168}\z{\MbQ\cH65}\z{\MbQ\cH99}\z{\MaQ\cH95}\z{\MbQ\cH98}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\MjQ\cH152}\z{\MdQ\cH18}, {\MbQ\cH42}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH148}\z{\MaQ\cH215}\z{\MdQ\cH77}\z{\McQ\cH137}\z{\MbQ\cH65}\z{\MbQ\cH148}\z{\MaQ\cH252}\z{\MdQ\cH77}{\MaQ\cH1}\zZ
+{\MbQ\cH205}\z{\McQ\cH55}\z{\McQ\cH98}\z{\MaQ\cH100} saturation {\McQ\cH219}\z{\McQ\cH98}\z{\McQ\cH231}\z{\MaQ\cH213}\z{\MbQ\cH237}\z{\McQ\cH218}\z{\McQ\cH152}\z{\MbQ\cH67}\z{\MaQ\cH141}\z{\MaQ\cH84}, 
+{\MbQ\cH127}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\MhQ\cH119}\z{\McQ\cH241}\z{\MaQ\cH46}\z{\McQ\cH248}\z{\MaQ\cH236}\z{\McQ\cH63}\z{\MbQ\cH84}\z{\MaQ\cH88}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MaQ\cH138}\z{\McQ\cH63}{\MaQ\cH1}\zZ{\MaQ\cH196}\z{\MbQ\cH164}, {\MbQ\cH209}\z{\MaQ\cH55}\z{\MjQ\cH102}\z{\MaQ\cH110}\z{\MgQ\cH200}\z{\MaQ\cH80}\z{\MbQ\cH237}\z{\MeQ\cH8}\z{\MfQ\cH215}, {\MaQ\cH255}\z{\MbQ\cH127}\z{\MdQ\cH199}\z{\McQ\cH248}\z{\McQ\cH7}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}\z{\MbQ\cH106}\z{\MbQ\cH31}, 
+{\MaQ\cH255}\z{\MbQ\cH117}\z{\MaQ\cH108}\z{\MfQ\cH122}\z{\MbQ\cH169}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH106}\z{\MhQ\cH214}\z{\McQ\cH206}\z{\MaQ\cH74} N, {\MbQ\cH205}\z{\MbQ\cH40}\z{\MfQ\cH110}\z{\MaQ\cH139}\z{\McQ\cH44}\z{\McQ\cH150}\z{\MaQ\cH86}, {\McQ\cH165}\z{\MbQ\cH154}\z{\MaQ\cH255}\z{\MaQ\cH234}\z{\MaQ\cH114}\z{\MaQ\cH46}\z{\MbQ\cH224}\z{\McQ\cH53}\z{\MbQ\cH63}\z{\MgQ\cH200}\z{\MaQ\cH80}\z{\MbQ\cH237}\z{\MaQ\cH189}\z{\McQ\cH230}, 
+{\MhQ\cH255}\z{\McQ\cH245}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH171}\z{\McQ\cH18}\z{\McQ\cH190}\z{\McQ\cH137}\z{\MbQ\cH65} N {\MaQ\cH95}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}, {\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH139}\z{\MbQ\cH182}\z{\MaQ\cH194}, {\MaQ\cH74}\z{\MaQ\cH163} N {\MaQ\cH95} delay elements. 
+{\MaQ\cH44}\z{\MjQ\cH72}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH106}\z{\MbQ\cH31}\z{\MbQ\cH237}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}, {\MaQ\cH224}\z{\MbQ\cH139}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH133}\z{\MbQ\cH60}\z{\MaQ\cH166} $N = 2^i$, $i$ {\MbQ\cH117}\z{\MaQ\cH215}\z{\MbQ\cH107}\z{\MbQ\cH67}\z{\McQ\cH16}\z{\MbQ\cH107}\z{\MjQ\cH201}\z{\MbQ\cH237}\z{\MbQ\cH99}\z{\MbQ\cH98}, {\MaQ\cH63}\z{\MdQ\cH185} N {\MbQ\cH117} 2 {\MbQ\cH237}\z{\MpQ\cH52}\z{\MbQ\cH159}\z{\MbQ\cH106}, 
+{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MfQ\cH122}\z{\McQ\cH165}\z{\MaQ\cH60}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\McQ\cH137}\z{\MbQ\cH65} shifter, {\MaQ\cH170}\z{\MaQ\cH74}\z{\McQ\cH170}\z{\McQ\cH248}\z{\MbQ\cH165}\z{\McQ\cH20}\z{\MbQ\cH244}\z{\MhQ\cH119}\z{\McQ\cH241}\z{\MbQ\cH65}\z{\MbQ\cH133}, 
+{\McQ\cH55}\z{\MaQ\cH46}\z{\MfQ\cH9}\z{\McQ\cH224}\z{\McQ\cH33}\z{\MbQ\cH139}{\MaQ\cH1}\zZ{\MbQ\cH231}\z{\MbQ\cH205}, {\MaQ\cH224}\z{\MbQ\cH139}\z{\McQ\cH98}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MjQ\cH85}\z{\McQ\cH40}\z{\MaQ\cH199}\z{\MbQ\cH237}\z{\McQ\cH117}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH255}\z{\MbQ\cH179}\z{\McQ\cH159}\z{\MbQ\cH182}\z{\MaQ\cH248}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\McQ\cH137}\z{\MbQ\cH65} shifter,
+{\MaQ\cH79}\z{\MbQ\cH117}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\McQ\cH180}\z{\MbQ\cH117}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH224}\z{\MdQ\cH13}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\MaQ\cH86}\z{\MaQ\cH166}\z{\MaQ\cH72}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}, {\MdQ\cH201}\z{\McQ\cH98}\z{\MbQ\cH224}\z{\MaQ\cH252}\z{\MbQ\cH98} ($\frac{1}{N}$) {\MbQ\cH231}\z{\MdQ\cH13}\z{\MbQ\cH98}\z{\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MaQ\cH55}{\MaQ\cH1}\zZ
+% \begin{figure}
+%   \centering
+%   \subfloat[z plane 圖]{\include{MA-Type1-z-trans} \label{fig:ma-fir-type-1}}
+%   %\caption{N=4 的動平均 z plane 圖}
+%   \qquad
+%   \subfloat[頻率響應]{\scalebox{0.5}{\includegraphics{MA_N_4_freq}}   \label{fig:ma-fir-type-1-freq}}
+%   \caption{N=4 的動平均濾波器頻率響應}
+%   \label{fig:MA_N_4}
+% \end{figure}
+
+% Describe this implementation from time domain equation
+{\McQ\cH15}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH117}\z{\MaQ\cH135}\z{\MaQ\cH115}\z{\McQ\cH7}\z{\MbQ\cH237}\z{\McQ\cH137}\z{\MbQ\cH36}, {\MaQ\cH135}\z{\MaQ\cH115}\z{\McQ\cH7}\z{\MaQ\cH202}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\McQ\cH44}\z{\MbQ\cH117}\z{\McQ\cH98}\z{\MaQ\cH166}\z{\MaQ\cH135} N {\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}\z{\MaQ\cH86}\z{\MbQ\cH243}\z{\MaQ\cH139}, 
+{\MaQ\cH79}\z{\MbQ\cH117}\z{\MbQ\cH169}\z{\McQ\cH248}\z{\MbQ\cH159}\z{\McQ\cH108}\z{\McQ\cH18}\z{\McQ\cH183}\z{\MdQ\cH201}\z{\MbQ\cH37}\z{\MaQ\cH135}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}, {\MaQ\cH119}\z{\MaQ\cH50}\z{\MbQ\cH127} N-1 {\MaQ\cH95}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}\z{\McQ\cH183}\z{\MbQ\cH117}\z{\McQ\cH189}\z{\MiQ\cH181}\z{\McQ\cH108}\z{\McQ\cH18}\z{\MbQ\cH237},
+{\McQ\cH181}\z{\McQ\cH243}\z{\McQ\cH171}\z{\McQ\cH18}\z{\MaQ\cH44}\z{\MbQ\cH127}\z{\MbQ\cH121}\z{\McQ\cH21}\z{\MaQ\cH90}\z{\MbQ\cH237}\z{\MbQ\cH106}\z{\MbQ\cH182}\z{\MdQ\cH253}?
+{\McQ\cH17}\z{\MbQ\cH144}\z{\MbQ\cH117}\z{\MbQ\cH127}\z{\MbQ\cH237}{\MaQ\cH1}\zZ{\MaQ\cH176}\z{\MbQ\cH154}\z{\MaQ\cH74} N=4 {\MbQ\cH209}\z{\MaQ\cH87}, {\McQ\cH108}\z{\McQ\cH18}\z{\MaQ\cH224}\z{\MaQ\cH45}:
+\begin{eqnarray*}
+  y(n-1) & = & \frac{x(n-1) + x(n-2) + x(n-3) + x(n-4)}{4} \\
+  y(n) & = & \frac{x(n) + x(n-1) + x(n-2) + x(n-3)}{4} \\
+  y(n) & = & y(n-1) + \frac{1}{4}x(n) - \frac{1}{4}x(n-4) \\
+\end{eqnarray*}
+{\MaQ\cH196}\z{\MbQ\cH209}\z{\MaQ\cH44}\z{\McQ\cH248}\z{\MhQ\cH176}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77} $y(n-1)$ {\MbQ\cH11}\z{\McQ\cH37}\z{\McQ\cH108}\z{\McQ\cH18}\z{\MaQ\cH223}\z{\MaQ\cH55}, {\MaQ\cH46}\z{\McQ\cH219}\z{\McQ\cH98}\z{\McQ\cH189}\z{\MbQ\cH104}\z{\McQ\cH108}\z{\McQ\cH18}, 
+{\MbQ\cH70}\z{\MaQ\cH74}\z{\MdQ\cH201}\z{\McQ\cH219}\z{\McQ\cH98}\z{\MaQ\cH139}\z{\MaQ\cH44}\z{\MbQ\cH104}\z{\MaQ\cH211}\z{\MbQ\cH237}\z{\McQ\cH181}\z{\McQ\cH248}\z{\McQ\cH225} $\frac{1}{4}x(n)$ {\MaQ\cH121}\z{\MbQ\cH193}\z{\MaQ\cH160}\z{\MiQ\cH72}\z{\MbQ\cH237} $\frac{1}{4}x(n-4)$ {\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH41}\z{\MaQ\cH131}\z{\McQ\cH165}\z{\McQ\cH248}\z{\MhQ\cH176}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77} $y(n)$,
+{\McQ\cH21}\z{\MaQ\cH147}\z{\McQ\cH108}\z{\McQ\cH18}\z{\MbQ\cH237}\z{\MbQ\cH159}\z{\MbQ\cH98}{\MaQ\cH1}\zZ{\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH224}\z{\MaQ\cH45}\z{\MaQ\cH127}\z{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\MfQ\cH183}\z{\MjQ\cH72}:
+\begin{equation}
+  \label{eq:ma-iir-time}
+  y(n) = y(n-1) + \frac{x(n)-x(n-4)}{4}
+\end{equation}
+{\MaQ\cH74} z transform {\MbQ\cH237}\z{\McQ\cH104}\z{\McQ\cH245}\z{\MaQ\cH86}\z{\MbQ\cH245}\z{\MbQ\cH237}\z{\McQ\cH117},
+{\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}~\ref{eq:sma-time-domain} {\MaQ\cH50}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MbQ\cH118}\z{\MeQ\cH30}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH31}\z{\MbQ\cH237} z transform {\MbQ\cH106}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\MaQ\cH224}\z{\MaQ\cH74}\z{\MaQ\cH45}\z{\MbQ\cH70}\z{\MbQ\cH253}:
+\begin{equation}
+  \label{eq:moving-average-z-trans}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{1}{N}(1 + z^{-1} + z^{-2} + z^{-3} + ... + z^{-N+1})
+\end{equation}
+{\MaQ\cH224}\z{\MbQ\cH139}\z{\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH250}\z{\MaQ\cH125}\z{\MaQ\cH228}\z{\MaQ\cH125}\z{\MgQ\cH130}\z{\MaQ\cH176}\z{\MdQ\cH13} $1 - z^{-1}$, 
+{\MaQ\cH125}\z{\MaQ\cH228}\z{\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MaQ\cH147}\z{\McQ\cH21}\z{\MbQ\cH65} $1 - z^{-N}$, {\MbQ\cH70}\z{\MaQ\cH74}\z{\MaQ\cH119} z-transform equation {\MaQ\cH255}\z{\MbQ\cH125}\z{\MbQ\cH117}
+\begin{equation}
+  \label{eq:moving-average-iir}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{1}{N} \times \frac{1 - z^{-N}}{1-z^{-1}}
+\end{equation}
+{\McQ\cH165}\z{\MaQ\cH95}\z{\McQ\cH158}\z{\MeQ\cH7}\z{\MbQ\cH118}\z{\MeQ\cH30}\z{\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH31}\z{\MaQ\cH255}\z{\MbQ\cH117}:
+\begin{equation}
+  \label{eq:moving-average-iir-time-domain}
+  y(n) = y(n-1) + \frac{x(n) - x(n-N)}{N}
+\end{equation}
+{\MaQ\cH44}\z{\MjQ\cH72}\z{\MbQ\cH237} z-plane {\MaQ\cH199}\z{\MbQ\cH125}\z{\McQ\cH137}\z{\MbQ\cH65}\z{\MaQ\cH224}\z{\MaQ\cH199}~\ref{fig:ma-iir-z-trans} {\MbQ\cH70}\z{\MbQ\cH253}, {\McQ\cH68}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1} {\MbQ\cH243}\z{\MbQ\cH170}, 
+{\MaQ\cH214}\z{\MaQ\cH55}\z{\McQ\cH248}\z{\MaQ\cH95} pole {\MaQ\cH202} $z=1$, 
+{\MaQ\cH176}\z{\MbQ\cH118}\z{\MaQ\cH214}\z{\MaQ\cH55}\z{\McQ\cH248}\z{\MaQ\cH95} zero {\MaQ\cH202} $z=1$, 
+{\McQ\cH55}\z{\MaQ\cH80}\z{\MaQ\cH202} $z=1$ {\MbQ\cH237} zero/pole {\MdQ\cH19}\z{\MbQ\cH243}\z{\MbQ\cH74}\z{\MbQ\cH190}~({\MaQ\cH196}\z{\MbQ\cH209}\z{\MaQ\cH115}\z{\McQ\cH54}\z{\MbQ\cH209}\z{\MaQ\cH176}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH196}\z{\MbQ\cH31}, {\MaQ\cH47}\z{\MaQ\cH125}\z{\MeQ\cH211}\z{\MaQ\cH202}\z{\MaQ\cH125}\z{\MaQ\cH228}\z{\McQ\cH68}\z{\MaQ\cH125}\z{\MgQ\cH130}),
+{\MaQ\cH196}\z{\MbQ\cH164}\z{\MjQ\cH29}\z{\MaQ\cH135}\z{\McQ\cH249}\z{\McQ\cH7}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MbQ\cH154}\z{\MbQ\cH237}, 
+{\MaQ\cH63}\z{\MdQ\cH185}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH199}\z{\MaQ\cH54}\z{\MaQ\cH224}\z{\MaQ\cH199}~\ref{fig:ma-fir-type-1-freq} {\MbQ\cH70}\z{\MbQ\cH253}{\MaQ\cH1}\zZ
+{\McQ\cH165}\z{\McQ\cH248}\z{\McQ\cH7}\z{\MbQ\cH237}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\McQ\cH68}\z{\MaQ\cH135}\z{\MaQ\cH115}\z{\McQ\cH54}\z{\MaQ\cH234}\z{\MaQ\cH114}\z{\McQ\cH248}\z{\MbQ\cH154}, {\MaQ\cH79}\z{\MbQ\cH117}\z{\MaQ\cH202}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MaQ\cH44}, {\MaQ\cH196}\z{\MbQ\cH209}\z{\MaQ\cH130}\z{\MbQ\cH224}\z{\MaQ\cH55}\z{\MeQ\cH7}\z{\MfQ\cH164}\z{\MbQ\cH237}\z{\MbQ\cH212}\z{\MbQ\cH52}\z{\McQ\cH21}\z{\MaQ\cH147}\z{\MaQ\cH55}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}\z{\MiQ\cH181}\z{\MjQ\cH198}\z{\MbQ\cH25}, 
+{\MbQ\cH99}\z{\MaQ\cH95}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\McQ\cH219}\z{\McQ\cH98}\z{\MbQ\cH237}\z{\MaQ\cH106}\z{\MaQ\cH75}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH95} N-tap {\MbQ\cH237} delay element, {\McQ\cH248}\z{\MaQ\cH95} 1-tap {\MbQ\cH237} delay element, 
+{\McQ\cH248}\z{\MaQ\cH95}\z{\McQ\cH206}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\MbQ\cH67} shifter, {\MaQ\cH115}\z{\MaQ\cH95}\z{\MaQ\cH139}\z{\MbQ\cH182}\z{\MaQ\cH194}{\MaQ\cH1}\zZ
+\begin{figure}
+  \centering
+  \include{MA-IIR-ztrans}
+  \caption{{\MaQ\cH74}\z{\MeQ\cH7}\z{\MfQ\cH164}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237} N=4 {\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194} z plane {\MaQ\cH199}}
+  \label{fig:ma-iir-z-trans}
+\end{figure}
+
+{\McQ\cH15}\z{\McQ\cH251}\z{\McQ\cH7}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH170}\z{\MaQ\cH44}\z{\MjQ\cH72}\z{\McQ\cH250}\z{\McQ\cH7}\z{\McQ\cH183}\z{\MaQ\cH86}\z{\MbQ\cH41}\z{\MbQ\cH121}\z{\McQ\cH21}\z{\MaQ\cH192}, {\McQ\cH8}\z{\MbQ\cH209}\z{\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}~(exponential average filter), 
+{\MbQ\cH67}\z{\McQ\cH8}\z{\MbQ\cH209} expoential averager,
+{\MaQ\cH46}\z{\McQ\cH172}\z{\MaQ\cH202}\z{\MbQ\cH243}\z{\MaQ\cH176}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MaQ\cH45}, {\MeQ\cH133}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MbQ\cH237} pattern {\MjQ\cH29}\z{\MaQ\cH44}\z{\MjQ\cH72}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MbQ\cH127}\z{\MaQ\cH60}\z{\MaQ\cH46}\z{\MaQ\cH176}, {\MaQ\cH54}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH46}\z{\McQ\cH248}\z{\MbQ\cH154}{\MaQ\cH1}\zZ
+{\MaQ\cH119}\z{\MgQ\cH45}\z{\MgQ\cH90}\z{\MaQ\cH224}\z{\MaQ\cH199}~\ref{fig:exp-avg-diagram} {\MbQ\cH70}\z{\MbQ\cH253}, {\MbQ\cH118}\z{\MeQ\cH30}\z{\MbQ\cH237}\z{\MbQ\cH31}\z{\MaQ\cH228}\z{\MbQ\cH117}
+\begin{equation}
+  \label{eq:exp-avg}
+  y(n) = \alpha x(n) + (1 - \alpha)y(n-1)
+\end{equation}
+z-transform equation {\MbQ\cH117}
+\begin{equation}
+  \label{eq:exp-avg-2}
+  H(z) = \frac{Y(z)}{X(z)} = \frac{\alpha}{1 - (1-\alpha)z^{-1}}
+\end{equation}
+$\alpha$ {\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MfQ\cH173}\z{\MaQ\cH132}\z{\McQ\cH137}\z{\MbQ\cH98}, {\MaQ\cH170}\z{\MaQ\cH74}\z{\MfQ\cH173}\z{\MaQ\cH132}\z{\McQ\cH165}\z{\MaQ\cH95}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}, {\MaQ\cH54}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MfQ\cH173}\z{\MaQ\cH132}\z{\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH250}\z{\MbQ\cH107}\z{\MhQ\cH109}\z{\McQ\cH200}\z{\MbQ\cH237}\z{\McQ\cH137}\z{\MaQ\cH147}, 
+{\McQ\cH219}\z{\McQ\cH98}\z{\MaQ\cH214}\z{\MdQ\cH10}\z{\MbQ\cH118}\z{\McQ\cH200}\z{\MfQ\cH110}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\MjQ\cH74}\z{\MbQ\cH41}\z{\MaQ\cH44}{\MaQ\cH1}\zZ{\MbQ\cH42}\z{\MaQ\cH199}~\ref{fig:exp-avg-z-plane} {\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH245}\z{\MaQ\cH124}, 
+{\MeQ\cH133}\z{\MbQ\cH127}\z{\McQ\cH248}\z{\MaQ\cH95} pole {\MaQ\cH202} $z = 1 - \alpha$ {\MbQ\cH237}\z{\MaQ\cH203}\z{\MbQ\cH106}, {\MaQ\cH54}\z{\MaQ\cH255}\z{\MbQ\cH117}\z{\MjQ\cH78}\z{\McQ\cH172}\z{\MbQ\cH90}\z{\McQ\cH137} $\alpha$ {\MbQ\cH237}\z{\MdQ\cH77}\z{\MaQ\cH86}\z{\McQ\cH4}\z{\MaQ\cH141} pole {\MbQ\cH237}\z{\MaQ\cH80}\z{\McQ\cH48},
+{\McQ\cH174}\z{\MaQ\cH131}\z{\MfQ\cH173}\z{\MaQ\cH132}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MbQ\cH237}\z{\MbQ\cH241}\z{\MbQ\cH237}{\MaQ\cH1}\zZ{\MaQ\cH199}~\ref{fig:exp-avg-examples} {\MbQ\cH117}\z{\MbQ\cH231}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MbQ\cH209} step function {\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, 
+{\MaQ\cH46}\z{\MaQ\cH176}\z{\MbQ\cH237} $\alpha$ {\MdQ\cH77}\z{\MbQ\cH237}\z{\MaQ\cH165}\z{\MbQ\cH64}{\MaQ\cH1}\zZ
+$\alpha$ {\MdQ\cH77}\z{\MfQ\cH66}\z{\MaQ\cH252}, {\McQ\cH91}\z{\MbQ\cH253}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\MbQ\cH158}\z{\McQ\cH189}\z{\MfQ\cH66}\z{\MaQ\cH252}, {\MaQ\cH196}\z{\MbQ\cH164}\z{\MbQ\cH231}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MbQ\cH127}\z{\MaQ\cH215}\z{\MbQ\cH90}\z{\McQ\cH137}\z{\MbQ\cH237}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96},
+{\McQ\cH157}\z{\MaQ\cH124}\z{\MjQ\cH74}\z{\MaQ\cH44}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\McQ\cH200}\z{\MfQ\cH66}\z{\MdQ\cH10}, {\MaQ\cH79}\z{\MaQ\cH54}\z{\MaQ\cH72}\z{\McQ\cH91}\z{\MfQ\cH66}\z{\MaQ\cH46}\z{\MaQ\cH241}\z{\MbQ\cH113}\z{\MaQ\cH167}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MjQ\cH198}\z{\McQ\cH109}\z{\MfQ\cH9}\z{\McQ\cH224}{\MaQ\cH1}\zZ
+{\MaQ\cH165}\z{\MaQ\cH53}, $\alpha$ {\MdQ\cH77}\z{\MfQ\cH66}\z{\MaQ\cH215}, {\McQ\cH91}\z{\MbQ\cH253}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MdQ\cH77}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH39}\z{\MbQ\cH48}\z{\MaQ\cH165}\z{\MbQ\cH64}\z{\McQ\cH157}\z{\MaQ\cH112}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\McQ\cH137}\z{\MaQ\cH147}, {\MaQ\cH250}\z{\MbQ\cH107}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MjQ\cH198}\z{\McQ\cH109}\z{\MbQ\cH237}\z{\MaQ\cH110}\z{\MhQ\cH80}\z{\MaQ\cH137}\z{\MaQ\cH255}\z{\MaQ\cH45}\z{\MjQ\cH177}\z{\MaQ\cH55}{\MaQ\cH1}\zZ
+{\MaQ\cH199}~\ref{fig:exp-avg-alpha-02} {\MaQ\cH163}\z{\MaQ\cH199}~\ref{fig:exp-avg-alpha-08} {\MaQ\cH125}\z{\MaQ\cH129}\z{\MbQ\cH117} $\alpha=0.2$ {\MaQ\cH74}\z{\MaQ\cH163} $\alpha=0.8$ {\MbQ\cH237}
+{\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MaQ\cH199}, {\MaQ\cH115}\z{\MbQ\cH34}\z{\MaQ\cH199}\z{\MbQ\cH170}\z{\McQ\cH156}\z{\McQ\cH248}\z{\MaQ\cH45}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH245}\z{\MbQ\cH41}\z{\MaQ\cH124}\z{\MaQ\cH86} $\alpha$ {\MfQ\cH66}\z{\MaQ\cH215}, {\McQ\cH242}\z{\MjQ\cH228}\z{\MbQ\cH237}\z{\McQ\cH182}\z{\MaQ\cH77}\z{\McQ\cH92}\z{\MiQ\cH171}\z{\MbQ\cH193}\z{\MbQ\cH237}\z{\MfQ\cH66}\z{\MaQ\cH253}, {\MaQ\cH196}\z{\MbQ\cH164}\z{\McQ\cH242}\z{\MjQ\cH228}\z{\MaQ\cH241}\z{\MbQ\cH113}\z{\McQ\cH166}\z{\McQ\cH172}{\MaQ\cH1}\zZ
+{\McQ\cH165}\z{\MaQ\cH95}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH117}\z{\McQ\cH221}\z{\MbQ\cH18}\z{\McQ\cH21}\z{\MaQ\cH192}, {\MaQ\cH79}\z{\MaQ\cH162}\z{\MbQ\cH84}\z{\MaQ\cH88}\z{\MaQ\cH55}\z{\MaQ\cH46}\z{\MjQ\cH152}\z{\MbQ\cH237}\z{\MbQ\cH94}\z{\MhQ\cH48}, {\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH118}\z{\MaQ\cH46}\z{\McQ\cH127}\z{\MbQ\cH70}\z{\McQ\cH219}\z{\McQ\cH98}\z{\MbQ\cH237}\z{\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}\z{\MbQ\cH209}\z{\MaQ\cH83}~({\MaQ\cH63}\z{\MdQ\cH185}\z{\MaQ\cH46}\z{\MaQ\cH176}\z{\MbQ\cH237} $\alpha$ {\MdQ\cH77}),
+{\McQ\cH183}\z{\MdQ\cH201}\z{\McQ\cH219}\z{\McQ\cH98}\z{\MaQ\cH115}\z{\MaQ\cH95}\z{\MdQ\cH13}\z{\MbQ\cH182}\z{\MaQ\cH194}, 
+{\McQ\cH248}\z{\MaQ\cH95} delay element, {\MaQ\cH74}\z{\MaQ\cH163}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MaQ\cH139}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}, {\McQ\cH165}\z{\McQ\cH245}\z{\McQ\cH68}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH243}\z{\MbQ\cH170}, {\MaQ\cH255}\z{\MbQ\cH117}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\MbQ\cH39}\z{\MjQ\cH233}\z{\McQ\cH79}\z{\MbQ\cH237}\z{\MaQ\cH105}\z{\McQ\cH245}{\MaQ\cH1}\zZ
+{\McQ\cH166}\z{\MbQ\cH18}\z{\MaQ\cH202}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\MaQ\cH191}\z{\MbQ\cH161}\z{\MfQ\cH122} $\alpha$ {\MaQ\cH166} $2^i$, {\McQ\cH165}\z{\MbQ\cH154}\z{\MaQ\cH255}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MfQ\cH122}\z{\MdQ\cH13}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\McQ\cH137}\z{\MbQ\cH65} shifter, 
+{\MaQ\cH170}\z{\MaQ\cH74}\z{\MbQ\cH224}\z{\MbQ\cH121}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MbQ\cH237}\z{\McQ\cH171}\z{\McQ\cH18}\z{\McQ\cH190}\z{\MaQ\cH86}\z{\MaQ\cH245}\z{\MaQ\cH84}{\MaQ\cH1}\zZ
+{\McQ\cH165}\z{\MaQ\cH95}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH170}\z{\McQ\cH156}\z{\MaQ\cH46}\z{\MjQ\cH95}\z{\MaQ\cH175}\z{\McQ\cH98}\z{\McQ\cH104}\z{\MaQ\cH244}\z{\MhQ\cH109}\z{\McQ\cH200}\z{\McQ\cH137}\z{\MaQ\cH147}\z{\MjQ\cH25}\z{\MaQ\cH145}\z{\MbQ\cH237}\z{\MaQ\cH203}\z{\MbQ\cH106}, {\MbQ\cH170}\z{\MaQ\cH224}\z{\McQ\cH122}\z{\MiQ\cH36}\z{\MaQ\cH103}\z{\MjQ\cH25}\z{\MaQ\cH145},
+{\MaQ\cH79}\z{\MbQ\cH117}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\MaQ\cH202}\z{\MdQ\cH201}\z{\McQ\cH219}\z{\McQ\cH98}\z{\McQ\cH104}\z{\MaQ\cH244}\z{\McQ\cH197}\z{\MbQ\cH118}\z{\McQ\cH200}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MdQ\cH77}\z{\MbQ\cH237}\z{\MaQ\cH203}\z{\MbQ\cH106}, {\MbQ\cH170}\z{\MaQ\cH224}\z{\McQ\cH122}\z{\MbQ\cH169}\z{\MaQ\cH125}\z{\MjQ\cH160}\z{\MbQ\cH45}\z{\MjQ\cH30}\z{\MbQ\cH98}\z{\MbQ\cH237}\z{\MbQ\cH19}\z{\MaQ\cH204}, {\MgQ\cH142}\z{\McQ\cH154}\z{\MbQ\cH67}\z{\MiQ\cH50}\z{\MjQ\cH32}\z{\McQ\cH154}\z{\MbQ\cH237}\z{\McQ\cH167}\z{\MbQ\cH25}\z{\McQ\cH108}, 
+{\McQ\cH165}\z{\MdQ\cH74}\z{\MaQ\cH46}\z{\MaQ\cH220}\z{\MbQ\cH209}\z{\McQ\cH248}\z{\MaQ\cH95}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MaQ\cH162}\z{\MbQ\cH127}\z{\MbQ\cH94}\z{\MhQ\cH48}\z{\MbQ\cH237}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}{\MaQ\cH1}\zZ
+\begin{figure}
+  \centering
+  \include{ExpAvgTimeEqn}
+  \caption{Exponential averager diagram}
+  \label{fig:exp-avg-diagram}
+\end{figure}
+\begin{figure}
+  \centering
+  \include{ExpAvgZTrans}
+  \caption{Exponential averager z plane}
+  \label{fig:exp-avg-z-plane}
+\end{figure}
+\begin{figure}
+  \centering
+  \scalebox{0.4}{\includegraphics{ExpAvgVsAlpha}}
+  \caption{{\McQ\cH157}\z{\MaQ\cH112}\z{\MbQ\cH209}\z{\MbQ\cH165}\z{\MjQ\cH188}\z{\MdQ\cH131}\z{\MbQ\cH98}\z{\MbQ\cH118}, {\MaQ\cH46}\z{\MaQ\cH176} alpha {\MdQ\cH77}\z{\MbQ\cH237} exponential averager {\MbQ\cH237}\z{\McQ\cH157}\z{\MaQ\cH124}\z{\MaQ\cH199}\z{\MbQ\cH36}}
+  \label{fig:exp-avg-examples}
+\end{figure}
+\begin{figure}
+  \centering
+  \subfloat[$alpha = 0.2$]{\scalebox{0.3}{\includegraphics{ExpAvgFreq_alpha_0.2.eps}} \label{fig:exp-avg-alpha-02}}
+  \qquad
+  \subfloat[$alpha = 0.8$]{\scalebox{0.3}{\includegraphics{ExpAvgFreq_alpha_0.8.eps}} \label{fig:exp-avg-alpha-08}}
+  \caption{Exponential averager {\MjQ\cH228}\z{\MhQ\cH48}\z{\McQ\cH224}\z{\MbQ\cH64}}
+  \label{fig:exp-avg-freq}
+\end{figure}
+
+% 在這裡各位可以思考一個問題, 在不改變圖~\ref{fig:exp-avg-diagram} 的架構下, 
+% 我們要怎麼把 exponential averager 變成 high pass filter 呢?
+% \begin{figure}
+%   \centering
+%   \scalebox{0.5}{\includegraphics{ExpAvgFreq_alpha_0.2.eps}}
+%   \caption{$\alpha=0.2$ 的 exponential averager 頻率響應}
+%   \label{fig:exp-avg-alpha-02}
+% \end{figure}
+% \begin{figure}
+%   \centering
+%   \scalebox{0.5}{\includegraphics{ExpAvgFreq_alpha_0.8.eps}}
+%   \caption{$\alpha=0.8$ 的 exponential averager 頻率響應}
+%   \label{fig:exp-avg-alpha-08}
+% \end{figure}
+
+% \section{常用動平均濾波器的分析}
+% \label{sec:filter-analysis}
+
+
+% \section{實例} % Examples
+% \label{sec:examples}
+
+\section{{\McQ\cH33}\z{\McQ\cH120}} % Conclusion
+\label{sec:conclusion}
+
+{\MbQ\cH226}\z{\MbQ\cH107}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH202}\z{\McQ\cH36}\z{\McQ\cH108}{\MaQ\cH2} {\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\McQ\cH68}\z{\MiQ\cH36}\z{\MbQ\cH13}\z{\MbQ\cH237}\z{\MbQ\cH27}\z{\MgQ\cH152}\z{\MbQ\cH64}\z{\MbQ\cH224}, {\MbQ\cH66}\z{\MaQ\cH98}\z{\McQ\cH153}\z{\MbQ\cH209}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\McQ\cH113}\z{\McQ\cH108}\z{\MbQ\cH15}\z{\McQ\cH248}\z{\MaQ\cH236}\z{\MbQ\cH127}\z{\MbQ\cH156}\z{\MbQ\cH125}\z{\MbQ\cH81}\z{\MiQ\cH190}\z{\MaQ\cH131}{\MaQ\cH1}\zZ
+{\McQ\cH55}\z{\MaQ\cH47}\z{\MbQ\cH241}\z{\MaQ\cH135}\z{\MaQ\cH114}\z{\MhQ\cH55}\z{\MaQ\cH236}\z{\MaQ\cH80}\z{\MhQ\cH205}\z{\McQ\cH36}\z{\MbQ\cH67}\z{\MbQ\cH117}\z{\MbQ\cH62}\z{\MgQ\cH191}\z{\MaQ\cH194}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\McQ\cH221}\z{\MbQ\cH18}\z{\MaQ\cH241}\z{\MbQ\cH113}\z{\MaQ\cH166}\z{\MbQ\cH41}, 
+{\MaQ\cH114}\z{\MhQ\cH55}\z{\MaQ\cH236}\z{\MaQ\cH80}\z{\MhQ\cH205}\z{\McQ\cH36}\z{\MbQ\cH237}\z{\MaQ\cH236}\z{\MaQ\cH80}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\MbQ\cH67}\z{\MbQ\cH117}\z{\MbQ\cH62}\z{\MgQ\cH191}\z{\MaQ\cH194}\z{\MbQ\cH169}\z{\MbQ\cH159}\z{\MbQ\cH62}\z{\MgQ\cH191}\z{\MbQ\cH237}\z{\MbQ\cH98}\z{\MdQ\cH77}\z{\MbQ\cH125}\z{\MaQ\cH167}\z{\MaQ\cH215}\z{\MbQ\cH173}\z{\McQ\cH16}\z{\McQ\cH16}\z{\MhQ\cH61}\z{\MeQ\cH49}\z{\MbQ\cH237}\z{\MeQ\cH223}\z{\MfQ\cH215}\z{\MaQ\cH85}\z{\MbQ\cH41}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\MbQ\cH223}\z{\MbQ\cH222}\z{\MdQ\cH18}\z{\MbQ\cH98}\z{\MbQ\cH237}\z{\MdQ\cH82}\z{\McQ\cH4}, 
+{\McQ\cH165}\z{\MaQ\cH60}\z{\McQ\cH183}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MjQ\cH78}\z{\McQ\cH172}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MaQ\cH86}\z{\MbQ\cH190}\z{\McQ\cH206}\z{\McQ\cH165}\z{\MaQ\cH60}\z{\MeQ\cH223}\z{\MfQ\cH215},
+{\MbQ\cH117}\z{\MaQ\cH95}\z{\McQ\cH221}\z{\MbQ\cH18}\z{\MaQ\cH245}\z{\MbQ\cH224}\z{\MbQ\cH237}\z{\MfQ\cH120}\z{\MeQ\cH205}{\MaQ\cH1}\zZ
+{\MbQ\cH205}\z{\McQ\cH55}\z{\MaQ\cH49}\z{\McQ\cH221}\z{\MbQ\cH70}\z{\MbQ\cH127}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\McQ\cH113}\z{\McQ\cH108}\z{\MbQ\cH15}\z{\McQ\cH183}\z{\MaQ\cH94}\z{\McQ\cH51}\z{\McQ\cH172}\z{\MbQ\cH98}\z{\MaQ\cH80}\z{\McQ\cH109}\z{\McQ\cH85}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH237}\z{\MbQ\cH220}\z{\McQ\cH127}, {\MaQ\cH196}\z{\MbQ\cH164}, {\MhQ\cH176}\z{\McQ\cH54}\z{\McQ\cH116}\z{\MaQ\cH199}\z{\MaQ\cH74}\z{\MbQ\cH124}\z{\MaQ\cH253}\z{\MbQ\cH237}\z{\MbQ\cH220}\z{\McQ\cH127}\z{\MdQ\cH28}\z{\MhQ\cH220}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MbQ\cH150}\z{\MbQ\cH49},
+{\MaQ\cH119}\z{\MaQ\cH50}\z{\MdQ\cH28}\z{\MhQ\cH220}\z{\MaQ\cH55}\z{\McQ\cH251}\z{\McQ\cH7}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\MaQ\cH135}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MbQ\cH5}\z{\MbQ\cH107}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\McQ\cH15}\z{\McQ\cH251}\z{\McQ\cH7}\z{\MbQ\cH5}\z{\MbQ\cH107}\z{\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}{\MaQ\cH1}\zZ
+{\MaQ\cH135}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MbQ\cH5}\z{\MbQ\cH107}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MiQ\cH179}\z{\McQ\cH222}, {\McQ\cH15}\z{\McQ\cH248}\z{\McQ\cH7}\z{\MbQ\cH117}\z{\MbQ\cH124}\z{\MbQ\cH242}\z{\McQ\cH104}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\MbQ\cH237}, {\MaQ\cH46}\z{\McQ\cH172}\z{\MaQ\cH196}\z{\MbQ\cH209}\z{\McQ\cH189}\z{\MiQ\cH181}\z{\McQ\cH108}\z{\McQ\cH18}\z{\MaQ\cH214}, {\McQ\cH171}\z{\McQ\cH18}\z{\McQ\cH190}\z{\MbQ\cH124}\z{\MaQ\cH215},
+{\McQ\cH15}\z{\McQ\cH249}\z{\McQ\cH7}\z{\MaQ\cH134}\z{\MbQ\cH117}\z{\McQ\cH15}\z{\McQ\cH248}\z{\McQ\cH7}\z{\MbQ\cH237}\z{\MaQ\cH252}\z{\McQ\cH137}\z{\MbQ\cH36}, {\MaQ\cH202}\z{\MaQ\cH236}\z{\McQ\cH245}\z{\McQ\cH171}\z{\McQ\cH18}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\MbQ\cH193}\z{\MaQ\cH253}\z{\MgQ\cH200}\z{\MaQ\cH80}\z{\MbQ\cH237}\z{\MbQ\cH234}\z{\MbQ\cH222}\z{\MbQ\cH156}\z{\MbQ\cH125}, {\MaQ\cH224}\z{\MbQ\cH139}\z{\MiQ\cH232}\z{\McQ\cH54}\z{\MbQ\cH117}\z{\MbQ\cH224}\z{\MgQ\cH170}\z{\McQ\cH245}\z{\McQ\cH171}\z{\McQ\cH18}\z{\MaQ\cH86}\z{\MaQ\cH245}\z{\MaQ\cH84},
+{\McQ\cH181}\z{\McQ\cH243}\z{\McQ\cH15}\z{\McQ\cH248}\z{\McQ\cH7}\z{\McQ\cH68}\z{\McQ\cH15}\z{\McQ\cH249}\z{\McQ\cH7}\z{\MbQ\cH117}\z{\MaQ\cH234}\z{\MaQ\cH114}\z{\McQ\cH248}\z{\MbQ\cH154}\z{\MbQ\cH237}{\MaQ\cH1}\zZ
+{\McQ\cH15}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MaQ\cH134}\z{\MbQ\cH117}\z{\McQ\cH21}\z{\MaQ\cH147}\z{\MhQ\cH23}\z{\MbQ\cH237}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}, {\MhQ\cH176}\z{\McQ\cH54}\z{\MbQ\cH29}\z{\McQ\cH135}\z{\MaQ\cH224}\z{\MbQ\cH139}\z{\McQ\cH98}\z{\MaQ\cH245}\z{\MaQ\cH84}\z{\McQ\cH21}\z{\MaQ\cH192}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH237}\z{\McQ\cH117}, {\MaQ\cH74}\z{\McQ\cH15}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MaQ\cH86}\z{\MaQ\cH245}\z{\MaQ\cH84},
+{\MaQ\cH170}\z{\MaQ\cH74}\z{\MaQ\cH215}\z{\MeQ\cH217}\z{\McQ\cH21}\z{\MaQ\cH147}\z{\McQ\cH171}\z{\McQ\cH18}\z{\McQ\cH190}{\MaQ\cH1}\zZ
+{\McQ\cH15}\z{\McQ\cH251}\z{\McQ\cH7}\z{\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MaQ\cH134}\z{\MbQ\cH170}\z{\MaQ\cH135}\z{\McQ\cH250}\z{\McQ\cH7}\z{\MbQ\cH121}\z{\MbQ\cH209}\z{\McQ\cH21}\z{\MaQ\cH192}, {\McQ\cH171}\z{\McQ\cH18}\z{\McQ\cH190}\z{\MaQ\cH54}\z{\MbQ\cH124}\z{\MaQ\cH253}, {\MeQ\cH171}\z{\MaQ\cH119}\z{\MbQ\cH117}\z{\MfQ\cH122}\z{\MdQ\cH13}\z{\MbQ\cH182}\z{\MaQ\cH194}\z{\MaQ\cH74} shifter {\MaQ\cH166}\z{\MaQ\cH72}\z{\MaQ\cH53}\z{\MbQ\cH40},
+{\MaQ\cH202}\z{\MbQ\cH179}\z{\MbQ\cH127}\z{\MgQ\cH170}\z{\McQ\cH245}\z{\McQ\cH171}\z{\McQ\cH18}\z{\MbQ\cH237}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MaQ\cH194}\z{\MaQ\cH44}, {\MbQ\cH121}\z{\MbQ\cH117}\z{\MaQ\cH224}\z{\MkQ\cH21}\z{\MbQ\cH41}\z{\MbQ\cH174}{\MaQ\cH1}\zZ{\MaQ\cH46}\z{\McQ\cH172}, {\MbQ\cH78}\z{\MbQ\cH98}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\MbQ\cH170}\z{\McQ\cH156}\z{\MjQ\cH95}\z{\MaQ\cH175}\z{\MbQ\cH64}\z{\MbQ\cH224}\z{\MaQ\cH202}\z{\McQ\cH137}\z{\MaQ\cH141}\z{\McQ\cH156}\z{\MaQ\cH46}\z{\MjQ\cH228}\z{\MhQ\cH245}\z{\MbQ\cH237}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\MaQ\cH44},
+{\McQ\cH165}\z{\McQ\cH245}\z{\MiQ\cH232}\z{\McQ\cH54}\z{\McQ\cH98}\z{\MbQ\cH183}\z{\MbQ\cH60}{\MaQ\cH1}\zZ
+{\MbQ\cH14}\z{\MbQ\cH129}\z{\McQ\cH165}\z{\MhQ\cH185}\z{\MbQ\cH100}\z{\McQ\cH14}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\MiQ\cH233}\z{\MaQ\cH174}\z{\MaQ\cH80}\z{\MaQ\cH202}\z{\MeQ\cH159}\z{\McQ\cH6}\z{\MbQ\cH31}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\MbQ\cH125}\z{\MdQ\cH18}\z{\MjQ\cH235}\z{\MaQ\cH141}\z{\MbQ\cH237}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\MbQ\cH237}\z{\MbQ\cH118}\z{\MaQ\cH96}, {\McQ\cH63}\z{\MeQ\cH68}\z{\MbQ\cH248}\z{\McQ\cH173}\z{\MbQ\cH127}\z{\MaQ\cH141}\z{\MbQ\cH19}\z{\MaQ\cH204}\z{\MrQ\cH6}\z{\MgQ\cH154}\z{\MaQ\cH194}\z{\McQ\cH165}\z{\McQ\cH7}\z{\MgQ\cH115}\z{\MaQ\cH194}\z{\MaQ\cH170}\z{\MaQ\cH74}\z{\MaQ\cH85}\z{\MbQ\cH224},
+{\MaQ\cH85}\z{\MbQ\cH41}\z{\McQ\cH84}\z{\MbQ\cH220}\z{\McQ\cH165}\z{\McQ\cH248}\z{\McQ\cH233}\z{\McQ\cH146}\z{\MbQ\cH101}\z{\McQ\cH63}\z{\MeQ\cH68}\z{\MbQ\cH121}\z{\MhQ\cH160}\z{\MaQ\cH236}{\MaQ\cH1}\zZ
+%以及數種常用動平均濾波器的實作以及優缺點, 提供給有機會實作的程式設計師參考,
+%希望大家在看到動平均濾波器的時候, 能夠想起這一篇文章所簡介的概念, 並且能夠應用!
+{\MbQ\cH124}\z{\MbQ\cH40}, {\MiQ\cH225}\z{\MiQ\cH225}\z{\MaQ\cH174}\z{\MaQ\cH80}\z{\MiQ\cH21}\z{\MbQ\cH45}\z{\MbQ\cH237}\z{\MfQ\cH122}\z{\McQ\cH165}\z{\MhQ\cH185}\z{\MbQ\cH100}\z{\McQ\cH14}\z{\MbQ\cH245}\z{\MaQ\cH234}!
+
+\begin{figure}
+  \centering
+  \include{Fibonacci}
+  \caption{Test}
+\end{figure}
+
+\end{document}

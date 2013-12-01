@@ -1,0 +1,494 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=latex 2012.6.30)  24 MAY 2013 18:44
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Intro-Moving-Avg.tex
+(./Intro-Moving-Avg.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
+ polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
+lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
+welsh, loaded.
+(./cinput.tex) (/usr/local/texlive/2012/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2012/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks14
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/local/texlive/2012/texmf-dist/tex/latex/pstricks/pstricks.sty
+Package: pstricks 2011/10/31 v0.52 LaTeX wrapper for `PSTricks' (RN,HV)
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pstricks/pstricks.tex
+(/usr/local/texlive/2012/texmf-dist/tex/generic/xkeyval/pst-xkey.tex
+File: pst-xkey.tex 2005/11/25 v1.6 PSTricks specialization of xkeyval (HA)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+\XKV@toks=\toks15
+\XKV@tempa@toks=\toks16
+\XKV@depth=\count87
+File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/xkeyval/keyval.tex))))
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pstricks/pst-fp.tex
+`pst-fp' v0.05, 2010/01/17 (hv)
+\pstFP@xs=\count88
+\pstFP@xia=\count89
+\pstFP@xib=\count90
+\pstFP@xfa=\count91
+\pstFP@xfb=\count92
+\pstFP@rega=\count93
+\pstFP@regb=\count94
+\pstFP@regs=\count95
+\pstFP@times=\count96
+)
+\psLoopIndex=\count97
+
+`PSTricks' v2.29  <2012/06/04> (tvz)
+\pst@dima=\dimen103
+\pst@dimb=\dimen104
+\pst@dimc=\dimen105
+\pst@dimd=\dimen106
+\pst@dimg=\dimen107
+\pst@dimh=\dimen108
+\pst@dimm=\dimen109
+\pst@dimn=\dimen110
+\pst@dimo=\dimen111
+\pst@dimp=\dimen112
+\pst@hbox=\box26
+\pst@ibox=\box27
+\pst@boxg=\box28
+\pst@cnta=\count98
+\pst@cntb=\count99
+\pst@cntc=\count100
+\pst@cntd=\count101
+\pst@cntg=\count102
+\pst@cnth=\count103
+\pst@cntm=\count104
+\pst@cntn=\count105
+\pst@cnto=\count106
+\pst@cntp=\count107
+\@zero=\count108
+\pst@toks=\toks17
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pstricks/pstricks.con)
+\psunit=\dimen113
+\psxunit=\dimen114
+\psyunit=\dimen115
+\pst@C@@rType=\count109
+\pslinewidth=\dimen116
+\psk@startLW=\dimen117
+\psk@endLW=\dimen118
+\pst@customdefs=\toks18
+\pslinearc=\dimen119
+\pst@symbolStep=\dimen120
+\pst@symbolWidth=\dimen121
+\pst@symbolLinewidth=\dimen122
+\everypsbox=\toks19
+\psframesep=\dimen123
+\pslabelsep=\dimen124
+\pst@shift=\dimen125
+\theoverlaybox=\box29
+)
+File: pstricks.tex 2012/06/04 v2.29 `PSTricks' (tvz,hv)
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pstricks/pst-fp.tex)
+File: pst-fp.tex 2012/06/04 v2.29 `PST-fp' (hv)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: dvips.def on input line 225.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+))
+(/usr/local/texlive/2012/texmf-dist/tex/latex/pst-sigsys/pst-sigsys.sty
+Package: pst-sigsys 2011/03/07 package wrapper for pst-sigsys.tex (fd)
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pst-sigsys/pst-sigsys.tex
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pst-node/pst-node.tex
+ v1.22, 2012/02/12
+\psrow=\count110
+\pscol=\count111
+\psmatrixcnt=\count112
+\psrowsep=\skip43
+\pscolsep=\skip44
+\pst@args=\count113
+\num@pts=\count114
+\pst@argcnt=\count115
+) `PST-SigSys' v1.4, 2011/03/07 (fd)
+\ss@ticklength=\dimen126
+\ss@signalsep=\dimen127
+\ss@zerowidth=\dimen128
+\ss@zeroradius=\dimen129
+\ss@zeroradiusinc=\dimen130
+\ss@polewidth=\dimen131
+\ss@polelength=\dimen132
+\ss@oplength=\dimen133
+\ss@opwidth=\dimen134
+\ss@opsep=\dimen135
+\ss@ldotssep=\dimen136
+\ss@ldotssize=\dimen137
+\ss@aoffset=\dimen138
+\ss@knoblength=\dimen139
+\ss@knobwidth=\dimen140
+\ss@temp@dimA=\dimen141
+\ss@temp@dimB=\dimen142
+\ss@temp@dimC=\dimen143
+\ss@temp@cnt=\count116
+\ss@calc@dim=\dimen144
+\ss@if@dimA=\dimen145
+\ss@if@dimB=\dimen146
+)
+File: pst-sigsys.tex 2011/03/07 v1.4 `PST-sigsys' (fd)
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/pst-plot/pst-plot.sty
+Package: pst-plot 2011/06/05 v1.00 LaTeX wrapper for `pst-plot' (HV)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/xkeyval/pst-xkey.sty
+Package: pst-xkey 2005/11/25 v1.6 package wrapper for pst-xkey.tex (HA)
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/multido/multido.sty
+Package: multido 2004/05/17 package wrapper for PSTricks `multido.tex', (HV/RN)
+
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/multido/multido.tex
+ v1.42, 2010/05/14 <tvz>
+\multido@count=\count117
+\multidocount=\count118
+\multido@stuff=\toks20
+)
+File: multido.tex 2010/05/14 v1.42 `multido' (tvz,hv)
+)
+Package: pst-plot 2011/04/13 package wrapper for pst-plot.tex (hv)
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/pst-plot/pst-plot.tex
+ v1.42, 2012/05/03 (tvz,hv)
+\pstRadUnit=\dimen147
+\pstRadUnitInv=\dimen148
+\pst@linecnt=\count119
+\psxlabelsep=\dimen149
+\psylabelsep=\dimen150
+\psk@subticksize=\dimen151
+\pst@xticksizeA=\dimen152
+\pst@xticksizeB=\dimen153
+\pst@xticksizeC=\dimen154
+\pst@yticksizeA=\dimen155
+\pst@yticksizeB=\dimen156
+\pst@yticksizeC=\dimen157
+\@digitcounter=\count120
+\psk@llx=\dimen158
+\psk@lly=\dimen159
+\psk@urx=\dimen160
+\psk@ury=\dimen161
+\pst@xunit=\dimen162
+\pst@yunit=\dimen163
+)
+File: pst-plot.tex 2012/05/03 1.42 `pst-plot' (tvz,hv)
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+)
+\Gin@req@height=\dimen164
+\Gin@req@width=\dimen165
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2012/02/19 v3.2f Customizing captions (AR)
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
+\captionmargin=\dimen166
+\captionmargin@=\dimen167
+\captionwidth=\dimen168
+\caption@indent=\dimen169
+\caption@parindent=\dimen170
+\caption@hangindent=\dimen171
+)
+\c@ContinuedFloat=\count121
+)
+\c@KVtest=\count122
+\sf@farskip=\skip45
+\sf@captopadj=\dimen172
+\sf@capskip=\skip46
+\sf@nearskip=\skip47
+\c@subfigure=\count123
+\c@subfigure@save=\count124
+\c@lofdepth=\count125
+\c@subtable=\count126
+\c@subtable@save=\count127
+\c@lotdepth=\count128
+\sf@top=\skip48
+\sf@bottom=\skip49
+)
+(/usr/local/texlive/2012/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(./Intro-Moving-Avg.aux (./MA-Type1-z-trans.aux) (./MA-IIR-ztrans.aux)
+(./ExpAvgTimeEqn.aux) (./ExpAvgZTrans.aux) (./Fibonacci.aux))
+\openout1 = `Intro-Moving-Avg.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 24.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for OT1+cwM on input line 25.
+
+(/Users/albert/Library/texmf/tex/latex/cwtex/ot1cwm.fd
+File: ot1cwM.fd 2007/5/1 font definitions for OT1/cwM.
+)
+LaTeX Font Info:    Font shape `OT1/cwM/6/n' will be
+(Font)              scaled to size 18.14404pt on input line 25.
+LaTeX Font Info:    Font shape `OT1/cwM/2/n' will be
+(Font)              scaled to size 18.14404pt on input line 25.
+LaTeX Font Info:    Font shape `OT1/cwM/0/n' will be
+(Font)              scaled to size 18.14404pt on input line 25.
+LaTeX Font Info:    Font shape `OT1/cwM/1/n' will be
+(Font)              scaled to size 18.14404pt on input line 25.
+LaTeX Font Info:    Font shape `OT1/cwM/17/n' will be
+(Font)              scaled to size 18.14404pt on input line 25.
+LaTeX Font Info:    Try loading font information for U+msa on input line 25.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 25.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 25.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Font shape `OT1/cwM/2/n' will be
+(Font)              scaled to size 12.60004pt on input line 25.
+LaTeX Font Info:    Font shape `OT1/cwM/3/n' will be
+(Font)              scaled to size 12.60004pt on input line 25.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 25.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+LaTeX Font Info:    Try loading font information for OML+pcr on input line 25.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omlpcr.fd
+File: omlpcr.fd 
+)
+LaTeX Font Info:    Font shape `OML/pcr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 25.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 27.
+LaTeX Font Info:    Font shape `OT1/cwM/2/n' will be
+(Font)              scaled to size 15.12003pt on input line 27.
+LaTeX Font Info:    Font shape `OT1/cwM/3/n' will be
+(Font)              scaled to size 15.12003pt on input line 27.
+LaTeX Font Info:    Font shape `OT1/cwM/0/n' will be
+(Font)              scaled to size 11.49753pt on input line 30.
+LaTeX Font Info:    Font shape `OT1/cwM/1/n' will be
+(Font)              scaled to size 11.49753pt on input line 30.
+LaTeX Font Info:    Font shape `OT1/cwM/17/n' will be
+(Font)              scaled to size 11.49753pt on input line 30.
+LaTeX Font Info:    Font shape `OT1/cwM/6/n' will be
+(Font)              scaled to size 11.49753pt on input line 30.
+LaTeX Font Info:    Font shape `OT1/cwM/2/n' will be
+(Font)              scaled to size 11.49753pt on input line 30.
+LaTeX Font Info:    Font shape `OT1/cwM/8/n' will be
+(Font)              scaled to size 11.49753pt on input line 31.
+LaTeX Font Info:    Font shape `OT1/cwM/9/n' will be
+(Font)              scaled to size 11.49753pt on input line 31.
+LaTeX Font Info:    Font shape `OT1/cwM/7/n' will be
+(Font)              scaled to size 11.49753pt on input line 32.
+LaTeX Font Info:    Font shape `OT1/cwM/4/n' will be
+(Font)              scaled to size 11.49753pt on input line 33.
+LaTeX Font Info:    Font shape `OT1/cwM/5/n' will be
+(Font)              scaled to size 11.49753pt on input line 33.
+LaTeX Font Info:    Font shape `OT1/cwM/3/n' will be
+(Font)              scaled to size 11.49753pt on input line 34.
+LaTeX Font Info:    Font shape `OT1/cwM/10/n' will be
+(Font)              scaled to size 11.49753pt on input line 61.
+ [1
+
+]
+LaTeX Font Info:    Font shape `OT1/cwM/1/n' will be
+(Font)              scaled to size 15.12003pt on input line 73.
+LaTeX Font Info:    Font shape `OT1/cwM/0/n' will be
+(Font)              scaled to size 15.12003pt on input line 73.
+LaTeX Font Info:    Font shape `OT1/cwM/17/n' will be
+(Font)              scaled to size 15.12003pt on input line 73.
+LaTeX Font Info:    Font shape `OT1/cwM/6/n' will be
+(Font)              scaled to size 15.12003pt on input line 73.
+
+Overfull \hbox (11.8284pt too wide) in alignment at lines 110--116
+ [][][] []
+ []
+
+[2]
+LaTeX Font Info:    Font shape `OT1/cwM/2/n' will be
+(Font)              scaled to size 6.30002pt on input line 123.
+LaTeX Font Info:    Font shape `OT1/cwM/0/n' will be
+(Font)              scaled to size 6.30002pt on input line 123.
+
+Overfull \hbox (15.58801pt too wide) in paragraph at lines 122--126
+ [][] 
+ []
+
+File: MA_output_N_4.eps Graphic file (type eps)
+<MA_output_N_4.eps> [3]
+LaTeX Font Info:    Font shape `OT1/cwM/1/n' will be
+(Font)              scaled to size 9.45003pt on input line 150.
+LaTeX Font Info:    Font shape `OT1/cwM/5/n' will be
+(Font)              scaled to size 9.45003pt on input line 150.
+LaTeX Font Info:    Font shape `OT1/cwM/4/n' will be
+(Font)              scaled to size 9.45003pt on input line 150.
+LaTeX Font Info:    Font shape `OT1/cwM/2/n' will be
+(Font)              scaled to size 9.45003pt on input line 150.
+LaTeX Font Info:    Font shape `OT1/cwM/0/n' will be
+(Font)              scaled to size 9.45003pt on input line 150.
+LaTeX Font Info:    Font shape `OT1/cwM/6/n' will be
+(Font)              scaled to size 9.45003pt on input line 150.
+LaTeX Font Info:    Font shape `OT1/cwM/9/n' will be
+(Font)              scaled to size 9.45003pt on input line 163.
+LaTeX Font Info:    Font shape `OT1/cwM/7/n' will be
+(Font)              scaled to size 9.45003pt on input line 163.
+LaTeX Font Info:    Font shape `OT1/cwM/8/n' will be
+(Font)              scaled to size 9.45003pt on input line 163.
+LaTeX Font Info:    Font shape `OT1/cwM/14/n' will be
+(Font)              scaled to size 11.49753pt on input line 171.
+LaTeX Font Info:    Font shape `OT1/cwM/3/n' will be
+(Font)              scaled to size 9.45003pt on input line 174.
+\openout2 = `MA-Type1-z-trans.aux'.
+
+ (./MA-Type1-z-trans.tex)
+File: MA_N_4_freq.eps Graphic file (type eps)
+ <MA_N_4_freq.eps> [4]
+LaTeX Font Info:    Font shape `OT1/cwM/15/n' will be
+(Font)              scaled to size 11.49753pt on input line 243.
+ [5
+
+
+]
+[6] [7]
+\openout2 = `MA-IIR-ztrans.aux'.
+
+ (./MA-IIR-ztrans.tex)
+\openout2 = `ExpAvgTimeEqn.aux'.
+
+ (./ExpAvgTimeEqn.tex)
+\openout2 = `ExpAvgZTrans.aux'.
+
+ (./ExpAvgZTrans.tex)
+File: ExpAvgVsAlpha.eps Graphic file (type eps)
+
+<ExpAvgVsAlpha.eps>
+File: ExpAvgFreq_alpha_0.2.eps Graphic file (type eps)
+ <ExpAvgFreq_alpha_0.2.eps>
+File: ExpAvgFreq_alpha_0.8.eps Graphic file (type eps)
+ <ExpAvgFreq_alpha_0.8.eps>
+[8
+
+
+] [9
+
+
+] [10
+
+
+]
+\openout2 = `Fibonacci.aux'.
+
+ (./Fibonacci.tex) [11
+
+
+] (./Intro-Moving-Avg.aux
+(./MA-Type1-z-trans.aux) (./MA-IIR-ztrans.aux) (./ExpAvgTimeEqn.aux)
+(./ExpAvgZTrans.aux) (./Fibonacci.aux)) ) 
+Here is how much of TeX's memory you used:
+ 5796 strings out of 493489
+ 85883 string characters out of 3141349
+ 195410 words of memory out of 3000000
+ 8978 multiletter control sequences out of 15000+200000
+ 28600 words of font info for 101 fonts, out of 3000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 61i,11n,96p,3770b,480s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on Intro-Moving-Avg.dvi (11 pages, 57300 bytes).

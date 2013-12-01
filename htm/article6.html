@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201312/htm/home.html">2013 年 12 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#r-講題分享---種類數的估計與預測">R 講題分享 - 種類數的估計與預測</a></li>
+</ul>
+</div>
+<h2 id="r-講題分享---種類數的估計與預測"><a href="#r-講題分享---種類數的估計與預測">R 講題分享 - 種類數的估計與預測</a></h2>
+<h3 id="簡介"><a href="#簡介">簡介</a></h3>
+<p>關於一個集合內部種類數的估計問題，在各種領域中廣泛的討論。譬如：戶政機關的人口數估計、流行病學中的罹病人數估計、生態學中的物種數估計、程式設計中的臭蟲數估計、考古學中的器皿數估計、古典文學中的作家字彙數估計等等。任職於清華統計所的 <a href="http://chao.stat.nthu.edu.tw/">趙蓮菊</a> 教授是國際間研究種類數估計的大師，本文將簡單的介紹趙教授關於種類數估計問題所發展的統計方法。</p>
+<h3 id="研究問題與資料格式"><a href="#研究問題與資料格式">研究問題與資料格式</a></h3>
+<p>為了得知集合中的種類數，勢必透過抽樣資料來估計。本文舉李蕙帆 (2008) 對於曹雪芹先生所撰寫的經典名著紅樓夢做為例子，假定欲探討的集合為文學大家曹雪芹先生所認識的字彙，則紅樓夢前80回 (一般認為120回的紅樓夢，前80回為曹雪芹所作，後40回為他人續作) 可視為曹先生認識字彙的抽樣結果，下表為種類數調查數據的基本格式，即曹雪芹在紅樓夢前80回的用字頻率，fi 表示小說中出現i次的字彙數目：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">i</th>
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">3</th>
+<th align="left">4</th>
+<th align="left">5</th>
+<th align="left">6</th>
+<th align="left">7</th>
+<th align="left">8</th>
+<th align="left">9</th>
+<th align="left">10</th>
+<th align="left">10up</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="../timg/59bdf0ba696e.jpg" /></td>
+<td align="left">743</td>
+<td align="left">394</td>
+<td align="left">245</td>
+<td align="left">190</td>
+<td align="left">144</td>
+<td align="left">127</td>
+<td align="left">115</td>
+<td align="left">104</td>
+<td align="left">90</td>
+<td align="left">81</td>
+<td align="left">1182</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chao1-下界估計量"><a href="#chao1-下界估計量">Chao1 下界估計量</a></h3>
+<p>我們用 <a href="http://www.r-project.org/">R軟體</a> 將上述表格繪製成以下示意圖，實心圓圈為樣本中出現 <img src="../timg/865c0c0b4ab0.jpg" /> 次字彙的調查結果 <img src="../timg/59bdf0ba696e.jpg" /> ，而空心圓圈表示樣本中未出現的字彙數，其值未知並記為 <img src="../timg/78155d2ec4b0.jpg" /> 。令 <img src="../timg/5dbc98dcc983.jpg" /> 表示曹雪芹認識字彙的總數， <img src="../timg/7d433fbb1182.jpg" /> 表示樣本中出現的字彙數，則以上常數滿足關係式</p>
+<div class="figure">
+<img src="../timg/01dba172fdeb.jpg" />
+</div>
+<p>因此，對於總字彙數 <img src="../timg/5dbc98dcc983.jpg" /> 的估計問題，可以等價於未知常數 <img src="../timg/78155d2ec4b0.jpg" /> 的估計。</p>
+<pre class="sourceCode r"><code class="sourceCode r">fau &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="kw">c</span>(<span class="dv">743</span>, <span class="dv">394</span>, <span class="dv">245</span>, <span class="dv">190</span>, <span class="dv">144</span>, <span class="dv">127</span>, <span class="dv">115</span>, <span class="dv">104</span>, <span class="dv">90</span>, <span class="dv">81</span>))
+<span class="kw">par</span>(<span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">1.3</span>)
+if (<span class="kw">Sys.info</span>()[<span class="st">&quot;sysname&quot;</span>] ==<span class="st"> &quot;Darwin&quot;</span>) <span class="kw">par</span>(<span class="dt">family =</span> <span class="st">&quot;STKaiti&quot;</span>)
+<span class="kw">plot</span>(fau, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;紅樓夢字彙頻率&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;字彙出現次數 (i)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;字彙種類數 (fi)&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">80</span>, <span class="dv">900</span>))
+<span class="kw">lines</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">900</span>, <span class="dv">743</span>), <span class="dt">lty =</span> <span class="dv">3</span>)
+<span class="kw">points</span>(<span class="dv">0</span>, <span class="dv">900</span>, <span class="dt">pch =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</code></pre>
+<div class="figure">
+<img src="../img/RFig1.jpg" />
+</div>
+<p>趙教授 (Chao, 1984) 的研究發現未出現的物種數 <img src="../timg/78155d2ec4b0.jpg" /> 與出現次數較稀少的物種 ( <img src="../timg/537e42306196.jpg" /> ) 息息相關，在已知樣本數為 <img src="../timg/7b8b965ad4bc.jpg" /> 之下，證明出以下不等式</p>
+<div class="figure">
+<img src="../timg/2bc64e7b7791.jpg" />
+</div>
+<p>其中符號 <img src="../timg/3a3ea00cfc35.jpg" /> 表示對隨機變數 <img src="../timg/59bdf0ba696e.jpg" /> 取期望值。倘若 <img src="../timg/7b8b965ad4bc.jpg" /> 夠大，則種類數的 Chao1 估計量為</p>
+<div class="figure">
+<img src="../timg/a82e036aca4f.jpg" />
+</div>
+<p>此外，由不等式的結果可知Chao1估計量必然小於等於真值，等號成立在每一種物種出現機率均相等的情況之下。經由若干計算得 <img src="../timg/bbe5b9e9cfa0.jpg" /> ，也就是說至少會應用 4116 種字彙，就可以當一個偉大的文學家(笑)。</p>
+<h3 id="種類數的累積曲線"><a href="#種類數的累積曲線">種類數的累積曲線</a></h3>
+<p>要知道，樣本中出現的種類數和抽取的樣本數息息相關。一般而言樣本數越大，則樣本中被觀察到的種類數也越多。如何經由少數的樣本來預測再次進行更多的調查時，種類數累進的多寡也是相當重要的議題。所謂的種類數累進曲線，可以區分成兩個部分，小於參考樣本點的種類數內插，以及大於參考樣本點的種類數外插。Colwell et al. (2012) 將種類數依據樣本數的內插與外插分析方法稱作稀釋與預測曲線 (Rarefaction and extrapolation curve)，並綜合前人的研究整合出曲線的估計方法。</p>
+<p>種類數的稀釋與預測曲線可以透過Hsieh et al. (2013) [即本篇文章的第一作者] 所開發的R套件<a href="https://github.com/JohnsonHsieh/iNEXT">iNEXT</a> (iNTerpolation and EXtrapolation) 進行計算。這裡介紹兩筆實際資料的應用：傳染病資料、英雄聯盟戰績資料。</p>
+<p>第一筆資料取自於<a href="http://www.cdc.gov.tw/">衛生福利部疾病管制署</a> 所提供的<a href="http://www.cdc.gov.tw/list.aspx?treeid=1F07E8862BA550CF&amp;nowtreeid=053A772AE8E9C869">2013年傳染疾病監測數據</a>做為例子，該數據提供2012, 2013年每週法定傳染病之確定病例數以及累計確定病例數。取2013年第20週的累計確定病例數據為參考樣本，該筆資料包含6210筆確定病例、35種法定傳染病。詳細的R指令如下所示，首先利用R套件<a href="http://cran.r-project.org/web/packages/devtools/">devtools</a>安裝放置在<a href="http://github.com/">github</a>上的<a href="https://github.com/JohnsonHsieh/iNEXT">iNEXT</a>開發中版本。讀入筆者擷取自原始資料的.csv檔後，利用iNEXT()函數計算樣本數(確定病例人數)從1至15000的種類數，即法定傳染病數目。其中黑色實心圓圈表示第20週 (week20) 之樣本數與種類數的位置，黑色實線為種類數的內插、虛線為外插，淺色區域為95%信賴區間。而紅色X則是在第1, 5, 15, 20, 30, 44週的真實調查結果。透過本例的分析，可以發現利用前20週的病例資料進行稀釋與預測曲線分析不僅可以驗證前5週與15週的傳染病種類數結果，同時也準確的估計往後30週與44週的傳染病種類數。</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library(devtools) install_github(&#39;iNEXT&#39;,&#39;JohnsonHsieh&#39;)</span>
+<span class="kw">library</span>(iNEXT)
+dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">url</span>(<span class="st">&quot;http://dl.dropboxusercontent.com/u/26949459/2013%E5%82%B3%E6%9F%93%E7%97%85.csv&quot;</span>, 
+    <span class="dt">encoding =</span> <span class="st">&quot;big5&quot;</span>), <span class="dt">row.names =</span> <span class="dv">1</span>)
+Sobs &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, function(x) <span class="kw">sum</span>(x &gt;<span class="st"> </span><span class="dv">0</span>))
+n &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, function(x) <span class="kw">sum</span>(x))
+
+out &lt;-<span class="st"> </span><span class="kw">iNEXT</span>(dat$week20, <span class="dt">datatype =</span> <span class="st">&quot;abundance&quot;</span>, <span class="dt">end =</span> <span class="dv">15000</span>)
+<span class="kw">par</span>(<span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">1.3</span>)
+<span class="kw">plot.iNEXT</span>(out, <span class="dt">main =</span> <span class="st">&quot;Rarefaction/extrapolation at week20&quot;</span>)
+<span class="kw">points</span>(n, Sobs, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
+<span class="kw">text</span>(n, Sobs, <span class="kw">colnames</span>(dat), <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">pos =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="dv">1</span>)</code></pre>
+<div class="figure">
+<img src="../img/RFig2.jpg" />
+</div>
+<p>第二個例子取自線上資料庫<a href="http://loltw.gamebase.com.tw/">英雄聯盟戰績網</a> 所提供召喚師在5v5的積分(團隊和個人)和一般遊戲中獲勝過的場次使用的英雄記錄。這個分析利用R套件Shiny (關於Shiny的介紹可以參見<strong><a href="http://programmermagazine.github.io/201309/htm/article6.html">R 講題分享 – 利用 R 和 Shiny 製作網頁應用</a></strong> 這篇刊載於程式人2013年9月號的文章)以及iNEXT製作成 <a href="http://glimmer.rstudio.com/wush978/LOLChampion/">英雄聯盟口袋深度分析</a> 的線上分析App供所有英雄聯盟的召喚師(玩家)使用。該App利用種類數的累積曲線計算每位召喚師戰鬥勝場數與使用英雄數目的關連曲線，有助於玩家本身或者是電競團隊追求更好表現的參考。</p>
+<div class="figure">
+<img src="../img/LOLChampion.png" alt="LOLChampion" /><p class="caption">LOLChampion</p>
+</div>
+<h3 id="結語"><a href="#結語">結語</a></h3>
+<p>筆者在此展示了三種截然不同領域 (紅樓夢字彙資料、法定傳染病資料、電競遊戲資料) 的資料分析，主要用意在於說明種類數分析在各種領域中均有其重要性 (分析完這些資料也可以自稱是古典文學家、流行病學家甚至是電競專家了XDDD)。雖然本文在介紹方法的過程中省略的數學推導的過程，不過其背後主要的概念其實只是用到<a href="http://zh.wikipedia.org/wiki/%E6%9F%AF%E8%A5%BF-%E6%96%BD%E7%93%A6%E8%8C%A8%E4%B8%8D%E7%AD%89%E5%BC%8F">柯西-施瓦茨不等式</a>以及<a href="http://zh.wikipedia.org/wiki/%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86">均值定理</a>，有興趣的朋友可以參閱文獻：Chao (1984)、Sanders (1968) 與Shen et al. (2003)。</p>
+<h3 id="參考文獻"><a href="#參考文獻">參考文獻</a></h3>
+<ul>
+<li>Chao, A. 1984. Nonparametric estimation of the number of classes in a population. Scandinavian Journal of Statistics 11:265-270.</li>
+<li>Colwell, R. K., A. Chao, N. J. Gotelli, S. Y. Lin, C. X. Mao, R. L. Chazdon, and J. T. Longino. 2012. Models and estimators linking individual-based and sample-based rarefaction, extrapolation and comparison of assemblages. Journal of Plant Ecology 5:3-21.</li>
+<li>Sanders, H. L. 1968. Marine benthic diversity: a comparative study. American Naturalist 102:243-282.</li>
+<li>Shen, T. J., A. Chao, and C. F. Lin. 2003. Predicting the number of new species in further taxonomic sampling. Ecology 84:798-804.</li>
+</ul>
+<h3 id="作者"><a href="#作者">作者</a></h3>
+<h4 id="t.c.-johnson-hsieh-euler96gmail.com"><a href="#t.c.-johnson-hsieh-euler96gmail.com">T.C. (Johnson) Hsieh (<script type="text/javascript">
+<!--
+h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x65;&#x75;&#108;&#x65;&#114;&#x39;&#54;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x65;&#x75;&#108;&#x65;&#114;&#x39;&#54;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript>)</a></h4>
+<ul>
+<li>清華統計所博士(2009-2013)，致力於發展沒人懂的統計方法與開發沒人用的統計軟體</li>
+<li><a href="https://www.facebook.com/Tw.R.User">Taiwan R User Group</a> Officer</li>
+<li><a href="http://datasci.co/">Data Science Program</a> 籌備委員</li>
+<li>R 相關著作：</li>
+<li>R套件，<a href="http://cran.r-project.org/web/packages/CARE1/">CARE1</a>主要作者</li>
+<li>R套件，<a href="http://github.com/JohnsonHsieh/iNEXT">iNEXT</a>主要作者</li>
+<li>Shiny應用，<a href="http://glimmer.rstudio.com/tchsieh/inext/">iNEXT-Online</a></li>
+<li>研究領域：Statistics, ecology and genetics</li>
+</ul>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

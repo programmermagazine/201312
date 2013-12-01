@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201312/htm/home.html">2013 年 12 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#visual-basic-6.0-利用-堆疊stack-實作中序轉前序與後序-作者廖憲得-0xde">[Visual Basic 6.0] 利用 堆疊(Stack) 實作中序轉前序與後序 (作者：廖憲得 0xde)</a></li>
+</ul>
+</div>
+<h2 id="visual-basic-6.0-利用-堆疊stack-實作中序轉前序與後序-作者廖憲得-0xde"><a href="#visual-basic-6.0-利用-堆疊stack-實作中序轉前序與後序-作者廖憲得-0xde">[Visual Basic 6.0] 利用 堆疊(Stack) 實作中序轉前序與後序 (作者：廖憲得 0xde)</a></h2>
+<div class="figure">
+<img src="../img/prefix1.JPG" />
+</div>
+<div class="figure">
+<img src="../img/prefix2.JPG" />
+</div>
+<div class="figure">
+<img src="../img/prefix3.JPG" />
+</div>
+<div class="figure">
+<img src="../img/prefix4.JPG" />
+</div>
+<div class="figure">
+<img src="../img/prefix5.JPG" />
+</div>
+<div class="figure">
+<img src="../img/prefix6.JPG" />
+</div>
+<pre class="sourceCode Monobasic"><code class="sourceCode monobasic"><span class="kw">Dim</span> Stack() <span class="co">&#39; 建立一個堆疊</span>
+<span class="kw">Dim</span> StackTop <span class="co">&#39; 堆疊頂端指標</span>
+
+<span class="kw">Private</span> <span class="kw">Sub </span>StartInFo_Click()
+<span class="co">&#39;-----中序轉後序-----</span>
+<span class="kw">ReDim</span> Stack(Len(Text1)) <span class="co">&#39; 堆疊大小為整串大小 (避免出錯)</span>
+StackTop = 0 <span class="co">&#39; 堆疊初始化</span>
+Text3 = <span class="st">&quot;&quot;</span> <span class="co">&#39; 一開始將輸出清空</span>
+
+<span class="kw">For </span>i = 1 <span class="kw">To</span> Len(Text1) <span class="co">&#39; 一個一個字抓直到結束</span>
+    <span class="kw">Select Case Mid(Text1, i, 1)</span>
+        Case <span class="st">&quot;(&quot;</span> <span class="co">&#39; 放入堆疊中</span>
+            StackPush (Mid(Text1, i, 1))
+        Case <span class="st">&quot;)&quot;</span>
+            <span class="co">&#39; 拿出來直到等於 &quot;(&quot;</span>
+            <span class="kw">Do </span>Until Stack(StackTop) = <span class="st">&quot;(&quot;</span>
+                Text3 = Text3 &amp; StackPop
+            <span class="kw">Loop</span>
+                StackPop
+        Case <span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span> <span class="co">&#39; 如果堆疊頂端的權值大於等於讀入的值則先讀出 =&gt; &quot;+&quot;,&quot;-&quot;,&quot;*&quot;,&quot;/&quot;</span>
+            <span class="kw">Do </span>Until Stack(StackTop) &lt;&gt; <span class="st">&quot;+&quot;</span> <span class="kw">And</span> Stack(StackTop) &lt;&gt; <span class="st">&quot;-&quot;</span> <span class="kw">And</span> Stack(StackTop) &lt;&gt; <span class="st">&quot;/&quot;</span> <span class="kw">And</span> Stack(StackTop) &lt;&gt; <span class="st">&quot;*&quot;</span>
+                Text3 = Text3 &amp; StackPop
+            <span class="kw">Loop</span>
+            StackPush (Mid(Text1, i, 1))
+        Case <span class="st">&quot;*&quot;</span>, <span class="st">&quot;/&quot;</span> <span class="co">&#39; 如果堆疊頂端的權值大於等於讀入的值則先讀出 =&gt; &quot;*&quot;,&quot;/&quot;</span>
+            <span class="kw">Do </span>Until Stack(StackTop) &lt;&gt; <span class="st">&quot;*&quot;</span> <span class="kw">And</span> Stack(StackTop) &lt;&gt; <span class="st">&quot;/&quot;</span>
+                Text3 = Text3 &amp; StackPop
+            <span class="kw">Loop</span>
+            StackPush (Mid(Text1, i, 1))
+        Case <span class="kw">Else</span> <span class="co">&#39; 除了括號或運算元直接放入</span>
+            Text3 = Text3 &amp; Mid(Text1, i, 1)
+    <span class="kw">End Select</span>
+<span class="kw">Next </span>i
+
+<span class="kw">Do </span>Until StackTop = 0 <span class="co">&#39; 將堆疊中的全部拿出來</span>
+    Text3 = Text3 &amp; StackPop
+<span class="kw">Loop</span>
+
+
+<span class="co">&#39;-----中序轉前序-----</span>
+<span class="kw">ReDim</span> Stack(Len(Text1)) <span class="co">&#39; 堆疊大小為整串大小 (避免出錯)</span>
+StackTop = 0 <span class="co">&#39; 堆疊初始化</span>
+Text2 = <span class="st">&quot;&quot;</span> <span class="co">&#39; 一開始將輸出清空</span>
+
+<span class="kw">For </span>i = Len(Text1) <span class="kw">To</span> 1 <span class="kw">Step</span> -1 <span class="co">&#39; 從最後面開始做做到最前面,輸出也是從後面放到前面</span>
+    <span class="kw">Select Case Mid(Text1, i, 1)</span>
+        Case <span class="st">&quot;)&quot;</span> <span class="co">&#39; 放入堆疊中</span>
+            StackPush (Mid(Text1, i, 1))
+        Case <span class="st">&quot;(&quot;</span> <span class="co">&#39; 拿出來直到等於 &quot;)&quot;</span>
+            <span class="kw">Do </span>Until Stack(StackTop) = <span class="st">&quot;)&quot;</span>
+                Text2 = StackPop &amp; Text2
+            <span class="kw">Loop</span>
+                StackPop
+        Case <span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span> <span class="co">&#39; 拿到直接讀入的值 &lt;= 堆疊頂端的值</span>
+            <span class="kw">Do </span>Until Stack(StackTop) &lt;&gt; <span class="st">&quot;*&quot;</span> <span class="kw">And</span> Stack(StackTop) &lt;&gt; <span class="st">&quot;/&quot;</span>
+                Text2 = StackPop &amp; Text2
+            <span class="kw">Loop</span>
+            StackPush (Mid(Text1, i, 1))
+        Case <span class="st">&quot;*&quot;</span>, <span class="st">&quot;/&quot;</span>
+            StackPush (Mid(Text1, i, 1)) <span class="co">&#39; 直接放入</span>
+        Case <span class="kw">Else</span> <span class="co">&#39; 除了括號或運算元直接放入</span>
+            Text2 = Mid(Text1, i, 1) &amp; Text2
+    <span class="kw">End Select</span>
+<span class="kw">Next </span>i
+
+<span class="kw">Do </span>Until StackTop = 0 <span class="co">&#39; 將堆疊中的全部拿出來</span>
+    Text2 = StackPop &amp; Text2
+<span class="kw">Loop</span>
+<span class="kw">End Sub</span>
+
+<span class="kw">Function </span>StackPush(Inp) <span class="co">&#39; 放入堆疊</span>
+    StackTop = StackTop + 1
+    Stack(StackTop) = Inp
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>StackPop() <span class="co">&#39; 從堆疊中讀出</span>
+    StackPop = Stack(StackTop)
+    Stack(StackTop) = <span class="st">&quot;&quot;</span>
+    StackTop = StackTop - 1
+<span class="kw">End Function</span></code></pre>
+<ul>
+<li>原始碼下載： <a href="http://files.dotblogs.com.tw/0xde/1311/2013111884738284.rar">Visual Basic 6.0 中序轉前序與後序.rar</a></li>
+</ul>
+<p>【本文作者為「廖憲得」，原文網址為： <a href="http://www.dotblogs.com.tw/0xde/archive/2013/11/18/130093.aspx">http://www.dotblogs.com.tw/0xde/archive/2013/11/18/130093.aspx</a> ，由陳鍾誠編輯後納入本雜誌】</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>
