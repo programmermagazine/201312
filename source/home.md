@@ -4,9 +4,9 @@
 
 ### 雜誌下載
 
-出刊年月       epub           ipad:PDF      A4:PDF     單頁 HTM     原始碼      全部下載
-------------   ----------     -----------   --------   -----------  ----------  -------------
-2013年12月     [epub]         [ipad.pdf]    [A4.pdf]   [pmag.html]  [code.zip]  [all.zip]
+出刊年月       epub           ipad:PDF      A4:PDF     單頁 HTM     原始碼     
+------------   ----------     -----------   --------   -----------  ---------- 
+2013年12月     [epub]         [ipad.pdf]    [A4.pdf]   [pmag.html]  [code.zip] 
 
 說明：本期前半部的焦點在電磁學等領域，對此不感興趣的朋友可以直接從「程式人文集」開始閱讀，謝謝！
 
@@ -48,5 +48,5 @@
 [A4.pdf]: ../book/A4.pdf
 [code.zip]: ../code.zip
 [pmag.html]: ../book/pmag.html
-[all.zip]: ../archive/gh-pages.zip
+
 
